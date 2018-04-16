@@ -1,0 +1,12 @@
+{# templates/core/tableau_bord.html.twig #}
+{% set title = 'Tableau de bord' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Bienvenue sur la base matériel, Maxime Lenoir !</h1>
+</div>
+{% endblock %}

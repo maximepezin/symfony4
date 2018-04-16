@@ -1,0 +1,63 @@
+{# templates/modele/liste.html.twig #}
+{% set title = 'Liste des modèles référencés' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row mb20">
+                                <div class="col-sm-6">
+                                    <div class="toolbar">
+                                        <a class="btn btn-info" href="{{ path('base_materiel_modele_nouveau') }}">
+                                            <i class="fa fa-plus mr10"></i>
+                                            Ajouter un modèle
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table mb0">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Type de matériel</th>
+                                        <th>Fabricant</th>
+                                        <th>Modèle</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+{% for modele in modeles %}
+                                        <tr>
+                                            <td>{{ modele.id }}</td>
+                                            <td>{{ modele.typeMateriel.libelle }}</td>
+                                            <td>{{ modele.fabricant.nom }}</td>
+                                            <td>{{ modele.nom }}</td>
+                                            <td>
+                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_modele_editer', { 'id': modele.id }) }}">
+                                                    Editer
+                                                </a>
+                                                <a class="btn btn-sm btn-danger" href="#">
+                                                    Supprimer
+                                                </a>
+                                            </td>
+                                        </tr>
+{% else %}
+                                        <tr>
+                                            <td class="text-center" colspan="5">
+                                                Aucun modèle référencé dans la base.
+                                            </td>
+                                        </tr>
+{% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

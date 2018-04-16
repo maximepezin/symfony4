@@ -1,0 +1,59 @@
+{# templates/type_materiel/liste.html.twig #}
+{% set title = 'Liste des types de matériel référencés' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row mb20">
+                                <div class="col-sm-6">
+                                    <div class="toolbar">
+                                        <a class="btn btn-info" href="{{ path('base_materiel_type_materiel_nouveau') }}">
+                                            <i class="fa fa-plus mr10"></i>
+                                            Ajouter un type de matériel
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table mb0">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Type de matériel</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+{% for typeMateriel in typesMateriel %}
+                                        <tr>
+                                            <td>{{ typeMateriel.id }}</td>
+                                            <td>{{ typeMateriel.libelle }}</td>
+                                            <td>
+                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_type_materiel_editer', {'slug': typeMateriel.slug}) }}">
+                                                    Editer
+                                                </a>
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_type_materiel_supprimer', {'slug': typeMateriel.slug}) }}">
+                                                    Supprimer
+                                                </a>
+                                            </td>
+                                        </tr>
+{% else %}
+                                        <tr>
+                                            <td class="text-center" colspan="3">
+                                                Aucun type de matériel référencé dans la base.
+                                            </td>
+                                        </tr>
+{% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

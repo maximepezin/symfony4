@@ -1,0 +1,98 @@
+{# templates/materiel/liste.html.twig #}
+{% set title = 'Liste du matériel référencé' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row mb20">
+                                <div class="col-sm-6">
+                                    <div class="toolbar">
+                                        <a class="btn btn-info" href="{{ path('base_materiel_materiel_nouveau') }}">
+                                            <i class="fa fa-plus mr10"></i>
+                                            Ajouter un matériel
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table mb0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nom</th>
+                                            <th>Type</th>
+                                            <th>Fabricant</th>
+                                            <th>Modèle</th>
+                                            <th>Description courte</th>
+                                            <th>Spare</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+{% for materiel in materiels %}
+                                        <tr>
+                                            <td>{{ materiel.id }}</td>
+                                            <td>{{ materiel.nom }}</td>
+                                            <td>
+{% if materiel.modele is not empty %}
+                                                {{ materiel.modele.typeMateriel.libelle }}
+{% else %}
+                                                <code>N/C</code>
+{% endif %}
+                                            </td>
+                                            <td>
+{% if materiel.modele is not empty %}
+                                                {{ materiel.modele.fabricant.nom }}
+{% else %}
+                                                <code>N/C</code>
+{% endif %}
+                                            <td>
+{% if materiel.modele is not empty %}
+                                                {{ materiel.modele.nom }}
+{% else %}
+                                                <code>N/C</code>
+{% endif %}
+                                            </td>
+                                            <td>{{ materiel.descriptionCourte }}</td>
+                                            <td>
+{% if materiel.estPieceRechange %}
+                                                <span style="color: #25A25A;">Oui</span>
+{% else %}
+                                                <span style="color: #D96557;">Non</span>
+{% endif %}
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_voir', {'slug': materiel.slug}) }}">
+                                                    <i class="fa fa-eye mr5"></i>
+                                                    Voir
+                                                </a>
+                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_materiel_editer', {'slug': materiel.slug}) }}">
+                                                    <i class="fa fa-pencil mr5"></i>
+                                                    Editer
+                                                </a>
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_materiel_supprimer', {'slug': materiel.slug}) }}">
+                                                    <i class="fa fa-trash mr5"></i>
+                                                    Supprimer
+                                                </a>
+                                            </td>
+                                        </tr>
+{% else %}
+                                        <tr>
+                                            <td class="text-center" colspan="8">
+                                                Aucun matériel référencé dans la base.
+                                            </td>
+                                        </tr>
+{% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

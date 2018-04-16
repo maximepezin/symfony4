@@ -1,0 +1,13 @@
+{# templates/fabricant/form.html.twig #}
+{{ form_start(form, { 'attr': { 'class': 'form-horizontal bordered-group'} }) }}
+    <div class="form-group">
+        {{ form_label(form.nom, null, { 'label_attr': { 'class': 'col-sm-2 control-label'} }) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.nom, { 'attr': { 'class': 'form-control' } }) }}
+        </div>
+    </div>
+    <div class="btn-group">
+        {{ form_widget(form.enregistrer, { 'attr': { 'class': 'btn btn-success' } }) }}
+    </div>
+    {{ form_rest(form) }}
+{{ form_end(form) }}

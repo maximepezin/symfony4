@@ -1,0 +1,25 @@
+{# templates/materiel/supprimer.html.twig #}
+{% set title = 'Suppression matériel' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                        <div class="panel mb0">
+                            <div class="panel-heading border">
+                                {{ title }}
+                            </div>
+                            <div class="panel-body">
+                                <p>Etes-vous certain de vouloir supprimer le matériel #{{ materiel.id }} : <strong>{{ materiel.nom }}</strong> ?</p>
+                                <form action="{{ path('base_materiel_materiel_supprimer', { 'slug': materiel.slug }) }}" method="post">
+                                    <a href="{{ path('base_materiel_materiel_liste') }}" class="btn btn-default">
+                                        <i class="fa fa-caret-left"></i>
+                                        Retour à la liste
+                                    </a>
+                                    <input type="submit" value="Supprimer" class="btn btn-danger" />
+                                    {{ form_rest(form) }}
+                                </form>
+                            </div>
+                        </div>
+{% endblock %}

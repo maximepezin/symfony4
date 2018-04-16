@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Base matériel{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/bootstrap.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/perfect-scrollbar.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/roboto.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/font-awesome.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/panel.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/feather.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/animate.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/urban.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/urban.skins.css') }}" />
+        <style>
+            .table-responsive {
+                overflow-x: scroll;
+            }
+
+            .table-responsive .table {
+                white-space: nowrap;
+            }
+        </style>
+{% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <div class="app layout-fixed-header">
+            <div class="sidebar-panel offscreen-left">
+                <div class="brand">
+                    <div class="brand-logo">
+                        <a href="{{ path('base_materiel_core_tableau_bord') }}">
+                            Base matériel
+                        </a>
+                    </div>
+                    <a href="javascript:;" class="toggle-sidebar hidden-xs hamburger-icon v3" data-toggle="layout-small-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </a>
+                </div>
+                <nav role="navigation">
+                    <ul class="nav">
+                        <li>
+                            <a href="{{ path('base_materiel_core_tableau_bord') }}">
+                                <i class="fa fa-tachometer"></i>
+                                <span>Tableau de bord</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('base_materiel_materiel_liste') }}">
+                                <i class="fa fa-archive"></i>
+                                <span>Matériels</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-database"></i>
+                                <span>Paramètres</span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{ path('base_materiel_type_materiel_liste') }}">
+                                        Types de matériel
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('base_materiel_fabricant_liste') }}">
+                                        Fabricants
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('base_materiel_modele_liste') }}">
+                                        Modèles
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-panel">
+                <header class="header navbar">
+                    <div class="brand visible-xs">
+                        <div class="toggle-offscreen">
+                            <a href="#" class="hamburger-icon visible-xs" data-toggle="offscreen" data-move="ltr">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </a>
+                        </div>
+                        <div class="brand-logo">
+                            <!--<img src="images/logo-dark.png" height="15" alt="">-->
+                            Base matériel
+                        </div>
+                    </div>
+                    <ul class="nav navbar-nav hidden-xs">
+                        <li>
+                            <p class="navbar-text">
+                                {{ title }}
+                            </p>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right hidden-xs">
+                        <li>
+                            <a href="javascript:;" data-toggle="dropdown">
+                                <img src="https://secure.gravatar.com/avatar/8356eb477b89525afac6fd86bd0e3b02?d=identicon" class="header-avatar img-circle ml10" alt="user" title="user">
+                                <span class="pull-left">Maxime Lenoir</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">Paramètres</a>
+                                </li>
+                                <!--
+                                <li>
+                                    <a href="javascript:;">Aide</a>
+                                </li>
+                                -->
+                                <li>
+                                    <a href="#">Se déconnecter</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </header>
+                <div class="main-content">
+{% block body %}{% endblock %}
+                </div>
+            </div>
+            <footer class="content-footer">
+                <nav class="footer-right">
+                    <ul class="nav">
+                        <li>
+                            <a href="javascript:;">Retour d'expérience</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="scroll-up">
+                                <i class="fa fa-angle-up"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <nav class="footer-left">
+                    <ul class="nav">
+                        <li>
+                            <a href="javascript:;">Copyright <i class="fa fa-copyright"></i> <span>APERAM</span> 2018. Tous droits réservés.</a>
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+        </div>
+        <script src="{{ asset('admin_template/js/modernizr.js') }}"></script>
+        <script src="{{ asset('admin_template/js/jquery.js') }}"></script>
+        <script src="{{ asset('admin_template/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('admin_template/js/jquery.easing.js') }}"></script>
+        <script src="{{ asset('admin_template/js/fastclick.js') }}"></script>
+        <script src="{{ asset('admin_template/js/jquery.onscreen.js') }}"></script>
+        <script src="{{ asset('admin_template/js/jquery.countTo.js') }}"></script>
+        <script src="{{ asset('admin_template/js/perfect-scrollbar.jquery.js') }}"></script>
+        <script src="{{ asset('admin_template/js/accordion.js') }}"></script>
+        <script src="{{ asset('admin_template/js/animate.js') }}"></script>
+        <script src="{{ asset('admin_template/js/link-transition.js') }}"></script>
+        <script src="{{ asset('admin_template/js/panel-controls.js') }}"></script>
+        <script src="{{ asset('admin_template/js/preloader.js') }}"></script>
+        <script src="{{ asset('admin_template/js/toggle.js') }}"></script>
+        <script src="{{ asset('admin_template/js/urban-constants.js') }}"></script>
+        <script src="{{ asset('admin_template/js/lib.js') }}"></script>
+{% block javascripts %}{% endblock %}
+    </body>
+</html>

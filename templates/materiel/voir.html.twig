@@ -1,0 +1,186 @@
+{# A RETRAVAILLER #}
+{# templates/materiel/voir.html.twig #}
+{% set title = "Visualisation d'un matériel" %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+        <style>
+            .form-control-plaintext {
+                font-weight: bold;
+            }
+        </style>
+{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            <h3>Fiche matériel &middot; ID: {{ materiel.id }} &middot; Nom: {{ materiel.nom }}</h3>
+                            Ajouté le {{ materiel.ajouteLe|date('d/m/Y \\à H\\hi') }}
+                            &middot;
+                            {{ materiel.modifieLe is not empty ? 'Modifié le ' ~ materiel.modifieLe|date('d/m/Y \\à H\\hi') : 'Non modifié' }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <span class="col-sm-4 col-form-label text-xl-right">Type de matériel :</span>
+                                                <div class="col-sm-8">
+                                                    <span class="form-control-plaintext">
+{% if materiel.modele is not empty %}
+                                                        {{ materiel.modele.typeMateriel.libelle }}
+{% else %}
+                                                        <code>N/C</code>
+{% endif %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <span class="col-sm-4 col-form-label text-xl-right">Fabricant :</span>
+                                                <div class="col-sm-8">
+                                                    <span class="form-control-plaintext">
+{% if materiel.modele is not empty %}
+                                                        {{ materiel.modele.fabricant.nom }}
+{% else %}
+                                                        <code>N/C</code>
+{% endif %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <span class="col-sm-4 col-form-label text-xl-right">Modèle :</span>
+                                                <div class="col-sm-8">
+                                                    <span class="form-control-plaintext">
+{% if materiel.modele is not empty %}
+                                                        {{ materiel.modele.nom }}
+{% else %}
+                                                        <code>N/C</code>
+{% endif %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <span class="col-sm-2 col-form-label text-xl-right">Description :</span>
+                                        <div class="col-sm-10">
+                                            <span class="form-control-plaintext">
+{% if materiel.description is not empty %}
+                                                {{ materiel.description }}
+{% else %}
+                                                <code>N/C</code>
+{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <span class="col-sm-2 col-form-label text-xl-right">Acheté le :</span>
+                                        <div class="col-sm-10">
+                                            <span class="form-control-plaintext">
+{% if materiel.acheteLe is not empty %}
+                                                {{ materiel.acheteLe|date("d/m/Y") }}
+{% else %}
+                                                <code>N/C</code>
+{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <span class="col-sm-3 col-form-label text-xl-right">Numéro de série :</span>
+                                        <div class="col-sm-9">
+                                            <span class="form-control-plaintext">
+{% if materiel.numeroSerie is not empty %}
+                                                {{ materiel.numeroSerie }}
+{% else %}
+                                                <code>N/C</code>
+{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3 col-form-label text-xl-right">Antivirus installé :</span>
+                                        <div class="col-sm-9">
+                                            <span class="form-control-plaintext">
+{% if materiel.antivirusInstalle %}
+                                                <span style="color: mediumseagreen;">Oui</span>
+{% else %}
+                                                <span style="color: darkred;">Non</span>
+{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3 col-form-label text-xl-right">Est mis à jour via WSUS (Windows Server Update Services) :</span>
+                                        <div class="col-sm-9">
+                                            <span class="form-control-plaintext">
+{% if materiel.estMajViaWsus %}
+                                                <span style="color: mediumseagreen;">Oui</span>
+{% else %}
+                                                <span style="color: darkred;">Non</span>
+{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3 col-form-label text-xl-right">Est référencé dans la GLPI (Gestion Libre de Parc Informatique) :</span>
+                                        <div class="col-sm-9">
+                                            <span class="form-control-plaintext">
+{% if materiel.estReferenceGlpi %}
+                                                <span style="color: mediumseagreen;">Oui</span>
+{% else %}
+                                                <span style="color: darkred;">Non</span>
+{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3 col-form-label text-xl-right">Est actif sur le réseau :</span>
+                                        <div class="col-sm-9">
+                                            <span class="form-control-plaintext">
+{% if materiel.estActifReseau %}
+                                                <span style="color: mediumseagreen;">Oui</span>
+{% else %}
+                                                <span style="color: darkred;">Non</span>
+{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3 col-form-label text-xl-right">Est une pièce de rechange :</span>
+                                        <div class="col-sm-9">
+                                            <span class="form-control-plaintext">
+{% if materiel.estPieceRechange %}
+                                                <span style="color: mediumseagreen;">Oui</span>
+{% else %}
+                                                <span style="color: darkred;">Non</span>
+{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
