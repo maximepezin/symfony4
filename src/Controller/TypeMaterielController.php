@@ -12,34 +12,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class TypeMaterielController extends Controller {
     /**
      * @Route(
-     *     "/type-materiel/nouveau",
-     *     name="base_materiel_type_materiel_nouveau",
+     *     "/type-materiel/ajouter",
+     *     name="base_materiel_type_materiel_ajouter",
      * )
      */
-    public function nouveau(Request $request) {
+    public function ajouter(Request $request) {
         $typeMateriel = new TypeMateriel();
 
         $form = $this->createForm(TypeMaterielType::class, $typeMateriel);
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this
-                    ->getDoctrine()
-                    ->getManager()
-                ;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this
+                ->getDoctrine()
+                ->getManager()
+            ;
 
-                $em->persist($typeMateriel);
-                $em->flush();
+            $em->persist($typeMateriel);
+            $em->flush();
 
-                $this->addFlash('success', 'Type de matériel créé avec succés.');
+            $this->addFlash('success', 'Type de matériel créé avec succès.');
 
-                return $this->redirectToRoute('base_materiel_type_materiel_liste');
-            }
+            return $this->redirectToRoute('base_materiel_types_materiel');
         }
 
-        return $this->render('type_materiel/nouveau.html.twig', [
+        return $this->render('type_materiel/ajouter.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -47,10 +45,10 @@ class TypeMaterielController extends Controller {
     /**
      * @Route(
      *     "/types-materiels",
-     *     name="base_materiel_type_materiel_liste",
+     *     name="base_materiel_types_materiel",
      * )
      */
-    public function liste() {
+    public function typesMateriel() {
         $typeMaterielRepository = $this
             ->getDoctrine()
             ->getRepository(TypeMateriel::class)
@@ -58,21 +56,21 @@ class TypeMaterielController extends Controller {
 
         $typesMateriel = $typeMaterielRepository->findAll();
 
-        return $this->render('type_materiel/liste.html.twig', [
+        return $this->render('type_materiel/types_materiel.html.twig', [
             'typesMateriel' => $typesMateriel,
         ]);
     }
 
     /**
      * @Route(
-     *     "/type-materiel/editer/{slug}",
+     *     "/type-materiel/editer/{id}",
      *     name="base_materiel_type_materiel_editer",
      *     requirements={
-     *         "slug": "[a-z0-9\-]+",
+     *         "id": "\d+",
      *     },
      * )
      */
-    public function editer(Request $request, string $slug) {
+    public function editer(Request $request, int $id) {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -80,9 +78,7 @@ class TypeMaterielController extends Controller {
 
         $typeMaterielRepository = $em->getRepository(TypeMateriel::class);
 
-        $typeMateriel = $typeMaterielRepository->findOneBy([
-            'slug' => $slug,
-        ]);
+        $typeMateriel = $typeMaterielRepository->find($id);
 
         if ($typeMateriel === null) {
             throw $this->createNotFoundException();
@@ -90,16 +86,14 @@ class TypeMaterielController extends Controller {
 
         $form = $this->createForm(TypeMaterielType::class, $typeMateriel);
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
 
-                $this->addFlash('success', 'Type de matériel modifié avec succès.');
+            $this->addFlash('success', 'Type de matériel modifié avec succès.');
 
-                return $this->redirectToRoute('base_materiel_type_materiel_liste');
-            }
+            return $this->redirectToRoute('base_materiel_types_materiel');
         }
 
         return $this->render('type_materiel/editer.html.twig', [
@@ -109,14 +103,14 @@ class TypeMaterielController extends Controller {
 
     /**
      * @Route(
-     *     "/type-materiel/supprimer/{slug}",
+     *     "/type-materiel/supprimer/{id}",
      *     name="base_materiel_type_materiel_supprimer",
      *     requirements={
-     *         "slug": "[a-z0-9\-]+",
+     *         "id": "\d+",
      *     },
      * )
      */
-    public function supprimer(Request $request, string $slug) {
+    public function supprimer(Request $request, int $id) {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -124,9 +118,7 @@ class TypeMaterielController extends Controller {
 
         $typeMaterielRepository = $em->getRepository(TypeMateriel::class);
 
-        $typeMateriel = $typeMaterielRepository->findOneBy([
-            'slug' => $slug,
-        ]);
+        $typeMateriel = $typeMaterielRepository->find($id);
 
         if ($typeMateriel === null) {
             throw $this->createNotFoundException();
@@ -134,17 +126,15 @@ class TypeMaterielController extends Controller {
 
         $form = $this->get('form.factory')->create();
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em->remove($typeMateriel);
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->remove($typeMateriel);
+            $em->flush();
 
-                $this->addFlash('success', 'Type de matériel supprimé avec succès.');
+            $this->addFlash('success', 'Type de matériel supprimé avec succès.');
 
-                return $this->redirectToRoute('base_materiel_type_materiel_liste');
-            }
+            return $this->redirectToRoute('base_materiel_types_materiel');
         }
 
         return $this->render('type_materiel/supprimer.html.twig', [

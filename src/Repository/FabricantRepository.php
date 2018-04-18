@@ -1,4 +1,5 @@
 <?php
+// src/Repository/FabricantRepository.php
 
 namespace App\Repository;
 

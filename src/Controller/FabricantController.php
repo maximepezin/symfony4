@@ -12,34 +12,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class FabricantController extends Controller {
     /**
      * @Route(
-     *     "/fabricant/nouveau",
-     *     name="base_materiel_fabricant_nouveau",
+     *     "/fabricant/ajouter",
+     *     name="base_materiel_fabricant_ajouter",
      * )
      */
-    public function nouveau(Request $request) {
+    public function ajouter(Request $request) {
         $fabricant = new Fabricant();
 
         $form = $this->createForm(FabricantType::class, $fabricant);
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this
-                    ->getDoctrine()
-                    ->getManager()
-                ;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this
+                ->getDoctrine()
+                ->getManager()
+            ;
 
-                $em->persist($fabricant);
-                $em->flush();
+            $em->persist($fabricant);
+            $em->flush();
 
-                $this->addFlash('success', 'Fabricant ajouté avec succés.');
+            $this->addFlash('success', 'Fabricant ajouté avec succès.');
 
-                return $this->redirectToRoute('base_materiel_fabricant_liste');
-            }
+            return $this->redirectToRoute('base_materiel_fabricants');
         }
 
-        return $this->render('fabricant/nouveau.html.twig', [
+        return $this->render('fabricant/ajouter.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -47,10 +45,10 @@ class FabricantController extends Controller {
     /**
      * @Route(
      *     "/fabricants",
-     *     name="base_materiel_fabricant_liste",
+     *     name="base_materiel_fabricants",
      * )
      */
-    public function liste() {
+    public function fabricants() {
         $fabricantRepository = $this
             ->getDoctrine()
             ->getRepository(Fabricant::class)
@@ -58,21 +56,21 @@ class FabricantController extends Controller {
 
         $fabricants = $fabricantRepository->findAll();
 
-        return $this->render('fabricant/liste.html.twig', [
+        return $this->render('fabricant/fabricants.html.twig', [
             'fabricants' => $fabricants,
         ]);
     }
 
     /**
      * @Route(
-     *     "/fabricant/editer/{slug}",
+     *     "/fabricant/editer/{id}",
      *     name="base_materiel_fabricant_editer",
      *     requirements={
-     *         "slug": "[a-z0-9\-]+",
+     *         "id": "\d+",
      *     },
      * )
      */
-    public function editer(Request $request, string $slug) {
+    public function editer(Request $request, int $id) {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -80,9 +78,7 @@ class FabricantController extends Controller {
 
         $fabricantRepository = $em->getRepository(Fabricant::class);
 
-        $fabricant = $fabricantRepository->findOneBy([
-            'slug' => $slug,
-        ]);
+        $fabricant = $fabricantRepository->find($id);
 
         if ($fabricant === null) {
             throw $this->createNotFoundException();
@@ -90,16 +86,14 @@ class FabricantController extends Controller {
 
         $form = $this->createForm(FabricantType::class, $fabricant);
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
 
-                $this->addFlash('success', 'Fabricant modifié avec succès.');
+            $this->addFlash('success', 'Fabricant modifié avec succès.');
 
-                return $this->redirectToRoute('base_materiel_fabricant_liste');
-            }
+            return $this->redirectToRoute('base_materiel_fabricants');
         }
 
         return $this->render('fabricant/editer.html.twig', [
@@ -109,14 +103,14 @@ class FabricantController extends Controller {
 
     /**
      * @Route(
-     *     "/fabricant/supprimer/{slug}",
+     *     "/fabricant/supprimer/{id}",
      *     name="base_materiel_fabricant_supprimer",
      *     requirements={
-     *         "slug": "[a-z0-9\-]+",
+     *         "id": "\d+",
      *     },
      * )
      */
-    public function supprimer(Request $request, string $slug) {
+    public function supprimer(Request $request, int $id) {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -124,9 +118,7 @@ class FabricantController extends Controller {
 
         $fabricantRepository = $em->getRepository(Fabricant::class);
 
-        $fabricant = $fabricantRepository->findOneBy([
-            'slug' => $slug,
-        ]);
+        $fabricant = $fabricantRepository->find($id);
 
         if ($fabricant === null) {
             throw $this->createNotFoundException();
@@ -134,17 +126,15 @@ class FabricantController extends Controller {
 
         $form = $this->get('form.factory')->create();
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em->remove($fabricant);
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->remove($fabricant);
+            $em->flush();
 
-                $this->addFlash('success', 'Fabricant supprimé avec succès.');
+            $this->addFlash('success', 'Fabricant supprimé avec succès.');
 
-                return $this->redirectToRoute('base_materiel_fabricant_liste');
-            }
+            return $this->redirectToRoute('base_materiel_fabricants');
         }
 
         return $this->render('fabricant/supprimer.html.twig', [

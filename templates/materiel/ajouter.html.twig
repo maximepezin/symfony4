@@ -1,5 +1,5 @@
-{# templates/fabricant/editer.html.twig #}
-{% set title = 'Editer un fabricant' %}
+{# templates/materiel/ajouter.html.twig #}
+{% set title = 'Ajouter un matériel' %}
 
 {% extends 'layout.html.twig' %}
 
@@ -7,7 +7,7 @@
 
 {% block body %}
                     <div class="mb20">
-                        <a class="btn btn-default" href="{{ path('base_materiel_fabricants') }}">
+                        <a class="btn btn-default" href="{{ path('base_materiel_materiels') }}">
                             <i class="fa fa-caret-left"></i>
                             Retour
                         </a>
@@ -19,7 +19,7 @@
                         <div class="panel-body">
                             <div class="row no-margin">
                                 <div class="col-lg-12">
-{% include 'fabricant/form.html.twig' %}
+{% include 'materiel/form.html.twig' %}
                                 </div>
                             </div>
                         </div>

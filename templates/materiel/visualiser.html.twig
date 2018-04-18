@@ -1,5 +1,4 @@
-{# A RETRAVAILLER #}
-{# templates/materiel/voir.html.twig #}
+{# templates/materiel/visualiser.html.twig #}
 {% set title = "Visualisation d'un matériel" %}
 
 {% extends 'layout.html.twig' %}
@@ -15,9 +14,15 @@
 {% endblock %}
 
 {% block body %}
+                    <div class="mb20">
+                        <a class="btn btn-default" href="{{ path('base_materiel_materiels') }}">
+                            <i class="fa fa-caret-left"></i>
+                            Retour
+                        </a>
+                    </div>
                     <div class="panel mb0">
                         <div class="panel-heading border">
-                            <h3>Fiche matériel &middot; ID: {{ materiel.id }} &middot; Nom: {{ materiel.nom }}</h3>
+                            <h3>Visualisation du matériel {{ materiel.nom }}</h3>
                             Ajouté le {{ materiel.ajouteLe|date('d/m/Y \\à H\\hi') }}
                             &middot;
                             {{ materiel.modifieLe is not empty ? 'Modifié le ' ~ materiel.modifieLe|date('d/m/Y \\à H\\hi') : 'Non modifié' }}
@@ -79,7 +84,7 @@
                                         <div class="col-sm-10">
                                             <span class="form-control-plaintext">
 {% if materiel.description is not empty %}
-                                                {{ materiel.description }}
+                                                {{ materiel.description|nl2br }}
 {% else %}
                                                 <code>N/C</code>
 {% endif %}
@@ -177,10 +182,86 @@
                                             </span>
                                         </div>
                                     </div>
+                                    <hr />
+                                    <div class="row no-margin">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Système d'exploitation</th>
+                                                        <th>Installé le</th>
+                                                        <th>Clé de licence</th>
+                                                        <th>ProductID</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+{% for materielSystemeExploitation in materiel.materielSystemeExploitations %}
+                                                    <tr>
+                                                        <td>{{ materielSystemeExploitation.systemeExploitation.nom }}</td>
+                                                        <td>{{ materielSystemeExploitation.dateInstallation|date('d/m/Y') }}</td>
+                                                        <td>{{ materielSystemeExploitation.cleLicence }}</td>
+                                                        <td>{{ materielSystemeExploitation.productId }}</td>
+                                                        <td>
+                                                            <a class="btn btn-sm btn-default" href="#">
+                                                                <i class="fa fa-pencil"></i>
+                                                                Editer
+                                                            </a>
+                                                            <a class="btn btn-sm btn-danger" href="#">
+                                                                <i class="fa fa-trash"></i>
+                                                                Supprimer
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+{% else %}
+                                                    <tr>
+                                                        <td class="text-center" colspan="5">Aucun système d'exploitation installé sur ce matériel.</td>
+                                                    </tr>
+{% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row no-margin">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>Logiciel</th>
+                                                    <th>Installé le</th>
+                                                    <th>Clé de licence</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+{% for materielLogiciel in materiel.materielLogiciels %}
+                                                    <tr>
+                                                        <td>{{ materielLogiciel.logiciel.nom }}</td>
+                                                        <td>{{ materielLogiciel.dateInstallation|date('d/m/Y') }}</td>
+                                                        <td>{{ materielLogiciel.cleLicence }}</td>
+                                                        <td>
+                                                            <a class="btn btn-sm btn-default" href="#">
+                                                                <i class="fa fa-pencil"></i>
+                                                                Editer
+                                                            </a>
+                                                            <a class="btn btn-sm btn-danger" href="#">
+                                                                <i class="fa fa-trash"></i>
+                                                                Supprimer
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+{% else %}
+                                                    <tr>
+                                                        <td class="text-center" colspan="4">Aucun logiciel installé sur ce matériel.</td>
+                                                    </tr>
+{% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 {% endblock %}

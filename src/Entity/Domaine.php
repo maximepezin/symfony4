@@ -1,16 +1,15 @@
 <?php
-// src/Entity/Fabricant.php
+// src/Entity/Domaine.php
 
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\FabricantRepository")
- * @ORM\Table(name="base_materiel_fabricant")
+ * @ORM\Entity(repositoryClass="App\Repository\DomaineRepository")
+ * @ORM\Table(name="base_materiel_domaine")
  */
-class Fabricant {
+class Domaine {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -19,7 +18,7 @@ class Fabricant {
     private $id;
 
     /**
-     * @ORM\Column(name="nom", type="string", length=30)
+     * @ORM\Column(name="nom", type="string", length=50, unique=true)
      */
     private $nom;
 
@@ -35,9 +34,5 @@ class Fabricant {
         $this->nom = $nom;
 
         return $this;
-    }
-
-    public function __toString() {
-        return $this->nom;
     }
 }

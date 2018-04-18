@@ -29,7 +29,7 @@
             <div class="sidebar-panel offscreen-left">
                 <div class="brand">
                     <div class="brand-logo">
-                        <a href="{{ path('base_materiel_core_tableau_bord') }}">
+                        <a href="{{ path('base_materiel_tableau_bord') }}">
                             Base matériel
                         </a>
                     </div>
@@ -43,13 +43,13 @@
                 <nav role="navigation">
                     <ul class="nav">
                         <li>
-                            <a href="{{ path('base_materiel_core_tableau_bord') }}">
+                            <a href="{{ path('base_materiel_tableau_bord') }}">
                                 <i class="fa fa-tachometer"></i>
                                 <span>Tableau de bord</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ path('base_materiel_materiel_liste') }}">
+                            <a href="{{ path('base_materiel_materiels') }}">
                                 <i class="fa fa-archive"></i>
                                 <span>Matériels</span>
                             </a>
@@ -61,18 +61,23 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="{{ path('base_materiel_type_materiel_liste') }}">
+                                    <a href="{{ path('base_materiel_types_materiel') }}">
                                         Types de matériel
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ path('base_materiel_fabricant_liste') }}">
+                                    <a href="{{ path('base_materiel_fabricants') }}">
                                         Fabricants
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ path('base_materiel_modele_liste') }}">
+                                    <a href="{{ path('base_materiel_modeles') }}">
                                         Modèles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('base_materiel_logiciels') }}">
+                                        Logiciels
                                     </a>
                                 </li>
                             </ul>

@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Modele;
 use App\Form\ModeleType;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,34 +13,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ModeleController extends Controller {
     /**
      * @Route(
-     *     "/modele/nouveau",
-     *     name="base_materiel_modele_nouveau",
+     *     "/modele/ajouter",
+     *     name="base_materiel_modele_ajouter",
      * )
      */
-    public function nouveau(Request $request) {
+    public function ajouter(Request $request) {
         $modele = new Modele();
 
         $form = $this->createForm(ModeleType::class, $modele);
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this
-                    ->getDoctrine()
-                    ->getManager()
-                ;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this
+                ->getDoctrine()
+                ->getManager()
+            ;
 
-                $em->persist($modele);
-                $em->flush();
+            $em->persist($modele);
+            $em->flush();
 
-                $this->addFlash('success', 'Modèle créé avec succès.');
+            $this->addFlash('success', 'Modèle créé avec succès.');
 
-                return $this->redirectToRoute('base_materiel_modele_liste');
-            }
+            return $this->redirectToRoute('base_materiel_modeles');
         }
 
-        return $this->render('modele/nouveau.html.twig', [
+        return $this->render('modele/ajouter.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -47,10 +46,10 @@ class ModeleController extends Controller {
     /**
      * @Route(
      *     "/modeles",
-     *     name="base_materiel_modele_liste",
+     *     name="base_materiel_modeles",
      * )
      */
-    public function liste() {
+    public function modeles() {
         $modeleRepository = $this
             ->getDoctrine()
             ->getRepository(Modele::class)
@@ -58,7 +57,7 @@ class ModeleController extends Controller {
 
         $modeles = $modeleRepository->findAll();
 
-        return $this->render('modele/liste.html.twig', [
+        return $this->render('modele/modeles.html.twig', [
             'modeles' => $modeles,
         ]);
     }
@@ -88,16 +87,14 @@ class ModeleController extends Controller {
 
         $form = $this->createForm(ModeleType::class, $modele);
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
 
-                $this->addFlash('success', 'Modèle modidié avec succès.');
+            $this->addFlash('success', 'Modèle modifié avec succès.');
 
-                return $this->redirectToRoute('base_materiel_modele_liste');
-            }
+            return $this->redirectToRoute('base_materiel_modeles');
         }
 
         return $this->render('modele/editer.html.twig', [
@@ -105,7 +102,51 @@ class ModeleController extends Controller {
         ]);
     }
 
-    public function supprimer() {
+    /**
+     * @Route(
+     *     "/modele/supprimer/{id}",
+     *     name="base_materiel_modele_supprimer",
+     *     requirements={
+     *         "id": "\d+",
+     *     },
+     * )
+     */
+    public function supprimer(Request $request, int $id) {
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+        ;
 
+        $modeleRepository = $em->getRepository(Modele::class);
+
+        $modele = $modeleRepository->find($id);
+
+        if ($modele === null) {
+            throw $this->createNotFoundException();
+        }
+
+        $form = $this->get('form.factory')->create();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $em->remove($modele);
+                $em->flush();
+            } catch (ForeignKeyConstraintViolationException $constraintViolationException) {
+                $this->addFlash('warning', 'Ce modèle est utilisé et ne peut être supprimé.');
+
+                return $this->redirectToRoute('base_materiel_modeles');
+            }
+
+            $this->addFlash('success', 'Modèle supprimé avec succès.');
+
+            return $this->redirectToRoute('base_materiel_modeles');
+        }
+
+        return $this->render('modele/supprimer.html.twig', [
+            'modele' => $modele,
+            'form' => $form->createView(),
+        ]);
     }
 }

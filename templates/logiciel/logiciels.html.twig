@@ -1,5 +1,5 @@
-{# templates/fabricant/liste.html.twig #}
-{% set title = 'Liste des fabricants référencés' %}
+{# templates/logiciel/liste.html.twig #}
+{% set title = 'Logiciels référencés' %}
 
 {% extends 'layout.html.twig' %}
 
@@ -14,9 +14,9 @@
                             <div class="row mb20">
                                 <div class="col-sm-6">
                                     <div class="toolbar">
-                                        <a class="btn btn-info" href="{{ path('base_materiel_fabricant_nouveau') }}">
+                                        <a class="btn btn-info" href="{{ path('base_materiel_logiciel_ajouter') }}">
                                             <i class="fa fa-plus mr10"></i>
-                                            Ajouter un fabricant
+                                            Ajouter un logiciel
                                         </a>
                                     </div>
                                 </div>
@@ -31,15 +31,15 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-{% for fabricant in fabricants %}
+{% for logiciel in logiciels %}
                                         <tr>
-                                            <td>{{ fabricant.id }}</td>
-                                            <td>{{ fabricant.nom }}</td>
+                                            <td>{{ logiciel.id }}</td>
+                                            <td>{{ logiciel.nom }}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_fabricant_editer', {'slug': fabricant.slug}) }}">
+                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_logiciel_editer', { 'id': logiciel.id }) }}">
                                                     Editer
                                                 </a>
-                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_fabricant_supprimer', {'slug': fabricant.slug}) }}">
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_logiciel_supprimer', { 'id': logiciel.id }) }}">
                                                     Supprimer
                                                 </a>
                                             </td>
@@ -47,7 +47,7 @@
 {% else %}
                                         <tr>
                                             <td class="text-center" colspan="3">
-                                                Aucun fabricant référencé dans la base.
+                                                Aucun logiciel référencé dans la base.
                                             </td>
                                         </tr>
 {% endfor %}

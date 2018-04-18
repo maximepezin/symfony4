@@ -12,36 +12,34 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class MaterielController extends Controller {
     /**
      * @Route(
-     *     "/materiel/nouveau",
-     *     name="base_materiel_materiel_nouveau",
+     *     "/materiel/ajouter",
+     *     name="base_materiel_materiel_ajouter",
      * )
      */
-    public function nouveau(Request $request) {
+    public function ajouter(Request $request) {
         $materiel = new Materiel();
 
         $form = $this->createForm(MaterielType::class, $materiel);
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this
-                    ->getDoctrine()
-                    ->getManager()
-                ;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this
+                ->getDoctrine()
+                ->getManager()
+            ;
 
-                $em->persist($materiel);
-                $em->flush();
+            $em->persist($materiel);
+            $em->flush();
 
-                $this->addFlash('success', "Matériel créé avec succès.");
+            $this->addFlash('success', "Matériel créé avec succès.");
 
-                return $this->redirectToRoute('base_materiel_materiel_voir', [
-                    'slug' => $materiel->getSlug(),
-                ]);
-            }
+            return $this->redirectToRoute('base_materiel_materiel_visualiser', [
+                'slug' => $materiel->getSlug(),
+            ]);
         }
 
-        return $this->render('materiel/nouveau.html.twig', [
+        return $this->render('materiel/ajouter.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -49,38 +47,38 @@ class MaterielController extends Controller {
     /**
      * @Route(
      *     "/materiels",
-     *     name="base_materiel_materiel_liste",
+     *     name="base_materiel_materiels",
      * )
      */
-    public function liste() {
-        $materielRepo =	$this
+    public function materiels() {
+        $materielRepository =	$this
             ->getDoctrine()
             ->getRepository(Materiel::class)
         ;
 
-        $materiels = $materielRepo->findAll();
+        $materiels = $materielRepository->findAll();
 
-        return $this->render('materiel/liste.html.twig', [
+        return $this->render('materiel/materiels.html.twig', [
             'materiels' => $materiels,
         ]);
     }
 
     /**
      * @Route(
-     *     "/materiel/voir/{slug}",
-     *     name="base_materiel_materiel_voir",
+     *     "/materiel/visualiser/{slug}",
+     *     name="base_materiel_materiel_visualiser",
      *     requirements={
      *         "slug": "[a-z0-9\-]+",
      *     },
      * )
      */
-    public function voir(string $slug) {
-        $materielRepo = $this
+    public function visualiser(string $slug) {
+        $materielRepository = $this
             ->getDoctrine()
             ->getRepository(Materiel::class)
         ;
 
-        $materiel = $materielRepo->findOneBy([
+        $materiel = $materielRepository->findOneBy([
             'slug' => $slug,
         ]);
 
@@ -88,7 +86,7 @@ class MaterielController extends Controller {
             throw $this->createNotFoundException();
         }
 
-        return $this->render('materiel/voir.html.twig', [
+        return $this->render('materiel/visualiser.html.twig', [
             'materiel' => $materiel,
         ]);
     }
@@ -108,9 +106,9 @@ class MaterielController extends Controller {
             ->getManager()
         ;
 
-        $materielRepo = $em->getRepository(Materiel::class);
+        $materielRepository = $em->getRepository(Materiel::class);
 
-        $materiel = $materielRepo->findOneBy([
+        $materiel = $materielRepository->findOneBy([
             'slug' => $slug,
         ]);
 
@@ -120,18 +118,16 @@ class MaterielController extends Controller {
 
         $form = $this->createForm(MaterielType::class, $materiel);
 
-        if ($request->isMethod(Request::METHOD_POST)) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
 
-                $this->addFlash('success', "Matériel modifié avec succès.");
+            $this->addFlash('success', "Matériel modifié avec succès.");
 
-                return $this->redirectToRoute('base_materiel_materiel_voir', [
-                    'slug' => $materiel->getSlug(),
-                ]);
-            }
+            return $this->redirectToRoute('base_materiel_materiel_visualiser', [
+                'slug' => $materiel->getSlug(),
+            ]);
         }
 
         return $this->render('materiel/editer.html.twig', [
@@ -173,9 +169,9 @@ class MaterielController extends Controller {
                 $em->remove($materiel);
                 $em->flush();
 
-                $this->addFlash('success', "Matériel supprimé avec succés.");
+                $this->addFlash('success', "Matériel supprimé avec succès.");
 
-                return $this->redirectToRoute('base_materiel_materiel_liste');
+                return $this->redirectToRoute('base_materiel_materiels');
             }
         }
 

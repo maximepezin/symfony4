@@ -107,10 +107,16 @@ class Materiel {
      */
     private $sauvegardes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MaterielSystemeExploitation", mappedBy="materiel", orphanRemoval=true)
+     */
+    private $materielSystemeExploitations;
+
     public function __construct() {
         $this->materielPieceRechanges = new ArrayCollection();
         $this->materielLogiciels = new ArrayCollection();
         $this->sauvegardes = new ArrayCollection();
+        $this->materielSystemeExploitations = new ArrayCollection();
     }
 
     public function getId() {
@@ -372,6 +378,37 @@ class Materiel {
             // set the owning side to null (unless already changed)
             if ($materielPieceRechange->getPieceRechange() === $this) {
                 $materielPieceRechange->setPieceRechange(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MaterielSystemeExploitation[]
+     */
+    public function getMaterielSystemeExploitations(): Collection
+    {
+        return $this->materielSystemeExploitations;
+    }
+
+    public function addMaterielSystemeExploitation(MaterielSystemeExploitation $materielSystemeExploitation): self
+    {
+        if (!$this->materielSystemeExploitations->contains($materielSystemeExploitation)) {
+            $this->materielSystemeExploitations[] = $materielSystemeExploitation;
+            $materielSystemeExploitation->setMateriel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterielSystemeExploitation(MaterielSystemeExploitation $materielSystemeExploitation): self
+    {
+        if ($this->materielSystemeExploitations->contains($materielSystemeExploitation)) {
+            $this->materielSystemeExploitations->removeElement($materielSystemeExploitation);
+            // set the owning side to null (unless already changed)
+            if ($materielSystemeExploitation->getMateriel() === $this) {
+                $materielSystemeExploitation->setMateriel(null);
             }
         }
 

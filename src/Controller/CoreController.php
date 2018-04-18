@@ -10,7 +10,7 @@ class CoreController extends Controller {
     /**
      * @Route(
      *     "/",
-     *     name="base_materiel_core_tableau_bord",
+     *     name="base_materiel_tableau_bord",
      * )
      */
     public function tableauBord() {

@@ -1,11 +1,17 @@
-{# templates/modele/nouveau.html.twig #}
-{% set title = 'Nouveau modèle' %}
+{# templates/modele/ajouter.html.twig #}
+{% set title = 'Ajouter un modèle' %}
 
 {% extends 'layout.html.twig' %}
 
 {% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
 
 {% block body %}
+                    <div class="mb20">
+                        <a class="btn btn-default" href="{{ path('base_materiel_modeles') }}">
+                            <i class="fa fa-caret-left"></i>
+                            Retour
+                        </a>
+                    </div>
                     <div class="panel mb0">
                         <div class="panel-heading border">
                             {{ title }}
