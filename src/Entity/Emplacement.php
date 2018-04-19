@@ -50,8 +50,4 @@ class Emplacement {
 
         return $this;
     }
-
-    public function __toString(): string {
-        return $this->nom . ($this->local ? "/" .  $this->local->getNom() . "/" . $this->local->getBatiment()->getNom() : "");
-    }
 }

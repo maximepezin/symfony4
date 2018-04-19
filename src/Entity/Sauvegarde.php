@@ -128,11 +128,4 @@ class Sauvegarde {
 
         return $this;
     }
-
-    public function __toString(): string {
-        return
-            'Sauvegarde du '
-            . $this->dateHeureSauvegarde->format('d/m/Y \\à H:i')
-        ;
-    }
 }

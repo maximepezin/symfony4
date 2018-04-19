@@ -23,14 +23,14 @@ class ModeleType extends AbstractType {
                 'class' => Fabricant::class,
                 'choice_label' => function($choice) {
                     return $choice->getNom();
-                }
+                },
             ])
             ->add('typeMateriel', EntityType::class, [
                 'label' => 'Type de matériel',
                 'class' => TypeMateriel::class,
                 'choice_label' => function($choice) {
                     return $choice->getLibelle();
-                }
+                },
             ])
         ;
     }

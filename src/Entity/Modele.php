@@ -67,8 +67,4 @@ class Modele {
 
         return $this;
     }
-
-    public function __toString(): string {
-        return /*$this->fabricant->getNom() . " " .*/ $this->nom;
-    }
 }

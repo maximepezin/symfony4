@@ -32,7 +32,7 @@ class LogicielController extends Controller {
             $em->persist($logiciel);
             $em->flush();
 
-            $this->addFlash('success', 'Logiciel créé avec succès.');
+            $this->addFlash('success', 'Logiciel ajouté avec succès.');
 
             return $this->redirectToRoute('base_materiel_logiciels');
         }

@@ -82,8 +82,4 @@ class MaterielLogiciel {
 
         return $this;
     }
-
-    public function __toString() {
-        return $this->logiciel->getNom();
-    }
 }

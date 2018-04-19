@@ -32,7 +32,7 @@ class TypeMaterielController extends Controller {
             $em->persist($typeMateriel);
             $em->flush();
 
-            $this->addFlash('success', 'Type de matériel créé avec succès.');
+            $this->addFlash('success', 'Type de matériel ajouté avec succès.');
 
             return $this->redirectToRoute('base_materiel_types_materiel');
         }

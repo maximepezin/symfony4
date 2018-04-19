@@ -1,5 +1,5 @@
-{# templates/logiciel/logiciels.html.twig #}
-{% set title = 'Logiciels référencés' %}
+{# templates/domaine/domaines.html.twig #}
+{% set title = 'Domaines référencés' %}
 
 {% extends 'layout.html.twig' %}
 
@@ -14,9 +14,9 @@
                             <div class="row mb20">
                                 <div class="col-sm-6">
                                     <div class="toolbar">
-                                        <a class="btn btn-info" href="{{ path('base_materiel_logiciel_ajouter') }}">
+                                        <a class="btn btn-info" href="{{ path('base_materiel_domaine_ajouter') }}">
                                             <i class="fa fa-plus mr10"></i>
-                                            Ajouter un logiciel
+                                            Ajouter un domaine
                                         </a>
                                     </div>
                                 </div>
@@ -26,20 +26,20 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Logiciel</th>
+                                        <th>Domaine</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-{% for logiciel in logiciels %}
+{% for domaine in domaines %}
                                         <tr>
-                                            <td>{{ logiciel.id }}</td>
-                                            <td>{{ logiciel.nom }}</td>
+                                            <td>{{ domaine.id }}</td>
+                                            <td>{{ domaine.nom }}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_logiciel_editer', { 'id': logiciel.id }) }}">
+                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_domaine_editer', { 'id': domaine.id }) }}">
                                                     Editer
                                                 </a>
-                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_logiciel_supprimer', { 'id': logiciel.id }) }}">
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_domaine_supprimer', { 'id': domaine.id }) }}">
                                                     Supprimer
                                                 </a>
                                             </td>
@@ -47,7 +47,7 @@
 {% else %}
                                         <tr>
                                             <td class="text-center" colspan="3">
-                                                Aucun logiciel référencé dans la base.
+                                                Aucun domaine référencé dans la base.
                                             </td>
                                         </tr>
 {% endfor %}

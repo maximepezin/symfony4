@@ -3,6 +3,7 @@
 
 namespace App\Form;
 
+use App\Entity\Domaine;
 use App\Entity\Materiel;
 use App\Entity\Modele;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -26,7 +27,7 @@ class MaterielType extends AbstractType {
                 'class' => Modele::class,
                 'choice_label' => function($choice) {
                     return $choice->getFabricant()->getNom() . ' - ' . $choice->getNom();
-                }
+                },
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
@@ -59,6 +60,14 @@ class MaterielType extends AbstractType {
             ->add('estPieceRechange', CheckboxType::class, [
                 'label' => 'Est une pièce de rechange',
                 'required' => false,
+            ])
+            ->add('domaine', EntityType::class, [
+                'label' => 'Domaine',
+                'required' => false,
+                'class' => Domaine::class,
+                'choice_label' => function($choice) {
+                    return $choice->getNom();
+                },
             ])
         ;
     }

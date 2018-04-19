@@ -33,7 +33,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="row">
-                                                <span class="col-sm-4 col-form-label text-xl-right">Type de matériel :</span>
+                                                <span class="col-sm-4 col-form-label text-xl-right">Type :</span>
                                                 <div class="col-sm-8">
                                                     <span class="form-control-plaintext">
 {% if materiel.modele is not empty %}
@@ -178,6 +178,18 @@
                                                 <span style="color: mediumseagreen;">Oui</span>
 {% else %}
                                                 <span style="color: darkred;">Non</span>
+{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3 col-form-label text-xl-right">Domaine :</span>
+                                        <div class="col-sm-9">
+                                            <span class="form-control-plaintext">
+{% if materiel.domaine is not empty %}
+                                                {{ materiel.domaine.nom }}
+{% else %}
+                                                <code>N/C</code>
 {% endif %}
                                             </span>
                                         </div>

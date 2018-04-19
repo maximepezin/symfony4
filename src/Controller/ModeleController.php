@@ -33,7 +33,7 @@ class ModeleController extends Controller {
             $em->persist($modele);
             $em->flush();
 
-            $this->addFlash('success', 'Modèle créé avec succès.');
+            $this->addFlash('success', 'Modèle ajouté avec succès.');
 
             return $this->redirectToRoute('base_materiel_modeles');
         }

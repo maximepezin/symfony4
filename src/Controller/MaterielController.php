@@ -32,7 +32,7 @@ class MaterielController extends Controller {
             $em->persist($materiel);
             $em->flush();
 
-            $this->addFlash('success', "Matériel créé avec succès.");
+            $this->addFlash('success', "Matériel ajouté avec succès.");
 
             return $this->redirectToRoute('base_materiel_materiel_visualiser', [
                 'slug' => $materiel->getSlug(),

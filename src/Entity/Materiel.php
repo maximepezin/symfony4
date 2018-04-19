@@ -88,6 +88,11 @@ class Materiel {
     private $modele;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Domaine")
+     */
+    private $domaine;
+
+    /**
      * @ORM\OneToMany(targetEntity="MaterielPieceRechange", mappedBy="materiel")
      */
     private $materielPieceRechanges;
@@ -108,7 +113,7 @@ class Materiel {
     private $sauvegardes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MaterielSystemeExploitation", mappedBy="materiel", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="MaterielSystemeExploitation", mappedBy="materiel", orphanRemoval=true)
      */
     private $materielSystemeExploitations;
 
@@ -251,6 +256,16 @@ class Materiel {
         return $this;
     }
 
+    public function getDomaine(): ?Domaine {
+        return $this->domaine;
+    }
+
+    public function setDomaine(?Domaine $domaine = null): self {
+        $this->domaine = $domaine;
+
+        return $this;
+    }
+
     public function getEmplacement(): ?Emplacement {
         return $this->emplacement;
     }
@@ -291,10 +306,6 @@ class Materiel {
         */
 
         $this->modifieLe = new \DateTime('now');
-    }
-
-    public function __toString(): string {
-        return $this->nom;
     }
 
     /**
