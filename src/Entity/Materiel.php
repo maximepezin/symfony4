@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MaterielRepository")
- * @ORM\Table(name="base_materiel_materiel")
+ * @ORM\Table(name="materiel")
  * @ORM\HasLifecycleCallbacks()
  */
 class Materiel {
@@ -40,22 +40,22 @@ class Materiel {
     /**
      * @ORM\Column(name="modifie_le", type="datetime", nullable=true)
      */
-    private $modifieLe;
+    private $modifieLe = null;
 
     /**
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-    private $description;
+    private $description = null;
 
     /**
      * @ORM\Column(name="achete_le", type="date", nullable=true)
      */
-    private $acheteLe;
+    private $acheteLe = null;
 
     /**
      * @ORM\Column(name="numero_serie", type="string", length=50, unique=true, nullable=true)
      */
-    private $numeroSerie;
+    private $numeroSerie = null;
 
     /**
      * @ORM\Column(name="antivirus_installe", type="boolean")
@@ -85,22 +85,27 @@ class Materiel {
     /**
      * @ORM\ManyToOne(targetEntity="Modele")
      */
-    private $modele;
+    private $modele = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Domaine")
      */
-    private $domaine;
-
-    /**
-     * @ORM\OneToMany(targetEntity="MaterielPieceRechange", mappedBy="materiel")
-     */
-    private $materielPieceRechanges;
+    private $domaine = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Emplacement")
      */
     private $emplacement;
+
+    /**
+     * @ORM\OneToMany(targetEntity="MaterielPieceRechange", mappedBy="materiel", orphanRemoval=true)
+     */
+    private $materielPiecesRechange;
+
+    /**
+     * @ORM\OneToMany(targetEntity="MaterielSystemeExploitation", mappedBy="materiel", orphanRemoval=true)
+     */
+    private $materielSystemesExploitation;
 
     /**
      * @ORM\OneToMany(targetEntity="MaterielLogiciel", mappedBy="materiel", orphanRemoval=true)
@@ -113,15 +118,16 @@ class Materiel {
     private $sauvegardes;
 
     /**
-     * @ORM\OneToMany(targetEntity="MaterielSystemeExploitation", mappedBy="materiel", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ConfigurationIp", mappedBy="materiel", orphanRemoval=true)
      */
-    private $materielSystemeExploitations;
+    private $configurationsIp;
 
     public function __construct() {
-        $this->materielPieceRechanges = new ArrayCollection();
+        $this->materielPiecesRechange = new ArrayCollection();
+        $this->materielSystemesExploitation = new ArrayCollection();
         $this->materielLogiciels = new ArrayCollection();
         $this->sauvegardes = new ArrayCollection();
-        $this->materielSystemeExploitations = new ArrayCollection();
+        $this->configurationsIp = new ArrayCollection();
     }
 
     public function getId() {
@@ -277,35 +283,61 @@ class Materiel {
     }
 
     /**
-     * @ORM\PrePersist()
+     * @return Collection|MaterielPieceRechange[]
      */
-    public function prePersist() {
-        /*
-        if ($this->estPieceRechange && substr($this->nom, 0, 3) !== 'PR_') {
-            $this->nom = 'PR_' . $this->nom;
-            // Pas besoin de toucher au slug en prePersist !
-        }
-        */
+    public function getMaterielPiecesRechange(): Collection {
+        return $this->materielPiecesRechange;
+    }
 
-        $this->ajouteLe = new \DateTime('now');
+    public function addMaterielPieceRechange(MaterielPieceRechange $materielPieceRechange): self {
+        if (!$this->materielPiecesRechange->contains($materielPieceRechange)) {
+            $this->materielPiecesRechange[] = $materielPieceRechange;
+
+            $materielPieceRechange->setPieceRechange($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterielPieceRechange(MaterielPieceRechange $materielPieceRechange): self {
+        if ($this->materielPiecesRechange->contains($materielPieceRechange)) {
+            $this->materielPiecesRechange->removeElement($materielPieceRechange);
+
+            if ($materielPieceRechange->getPieceRechange() === $this) {
+                $materielPieceRechange->setPieceRechange(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
-     * @ORM\PreUpdate()
+     * @return Collection|MaterielSystemeExploitation[]
      */
-    public function preUpdate() {
-        /*
-        if ($this->estPieceRechange && substr($this->nom, 0, 3) !== 'PR_') {
-            $this->nom = 'PR_' . $this->nom;
-            $this->slug = 'pr-' . $this->slug;
-        }
-        else if (!$this->estPieceRechange && substr($this->nom, 0, 3) === 'PR_') {
-            $this->nom = substr($this->nom, 3);
-            $this->slug = substr($this->slug, 3);
-        }
-        */
+    public function getMaterielSystemesExploitation(): Collection {
+        return $this->materielSystemesExploitation;
+    }
 
-        $this->modifieLe = new \DateTime('now');
+    public function addMaterielSystemeExploitation(MaterielSystemeExploitation $materielSystemeExploitation): self {
+        if (!$this->materielSystemesExploitation->contains($materielSystemeExploitation)) {
+            $this->materielSystemesExploitation[] = $materielSystemeExploitation;
+            $materielSystemeExploitation->setMateriel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterielSystemeExploitation(MaterielSystemeExploitation $materielSystemeExploitation): self
+    {
+        if ($this->materielSystemesExploitation->contains($materielSystemeExploitation)) {
+            $this->materielSystemesExploitation->removeElement($materielSystemeExploitation);
+
+            if ($materielSystemeExploitation->getMateriel() === $this) {
+                $materielSystemeExploitation->setMateriel(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -357,7 +389,7 @@ class Materiel {
     public function removeSauvegarde(Sauvegarde $sauvegarde): self {
         if ($this->sauvegardes->contains($sauvegarde)) {
             $this->sauvegardes->removeElement($sauvegarde);
-            // set the owning side to null (unless already changed)
+
             if ($sauvegarde->getMateriel() === $this) {
                 $sauvegarde->setMateriel(null);
             }
@@ -367,28 +399,28 @@ class Materiel {
     }
 
     /**
-     * @return Collection|MaterielPieceRechange[]
+     * @return Collection|ConfigurationIp[]
      */
-    public function getMaterielPieceRechanges(): Collection {
-        return $this->materielPieceRechanges;
+    public function getConfigurationsIp(): Collection {
+        return $this->configurationsIp;
     }
 
-    public function addMaterielPieceRechange(MaterielPieceRechange $materielPieceRechange): self {
-        if (!$this->materielPieceRechanges->contains($materielPieceRechange)) {
-            $this->materielPieceRechanges[] = $materielPieceRechange;
+    public function addConfigurationIp(ConfigurationIp $configurationIp): self {
+        if (!$this->configurationsIp->contains($configurationIp)) {
+            $this->configurationsIp[] = $configurationIp;
 
-            $materielPieceRechange->setPieceRechange($this);
+            $configurationIp->setMateriel($this);
         }
 
         return $this;
     }
 
-    public function removeMaterielPieceRechange(MaterielPieceRechange $materielPieceRechange): self {
-        if ($this->materielPieceRechanges->contains($materielPieceRechange)) {
-            $this->materielPieceRechanges->removeElement($materielPieceRechange);
-            // set the owning side to null (unless already changed)
-            if ($materielPieceRechange->getPieceRechange() === $this) {
-                $materielPieceRechange->setPieceRechange(null);
+    public function removeConfigurationIp(ConfigurationIp $configurationIp): self {
+        if ($this->configurationsIp->contains($configurationIp)) {
+            $this->configurationsIp->removeElement($configurationIp);
+
+            if ($configurationIp->getMateriel() === $this) {
+                $configurationIp->setMateriel(null);
             }
         }
 
@@ -396,33 +428,34 @@ class Materiel {
     }
 
     /**
-     * @return Collection|MaterielSystemeExploitation[]
+     * @ORM\PrePersist()
      */
-    public function getMaterielSystemeExploitations(): Collection
-    {
-        return $this->materielSystemeExploitations;
+    public function prePersist() {
+        /*
+        if ($this->estPieceRechange && substr($this->nom, 0, 3) !== 'PR_') {
+            $this->nom = 'PR_' . $this->nom;
+            // Pas besoin de toucher au slug en prePersist !
+        }
+        */
+
+        $this->ajouteLe = new \DateTime('now');
     }
 
-    public function addMaterielSystemeExploitation(MaterielSystemeExploitation $materielSystemeExploitation): self
-    {
-        if (!$this->materielSystemeExploitations->contains($materielSystemeExploitation)) {
-            $this->materielSystemeExploitations[] = $materielSystemeExploitation;
-            $materielSystemeExploitation->setMateriel($this);
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate() {
+        /*
+        if ($this->estPieceRechange && substr($this->nom, 0, 3) !== 'PR_') {
+            $this->nom = 'PR_' . $this->nom;
+            $this->slug = 'pr-' . $this->slug;
         }
-
-        return $this;
-    }
-
-    public function removeMaterielSystemeExploitation(MaterielSystemeExploitation $materielSystemeExploitation): self
-    {
-        if ($this->materielSystemeExploitations->contains($materielSystemeExploitation)) {
-            $this->materielSystemeExploitations->removeElement($materielSystemeExploitation);
-            // set the owning side to null (unless already changed)
-            if ($materielSystemeExploitation->getMateriel() === $this) {
-                $materielSystemeExploitation->setMateriel(null);
-            }
+        else if (!$this->estPieceRechange && substr($this->nom, 0, 3) === 'PR_') {
+            $this->nom = substr($this->nom, 3);
+            $this->slug = substr($this->slug, 3);
         }
+        */
 
-        return $this;
+        $this->modifieLe = new \DateTime('now');
     }
 }

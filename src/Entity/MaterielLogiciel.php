@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MaterielLogicielRepository")
- * @ORM\Table(name="base_materiel_materiel_logiciel")
+ * @ORM\Table(name="materiel_logiciel")
  */
 class MaterielLogiciel {
     /**
@@ -18,14 +18,14 @@ class MaterielLogiciel {
     private $id;
 
     /**
-     * @ORM\Column(name="date_installation", type="date", nullable=true)
+     * @ORM\Column(name="installe_le", type="date", nullable=true)
      */
-    private $dateInstallation;
+    private $installeLe = null;
 
     /**
      * @ORM\Column(name="cle_licence", type="string", length=255, unique=true, nullable=true)
      */
-    private $cleLicence;
+    private $cleLicence = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Materiel", inversedBy="materielLogiciels", cascade={"persist"})
@@ -43,12 +43,12 @@ class MaterielLogiciel {
         return $this->id;
     }
 
-    public function getDateInstallation(): ?\DateTimeInterface {
-        return $this->dateInstallation;
+    public function getInstalleLe(): ?\DateTimeInterface {
+        return $this->installeLe;
     }
 
-    public function setDateInstallation(?\DateTimeInterface $dateInstallation): self {
-        $this->dateInstallation = $dateInstallation;
+    public function setInstalleLe(?\DateTimeInterface $installeLe = null): self {
+        $this->installeLe = $installeLe;
 
         return $this;
     }

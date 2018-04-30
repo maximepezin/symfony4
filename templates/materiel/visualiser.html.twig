@@ -23,6 +23,8 @@
                     <div class="panel mb0">
                         <div class="panel-heading border">
                             <h3>Visualisation du matériel {{ materiel.nom }}</h3>
+                            ID: #{{ materiel.id }}
+                            &middot;
                             Ajouté le {{ materiel.ajouteLe|date('d/m/Y \\à H\\hi') }}
                             &middot;
                             {{ materiel.modifieLe is not empty ? 'Modifié le ' ~ materiel.modifieLe|date('d/m/Y \\à H\\hi') : 'Non modifié' }}
@@ -236,7 +238,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-{% for materielSystemeExploitation in materiel.materielSystemeExploitations %}
+{% for materielSystemeExploitation in materiel.materielSystemesExploitation %}
                                                     <tr>
                                                         <td>{{ materielSystemeExploitation.systemeExploitation.nom }}</td>
                                                         <td>{{ materielSystemeExploitation.dateInstallation|date('d/m/Y') }}</td>

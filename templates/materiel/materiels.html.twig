@@ -69,11 +69,13 @@
 {% endif %}
                                             </td>
                                             <td>
+{% if materiel.configurationsIp is not empty %}
                                                 <a class="btn btn-sm btn-info" href="#">
                                                     <i class="fa fa-send mr5"></i>
                                                     Ping
                                                 </a>
                                                 &middot;
+{% endif %}
                                                 <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_visualiser', {'slug': materiel.slug}) }}">
                                                     <i class="fa fa-eye mr5"></i>
                                                     Voir

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LocalRepository")
- * @ORM\Table(name="base_materiel_local")
+ * @ORM\Table(name="local")
  */
 class Local {
     /**

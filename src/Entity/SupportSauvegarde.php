@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SupportSauvegardeRepository")
- * @ORM\Table(name="base_materiel_support_sauvegarde")
+ * @ORM\Table(name="support_sauvegarde")
  */
 class SupportSauvegarde {
     /**

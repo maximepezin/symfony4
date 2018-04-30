@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MaterielPieceRechangeRepository")
- * @ORM\Table(name="base_materiel_materiel_piece_rechange")
+ * @ORM\Table(name="materiel_piece_rechange")
  */
 class MaterielPieceRechange {
     /**
@@ -24,7 +24,7 @@ class MaterielPieceRechange {
     private $pieceRechange;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Materiel", inversedBy="materielPieceRechanges")
+     * @ORM\ManyToOne(targetEntity="Materiel", inversedBy="materielPiecesRechange")
      * @ORM\JoinColumn(nullable=false)
      */
     private $materiel;
@@ -32,7 +32,7 @@ class MaterielPieceRechange {
     /**
      * @ORM\Column(name="est_utilisee", type="boolean")
      */
-    private $estUtilisee;
+    private $estUtilisee = false;
 
     public function getId() {
         return $this->id;
