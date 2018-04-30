@@ -6,6 +6,8 @@ namespace App\Controller;
 use App\Entity\Materiel;
 use App\Form\MaterielType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -179,5 +181,41 @@ class MaterielController extends Controller {
             'materiel' => $materiel,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route(
+     *     "/materiel/ping/{slug}",
+     *     name="base_materiel_materiel_ping",
+     *     requirements={
+     *         "slug": "[a-z0-9\-]+",
+     *     },
+     * )
+     */
+    public function ping(string $slug) {
+        $materielRepository = $this
+            ->getDoctrine()
+            ->getRepository(Materiel::class)
+        ;
+
+        $materiel = $materielRepository->findOneBy([
+            'slug' => $slug,
+        ]);
+
+        if ($materiel === null || $materiel->getConfigurationsIp()->isEmpty()) {
+            throw $this->createNotFoundException();
+        }
+
+        $process = new Process('ping -n -c 1 ' . $materiel->getConfigurationsIp()->get(0)->getAdresseIp());
+
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        echo 'Pong !<br /><br />';
+        echo nl2br($process->getOutput());
+        die();
     }
 }

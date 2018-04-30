@@ -179,7 +179,7 @@ class Materiel {
     }
 
     public function getDescriptionCourte(): ?string {
-        return substr($this->description, 0, 35) . (strlen($this->description) > 35 ? '[...]' : '');
+        return substr($this->description, 0, 36) . (strlen($this->description) > 35 ? '[...]' : '');
     }
 
     public function getAcheteLe(): ?\DateTimeInterface {

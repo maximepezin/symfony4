@@ -25,7 +25,6 @@
                                 <table class="table mb0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th>Nom</th>
                                             <th>Type</th>
                                             <th>Fabricant</th>
@@ -38,8 +37,11 @@
                                     <tbody>
 {% for materiel in materiels %}
                                         <tr>
-                                            <td>{{ materiel.id }}</td>
-                                            <td>{{ materiel.nom }}</td>
+                                            <td>
+                                                <a href="{{ path('base_materiel_materiel_visualiser', { 'slug': materiel.slug }) }}">
+                                                    {{ materiel.nom }}
+                                                </a>
+                                            </td>
                                             <td>
 {% if materiel.modele is not empty %}
                                                 {{ materiel.modele.typeMateriel.libelle }}
@@ -63,19 +65,18 @@
                                             <td>{{ materiel.descriptionCourte }}</td>
                                             <td>
 {% if materiel.estPieceRechange %}
-                                                <span style="color: #25A25A;">Oui</span>
+                                                <span style="color: #25A25A;">
+                                                    <i class="fa fa-check"></i>
+                                                    Oui
+                                                </span>
 {% else %}
-                                                <span style="color: #D96557;">Non</span>
+                                                <span style="color: #D96557;">
+                                                    <i class="fa fa-times"></i>
+                                                    Non
+                                                </span>
 {% endif %}
                                             </td>
                                             <td>
-{% if materiel.configurationsIp is not empty %}
-                                                <a class="btn btn-sm btn-info" href="#">
-                                                    <i class="fa fa-send mr5"></i>
-                                                    Ping
-                                                </a>
-                                                &middot;
-{% endif %}
                                                 <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_visualiser', {'slug': materiel.slug}) }}">
                                                     <i class="fa fa-eye mr5"></i>
                                                     Voir
@@ -88,11 +89,17 @@
                                                     <i class="fa fa-trash mr5"></i>
                                                     Supprimer
                                                 </a>
+{% if materiel.configurationsIp is not empty %}
+                                                <a class="btn btn-sm btn-info" href="#">
+                                                    <!--<i class="fa fa-send mr5"></i>-->
+                                                    Ping ?
+                                                </a>
+{% endif %}
                                             </td>
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="8">
+                                            <td class="text-center" colspan="7">
                                                 Aucun matériel référencé dans la base.
                                             </td>
                                         </tr>

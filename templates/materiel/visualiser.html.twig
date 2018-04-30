@@ -10,6 +10,11 @@
             .col-form-label {
                 font-weight: bold;
             }
+
+            code {
+                color: #0A0909;
+                font-size: inherit;
+            }
         </style>
 {% endblock %}
 
@@ -23,20 +28,18 @@
                     <div class="panel mb0">
                         <div class="panel-heading border">
                             <h3>Visualisation du matériel {{ materiel.nom }}</h3>
-                            ID: #{{ materiel.id }}
-                            &middot;
                             Ajouté le {{ materiel.ajouteLe|date('d/m/Y \\à H\\hi') }}
                             &middot;
                             {{ materiel.modifieLe is not empty ? 'Modifié le ' ~ materiel.modifieLe|date('d/m/Y \\à H\\hi') : 'Non modifié' }}
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-lg-12">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-lg-12">
                                             <div class="row">
-                                                <span class="col-sm-4 col-form-label text-xl-right">Type :</span>
-                                                <div class="col-sm-8">
+                                                <span class="col-lg-6 col-form-label text-xl-right">Type :</span>
+                                                <div class="col-lg-6">
                                                     <span class="form-control-plaintext">
 {% if materiel.modele is not empty %}
                                                         {{ materiel.modele.typeMateriel.libelle }}
@@ -47,10 +50,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-lg-12">
                                             <div class="row">
-                                                <span class="col-sm-4 col-form-label text-xl-right">Fabricant :</span>
-                                                <div class="col-sm-8">
+                                                <span class="col-lg-6 col-form-label text-xl-right">Fabricant :</span>
+                                                <div class="col-lg-6">
                                                     <span class="form-control-plaintext">
 {% if materiel.modele is not empty %}
                                                         {{ materiel.modele.fabricant.nom }}
@@ -61,10 +64,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-lg-12">
                                             <div class="row">
-                                                <span class="col-sm-4 col-form-label text-xl-right">Modèle :</span>
-                                                <div class="col-sm-8">
+                                                <span class="col-lg-6 col-form-label text-xl-right">Modèle :</span>
+                                                <div class="col-lg-6">
                                                     <span class="form-control-plaintext">
 {% if materiel.modele is not empty %}
                                                         {{ materiel.modele.nom }}
@@ -80,10 +83,10 @@
                             </div>
                             <hr />
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-lg-12">
                                     <div class="row">
-                                        <span class="col-sm-2 col-form-label text-xl-right">Description :</span>
-                                        <div class="col-sm-10">
+                                        <span class="col-lg-6 col-form-label text-xl-right">Description :</span>
+                                        <div class="col-lg-6">
                                             <span class="form-control-plaintext">
 {% if materiel.description is not empty %}
                                                 {{ materiel.description|nl2br }}
@@ -94,10 +97,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-lg-12">
                                     <div class="row">
-                                        <span class="col-sm-2 col-form-label text-xl-right">Acheté le :</span>
-                                        <div class="col-sm-10">
+                                        <span class="col-lg-6 col-form-label text-xl-right">Acheté le :</span>
+                                        <div class="col-lg-6">
                                             <span class="form-control-plaintext">
 {% if materiel.acheteLe is not empty %}
                                                 {{ materiel.acheteLe|date("d/m/Y") }}
@@ -111,10 +114,10 @@
                             </div>
                             <hr />
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-lg-12">
                                     <div class="row">
-                                        <span class="col-sm-3 col-form-label text-xl-right">Numéro de série :</span>
-                                        <div class="col-sm-9">
+                                        <span class="col-lg-6 col-form-label text-xl-right">Numéro de série :</span>
+                                        <div class="col-lg-6">
                                             <span class="form-control-plaintext">
 {% if materiel.numeroSerie is not empty %}
                                                 {{ materiel.numeroSerie }}
@@ -125,68 +128,98 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <span class="col-sm-3 col-form-label text-xl-right">Antivirus installé :</span>
-                                        <div class="col-sm-9">
+                                        <span class="col-lg-6 col-form-label text-xl-right">Antivirus installé :</span>
+                                        <div class="col-lg-6">
                                             <span class="form-control-plaintext">
 {% if materiel.antivirusInstalle %}
-                                                <span style="color: mediumseagreen;">Oui</span>
+                                                <span style="color: mediumseagreen;">
+                                                    <i class="fa fa-check"></i>
+                                                    Oui
+                                                </span>
 {% else %}
-                                                <span style="color: darkred;">Non</span>
+                                                <span style="color: darkred;">
+                                                    <i class="fa fa-times"></i>
+                                                    Non
+                                                </span>
 {% endif %}
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <span class="col-sm-3 col-form-label text-xl-right">Est mis à jour via WSUS (Windows Server Update Services) :</span>
-                                        <div class="col-sm-9">
+                                        <span class="col-lg-6 col-form-label text-xl-right">Est mis à jour via WSUS (Windows Server Update Services) :</span>
+                                        <div class="col-lg-6">
                                             <span class="form-control-plaintext">
 {% if materiel.estMajViaWsus %}
-                                                <span style="color: mediumseagreen;">Oui</span>
+                                                <span style="color: mediumseagreen;">
+                                                    <i class="fa fa-check"></i>
+                                                    Oui
+                                                </span>
 {% else %}
-                                                <span style="color: darkred;">Non</span>
+                                                <span style="color: darkred;">
+                                                    <i class="fa fa-times"></i>
+                                                    Non
+                                                </span>
 {% endif %}
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <span class="col-sm-3 col-form-label text-xl-right">Est référencé dans la GLPI (Gestion Libre de Parc Informatique) :</span>
-                                        <div class="col-sm-9">
+                                        <span class="col-lg-6 col-form-label text-xl-right">Est référencé dans la GLPI (Gestion Libre de Parc Informatique) :</span>
+                                        <div class="col-lg-6">
                                             <span class="form-control-plaintext">
 {% if materiel.estReferenceGlpi %}
-                                                <span style="color: mediumseagreen;">Oui</span>
+                                                <span style="color: mediumseagreen;">
+                                                    <i class="fa fa-check"></i>
+                                                    Oui
+                                                </span>
 {% else %}
-                                                <span style="color: darkred;">Non</span>
+                                                <span style="color: darkred;">
+                                                    <i class="fa fa-times"></i>
+                                                    Non
+                                                </span>
 {% endif %}
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <span class="col-sm-3 col-form-label text-xl-right">Est actif sur le réseau :</span>
-                                        <div class="col-sm-9">
+                                        <span class="col-lg-6 col-form-label text-xl-right">Est actif sur le réseau :</span>
+                                        <div class="col-lg-6">
                                             <span class="form-control-plaintext">
 {% if materiel.estActifReseau %}
-                                                <span style="color: mediumseagreen;">Oui</span>
+                                                <span style="color: mediumseagreen;">
+                                                    <i class="fa fa-check"></i>
+                                                    Oui
+                                                </span>
 {% else %}
-                                                <span style="color: darkred;">Non</span>
+                                                <span style="color: darkred;">
+                                                    <i class="fa fa-times"></i>
+                                                    Non
+                                                </span>
 {% endif %}
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <span class="col-sm-3 col-form-label text-xl-right">Est une pièce de rechange :</span>
-                                        <div class="col-sm-9">
+                                        <span class="col-lg-6 col-form-label text-xl-right">Est une pièce de rechange :</span>
+                                        <div class="col-lg-6">
                                             <span class="form-control-plaintext">
 {% if materiel.estPieceRechange %}
-                                                <span style="color: mediumseagreen;">Oui</span>
+                                                <span style="color: mediumseagreen;">
+                                                    <i class="fa fa-check"></i>
+                                                    Oui
+                                                </span>
 {% else %}
-                                                <span style="color: darkred;">Non</span>
+                                                <span style="color: darkred;">
+                                                    <i class="fa fa-times"></i>
+                                                    Non
+                                                </span>
 {% endif %}
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <span class="col-sm-3 col-form-label text-xl-right">Domaine :</span>
-                                        <div class="col-sm-9">
+                                        <span class="col-lg-6 col-form-label text-xl-right">Domaine :</span>
+                                        <div class="col-lg-6">
                                             <span class="form-control-plaintext">
 {% if materiel.domaine is not empty %}
                                                 {{ materiel.domaine.nom }}
