@@ -81,6 +81,21 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="{{ path('base_materiel_batiments') }}">
+                                        Bâtiments
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('base_materiel_locaux') }}">
+                                        Locaux
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('base_materiel_emplacements') }}">
+                                        Emplacements
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="{{ path('base_materiel_systemes_exploitation') }}">
                                         Systèmes d'exploitation
                                     </a>
@@ -142,7 +157,6 @@
                     </ul>
                 </header>
                 <div class="main-content">
-                    <!-- Affichage des messages flash de la session de l'utilisateur -->
 {% for label, messages in app.flashes %}
 {% for message in messages %}
                     <div class="alert alert-{{ label }} alert-dismissable">
@@ -151,7 +165,6 @@
                     </div>
 {% endfor %}
 {% endfor %}
-                    <!-- Fin affichage -->
 {% block body %}{% endblock %}
                 </div>
             </div>

@@ -18,7 +18,7 @@ class Batiment {
     private $id;
 
     /**
-     * @ORM\Column(name="nom", type="string", length=30, unique=true)
+     * @ORM\Column(name="nom", type="string", length=50, unique=true)
      */
     private $nom;
 

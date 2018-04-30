@@ -7,7 +7,7 @@
 
 {% block stylesheets %}
         <style>
-            .form-control-plaintext {
+            .col-form-label {
                 font-weight: bold;
             }
         </style>
@@ -39,7 +39,7 @@
 {% if materiel.modele is not empty %}
                                                         {{ materiel.modele.typeMateriel.libelle }}
 {% else %}
-                                                        <code>N/C</code>
+                                                        <code> N/C </code>
 {% endif %}
                                                     </span>
                                                 </div>
@@ -53,7 +53,7 @@
 {% if materiel.modele is not empty %}
                                                         {{ materiel.modele.fabricant.nom }}
 {% else %}
-                                                        <code>N/C</code>
+                                                        <code> N/C </code>
 {% endif %}
                                                     </span>
                                                 </div>
@@ -67,7 +67,7 @@
 {% if materiel.modele is not empty %}
                                                         {{ materiel.modele.nom }}
 {% else %}
-                                                        <code>N/C</code>
+                                                        <code> N/C </code>
 {% endif %}
                                                     </span>
                                                 </div>
@@ -86,7 +86,7 @@
 {% if materiel.description is not empty %}
                                                 {{ materiel.description|nl2br }}
 {% else %}
-                                                <code>N/C</code>
+                                                <code> N/C </code>
 {% endif %}
                                             </span>
                                         </div>
@@ -100,7 +100,7 @@
 {% if materiel.acheteLe is not empty %}
                                                 {{ materiel.acheteLe|date("d/m/Y") }}
 {% else %}
-                                                <code>N/C</code>
+                                                <code> N/C </code>
 {% endif %}
                                             </span>
                                         </div>
@@ -117,7 +117,7 @@
 {% if materiel.numeroSerie is not empty %}
                                                 {{ materiel.numeroSerie }}
 {% else %}
-                                                <code>N/C</code>
+                                                <code> N/C </code>
 {% endif %}
                                             </span>
                                         </div>
@@ -189,14 +189,42 @@
 {% if materiel.domaine is not empty %}
                                                 {{ materiel.domaine.nom }}
 {% else %}
-                                                <code>N/C</code>
+                                                <code> N/C </code>
 {% endif %}
                                             </span>
                                         </div>
                                     </div>
                                     <hr />
                                     <div class="row no-margin">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive mb20">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Bâtiment</th>
+                                                        <th>Local</th>
+                                                        <th>Emplacement</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+{% if materiel.emplacement is not empty %}
+                                                    <tr>
+                                                        <td>{{ materiel.emplacement.local.batiment.nom }}</td>
+                                                        <td>{{ materiel.emplacement.local.nom }}</td>
+                                                        <td>{{ materiel.emplacement.nom }}</td>
+                                                    </tr>
+{% else %}
+                                                    <tr>
+                                                        <td class="text-center" colspan="3">
+                                                            <code> N/C </code>
+                                                        </td>
+                                                    </tr>
+{% endif %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row no-margin">
+                                        <div class="table-responsive mb20">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -234,7 +262,6 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <hr />
                                     <div class="row no-margin">
                                         <div class="table-responsive">
                                             <table class="table">

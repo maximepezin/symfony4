@@ -4,6 +4,7 @@
 namespace App\Form;
 
 use App\Entity\Domaine;
+use App\Entity\Emplacement;
 use App\Entity\Materiel;
 use App\Entity\Modele;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -67,6 +68,14 @@ class MaterielType extends AbstractType {
                 'class' => Domaine::class,
                 'choice_label' => function($choice) {
                     return $choice->getNom();
+                },
+            ])
+            ->add('emplacement', EntityType::class, [
+                'label' => 'Emplacement / Local / Bâtiment',
+                'required' => false,
+                'class' => Emplacement::class,
+                'choice_label' => function($choice) {
+                    return $choice->getNom() . ' / ' . $choice->getLocal()->getNom() . ' / ' . $choice->getLocal()->getBatiment()->getNom();
                 },
             ])
         ;

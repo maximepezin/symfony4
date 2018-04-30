@@ -1,0 +1,63 @@
+{# templates/emplacement/emplacements.html.twig #}
+{% set title = 'Emplacements référencés' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row mb20">
+                                <div class="col-sm-6">
+                                    <div class="toolbar">
+                                        <a class="btn btn-info" href="#">
+                                            <i class="fa fa-plus mr10"></i>
+                                            Ajouter un emplacement
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table mb0">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Emplacement</th>
+                                        <th>Local</th>
+                                        <th>Bâtiment/Lieux</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+{% for emplacement in emplacements %}
+                                        <tr>
+                                            <td>{{ emplacement.id }}</td>
+                                            <td>{{ emplacement.nom }}</td>
+                                            <td>{{ emplacement.local.nom }}</td>
+                                            <td>{{ emplacement.local.batiment.nom }}</td>
+                                            <td>
+                                                <a class="btn btn-sm btn-default" href="#">
+                                                    Editer
+                                                </a>
+                                                <a class="btn btn-sm btn-danger" href="#">
+                                                    Supprimer
+                                                </a>
+                                            </td>
+                                        </tr>
+{% else %}
+                                        <tr>
+                                            <td class="text-center" colspan="5">
+                                                Aucun emplacement référencé dans la base.
+                                            </td>
+                                        </tr>
+{% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}
