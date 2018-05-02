@@ -71,11 +71,11 @@ class MaterielType extends AbstractType {
                 },
             ])
             ->add('emplacement', EntityType::class, [
-                'label' => 'Emplacement / Local / Bâtiment',
+                'label' => 'Bâtiment / Local / Emplacement',
                 'required' => false,
                 'class' => Emplacement::class,
                 'choice_label' => function($choice) {
-                    return $choice->getNom() . ' / ' . $choice->getLocal()->getNom() . ' / ' . $choice->getLocal()->getBatiment()->getNom();
+                    return $choice->getLocal()->getBatiment()->getNom() . ' / ' . $choice->getLocal()->getNom() . ' / ' . $choice->getNom();
                 },
             ])
         ;
