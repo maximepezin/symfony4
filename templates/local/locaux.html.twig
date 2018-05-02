@@ -14,7 +14,7 @@
                             <div class="row mb20">
                                 <div class="col-sm-6">
                                     <div class="toolbar">
-                                        <a class="btn btn-info" href="#">
+                                        <a class="btn btn-info" href="{{ path('base_materiel_local_ajouter') }}">
                                             <i class="fa fa-plus mr10"></i>
                                             Ajouter un local
                                         </a>
@@ -25,18 +25,16 @@
                                 <table class="table mb0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Local</th>
                                             <th>Bâtiment</th>
+                                            <th>Local</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 {% for local in locaux %}
                                         <tr>
-                                            <td>{{ local.id }}</td>
-                                            <td>{{ local.nom }}</td>
                                             <td>{{ local.batiment.nom }}</td>
+                                            <td>{{ local.nom }}</td>
                                             <td>
                                                 <a class="btn btn-sm btn-default" href="#">
                                                     Editer
@@ -48,7 +46,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="4">
+                                            <td class="text-center" colspan="3">
                                                 Aucun local référencé dans la base.
                                             </td>
                                         </tr>

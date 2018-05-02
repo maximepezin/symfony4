@@ -134,7 +134,7 @@ class ModeleController extends Controller {
                 $em->remove($modele);
                 $em->flush();
             } catch (ForeignKeyConstraintViolationException $constraintViolationException) {
-                $this->addFlash('warning', 'Le modèle <strong>' . $modele->getNom() . '</strong> du fabricant ' . $modele->getFabricant()->getNom() . ' est utilisé et ne peut être supprimé.');
+                $this->addFlash('warning', 'Le modèle <strong>' . htmlspecialchars($modele->getNom()) . '</strong> du fabricant <strong>' . htmlspecialchars($modele->getFabricant()->getNom()) . '</strong> est utilisé et ne peut être supprimé.');
 
                 return $this->redirectToRoute('base_materiel_modeles');
             }

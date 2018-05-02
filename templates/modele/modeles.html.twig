@@ -25,20 +25,18 @@
                                 <table class="table mb0">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Type de matériel</th>
                                         <th>Fabricant</th>
                                         <th>Modèle</th>
+                                        <th>Type de matériel</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 {% for modele in modeles %}
                                         <tr>
-                                            <td>{{ modele.id }}</td>
-                                            <td>{{ modele.typeMateriel.libelle }}</td>
                                             <td>{{ modele.fabricant.nom }}</td>
                                             <td>{{ modele.nom }}</td>
+                                            <td>{{ modele.typeMateriel.libelle }}</td>
                                             <td>
                                                 <a class="btn btn-sm btn-default" href="{{ path('base_materiel_modele_editer', { 'id': modele.id }) }}">
                                                     Editer
@@ -50,7 +48,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="5">
+                                            <td class="text-center" colspan="4">
                                                 Aucun modèle référencé dans la base.
                                             </td>
                                         </tr>

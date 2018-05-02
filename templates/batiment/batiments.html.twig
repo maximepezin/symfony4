@@ -14,7 +14,7 @@
                             <div class="row mb20">
                                 <div class="col-sm-6">
                                     <div class="toolbar">
-                                        <a class="btn btn-info" href="#">
+                                        <a class="btn btn-info" href="{{ path('base_materiel_batiment_ajouter') }}">
                                             <i class="fa fa-plus mr10"></i>
                                             Ajouter un bâtiment
                                         </a>
@@ -25,7 +25,6 @@
                                 <table class="table mb0">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Bâtiment</th>
                                         <th>Actions</th>
                                     </tr>
@@ -33,7 +32,6 @@
                                     <tbody>
 {% for batiment in batiments %}
                                         <tr>
-                                            <td>{{ batiment.id }}</td>
                                             <td>{{ batiment.nom }}</td>
                                             <td>
                                                 <a class="btn btn-sm btn-default" href="#">
@@ -46,7 +44,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="3">
+                                            <td class="text-center" colspan="2">
                                                 Aucun bâtiment référencé dans la base.
                                             </td>
                                         </tr>

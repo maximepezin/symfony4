@@ -25,7 +25,6 @@
                                 <table class="table mb0">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Domaine</th>
                                         <th>Actions</th>
                                     </tr>
@@ -33,7 +32,6 @@
                                     <tbody>
 {% for domaine in domaines %}
                                         <tr>
-                                            <td>{{ domaine.id }}</td>
                                             <td>{{ domaine.nom }}</td>
                                             <td>
                                                 <a class="btn btn-sm btn-default" href="{{ path('base_materiel_domaine_editer', { 'id': domaine.id }) }}">
@@ -46,7 +44,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="3">
+                                            <td class="text-center" colspan="2">
                                                 Aucun domaine référencé dans la base.
                                             </td>
                                         </tr>

@@ -25,7 +25,6 @@
                                 <table class="table mb0">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Logiciel</th>
                                         <th>Actions</th>
                                     </tr>
@@ -33,7 +32,6 @@
                                     <tbody>
 {% for logiciel in logiciels %}
                                         <tr>
-                                            <td>{{ logiciel.id }}</td>
                                             <td>{{ logiciel.nom }}</td>
                                             <td>
                                                 <a class="btn btn-sm btn-default" href="{{ path('base_materiel_logiciel_editer', { 'id': logiciel.id }) }}">
@@ -46,7 +44,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="3">
+                                            <td class="text-center" colspan="2">
                                                 Aucun logiciel référencé dans la base.
                                             </td>
                                         </tr>
