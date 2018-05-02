@@ -13,8 +13,8 @@
                         <div class="panel-body">
                             <div class="row mb20">
                                 <div class="col-sm-6">
-                                    <div class="toolbar">
-                                        <a class="btn btn-info" href="{{ path('base_materiel_materiel_ajouter') }}">
+                                    <div class="">
+                                        <a class="btn btn-success" href="{{ path('base_materiel_materiel_ajouter') }}">
                                             <i class="fa fa-plus mr10"></i>
                                             Ajouter un matériel
                                         </a>
@@ -77,11 +77,11 @@
 {% endif %}
                                             </td>
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_visualiser', {'slug': materiel.slug}) }}">
+                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_materiel_visualiser', {'slug': materiel.slug}) }}">
                                                     <i class="fa fa-eye mr5"></i>
                                                     Voir
                                                 </a>
-                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_materiel_editer', {'slug': materiel.slug}) }}">
+                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_editer', {'slug': materiel.slug}) }}">
                                                     <i class="fa fa-pencil mr5"></i>
                                                     Editer
                                                 </a>

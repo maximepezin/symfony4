@@ -24,6 +24,20 @@
                             <i class="fa fa-caret-left"></i>
                             Retour
                         </a>
+                        <a class="btn btn-primary" href="{{ path('base_materiel_materiel_editer', { 'slug': materiel.slug }) }}">
+                            <i class="fa fa-pencil"></i>
+                            Editer
+                        </a>
+                        <a class="btn btn-danger" href="{{ path('base_materiel_materiel_supprimer', { 'slug': materiel.slug }) }}">
+                            <i class="fa fa-pencil"></i>
+                            Supprimer
+                        </a>
+                        <!--
+                        <a class="btn btn-info" href="#">
+                            <i class="fa fa-pencil"></i>
+                            Ping ?
+                        </a>
+                        -->
                     </div>
                     <div class="panel mb0">
                         <div class="panel-heading border">
@@ -274,7 +288,7 @@
 {% for materielSystemeExploitation in materiel.materielSystemesExploitation %}
                                                     <tr>
                                                         <td>{{ materielSystemeExploitation.systemeExploitation.nom }}</td>
-                                                        <td>{{ materielSystemeExploitation.dateInstallation|date('d/m/Y') }}</td>
+                                                        <td>{{ materielSystemeExploitation.installeLe|date('d/m/Y') }}</td>
                                                         <td>{{ materielSystemeExploitation.cleLicence }}</td>
                                                         <td>{{ materielSystemeExploitation.productId }}</td>
                                                         <td>

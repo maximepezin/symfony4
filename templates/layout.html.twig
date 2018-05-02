@@ -1,3 +1,5 @@
+{# templates/layout.hmtl.twig #}
+{% set route = app.request.attributes.get('_route') %}
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -13,7 +15,12 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/animate.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/urban.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/urban.skins.css') }}" />
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
         <style>
+            body {
+                font-family: 'Roboto', sans-serif!important;
+            }
+
             .table-responsive {
                 overflow-x: auto;
             }
@@ -42,13 +49,13 @@
                 </div>
                 <nav role="navigation">
                     <ul class="nav">
-                        <li>
+                        <li{% if route is same as ('base_materiel_tableau_bord') %} class="active"{% endif %}>
                             <a href="{{ path('base_materiel_tableau_bord') }}">
                                 <i class="fa fa-tachometer"></i>
                                 <span>Tableau de bord</span>
                             </a>
                         </li>
-                        <li>
+                        <li{% if route is same as ('base_materiel_materiels') %} class="active"{% endif %}>
                             <a href="{{ path('base_materiel_materiels') }}">
                                 <i class="fa fa-archive"></i>
                                 <span>Matériels</span>
@@ -60,47 +67,47 @@
                                 <span>Paramètres</span>
                             </a>
                             <ul class="sub-menu">
-                                <li>
+                                <li{% if route is same as ('base_materiel_types_materiel') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_types_materiel') }}">
                                         Types de matériel
                                     </a>
                                 </li>
-                                <li>
+                                <li{% if route is same as ('base_materiel_fabricants') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_fabricants') }}">
                                         Fabricants
                                     </a>
                                 </li>
-                                <li>
+                                <li{% if route is same as ('base_materiel_modeles') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_modeles') }}">
                                         Modèles
                                     </a>
                                 </li>
-                                <li>
+                                <li{% if route is same as ('base_materiel_domaines') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_domaines') }}">
                                         Domaines
                                     </a>
                                 </li>
-                                <li>
+                                <li{% if route is same as ('base_materiel_batiments') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_batiments') }}">
                                         Bâtiments
                                     </a>
                                 </li>
-                                <li>
+                                <li{% if route is same as ('base_materiel_locaux') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_locaux') }}">
                                         Locaux
                                     </a>
                                 </li>
-                                <li>
+                                <li{% if route is same as ('base_materiel_emplacements') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_emplacements') }}">
                                         Emplacements
                                     </a>
                                 </li>
-                                <li>
+                                <li{% if route is same as ('base_materiel_systemes_exploitation') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_systemes_exploitation') }}">
                                         Systèmes d'exploitation
                                     </a>
                                 </li>
-                                <li>
+                                <li{% if route is same as ('base_materiel_logiciels') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_logiciels') }}">
                                         Logiciels
                                     </a>
@@ -134,21 +141,17 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right hidden-xs">
                         <li>
-                            <!--
                             <a href="javascript:;" data-toggle="dropdown">
                                 <img src="https://secure.gravatar.com/avatar/8356eb477b89525afac6fd86bd0e3b02?d=identicon" class="header-avatar img-circle ml10" alt="user" title="user">
                                 <span class="pull-left">Maxime Lenoir</span>
                             </a>
-                            -->
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="#">Paramètres</a>
                                 </li>
-                                <!--
                                 <li>
                                     <a href="javascript:;">Aide</a>
                                 </li>
-                                -->
                                 <li>
                                     <a href="#">Se déconnecter</a>
                                 </li>
@@ -215,6 +218,16 @@
         <script src="{{ asset('admin_template/js/toggle.js') }}"></script>
         <script src="{{ asset('admin_template/js/urban-constants.js') }}"></script>
         <script src="{{ asset('admin_template/js/lib.js') }}"></script>
+        <script>
+            jQuery(document).ready(function() {
+                var menusAccordion = $(".menu-accordion");
+                var activeLinks = $(menusAccordion).find("li.active");
+
+                if (activeLinks.length === 1) {
+                    activeLinks.parents(".menu-accordion").addClass("open");
+                }
+            });
+        </script>
 {% block javascripts %}{% endblock %}
     </body>
 </html>
