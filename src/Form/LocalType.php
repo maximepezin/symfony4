@@ -16,6 +16,7 @@ class LocalType extends AbstractType {
         $builder
             ->add('batiment', EntityType::class, [
                 'label' => 'Bâtiment',
+                'placeholder' => 'Choisissez un bâtiment',
                 'class' => Batiment::class,
                 'choice_label' => function($choice) {
                     return $choice->getNom();

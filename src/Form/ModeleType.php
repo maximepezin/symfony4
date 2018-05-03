@@ -15,22 +15,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ModeleType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('nom', TextType::class, [
-                'label' => 'Modèle',
+            ->add('typeMateriel', EntityType::class, [
+                'label' => 'Type de matériel',
+                'placeholder' => 'Choisissez un type de matériel',
+                'class' => TypeMateriel::class,
+                'choice_label' => function($choice) {
+                    return $choice->getLibelle();
+                },
             ])
             ->add('fabricant', EntityType::class, [
                 'label' => 'Fabricant',
+                'placeholder' => 'Choisissez un fabricant',
                 'class' => Fabricant::class,
                 'choice_label' => function($choice) {
                     return $choice->getNom();
                 },
             ])
-            ->add('typeMateriel', EntityType::class, [
-                'label' => 'Type de matériel',
-                'class' => TypeMateriel::class,
-                'choice_label' => function($choice) {
-                    return $choice->getLibelle();
-                },
+            ->add('nom', TextType::class, [
+                'label' => 'Modèle',
             ])
         ;
     }

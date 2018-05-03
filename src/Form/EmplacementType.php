@@ -16,6 +16,7 @@ class EmplacementType extends AbstractType {
         $builder
             ->add('local', EntityType::class, [
                 'label' => 'Local',
+                'placeholder' => 'Choisissez un local',
                 'class' => Local::class,
                 'choice_label' => function($choice) {
                     return $choice->getBatiment()->getNom() . ' - ' . $choice->getNom();
