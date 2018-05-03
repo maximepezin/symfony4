@@ -8,6 +8,7 @@ use App\Entity\Modele;
 use App\Entity\TypeMateriel;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,6 +34,10 @@ class ModeleType extends AbstractType {
             ])
             ->add('nom', TextType::class, [
                 'label' => 'Modèle',
+            ])
+            ->add('fichierImage', FileType::class, [
+                'label' => 'Fichier image',
+                'required' => false,
             ])
         ;
     }

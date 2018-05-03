@@ -28,6 +28,7 @@
                                         <th>Fabricant</th>
                                         <th>Modèle</th>
                                         <th>Type de matériel</th>
+                                        <th>Fichier image</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -37,6 +38,13 @@
                                             <td>{{ modele.fabricant.nom }}</td>
                                             <td>{{ modele.nom }}</td>
                                             <td>{{ modele.typeMateriel.libelle }}</td>
+                                            <td>
+{% if modele.nomFichierImage is not empty %}
+                                                <img src="{{ vich_uploader_asset(modele, 'fichierImage') }}" alt="{{ modele.nom }}" style="display: block; border: 2px solid #E0E0E0; max-height: 75px;" />
+{% else %}
+                                                <img src="{{ asset('admin_template/images/visuel-indisponible.jpg') }}" alt="Visuel Indisponible" style="display: block; border: 2px solid #E0E0E0; max-height: 75px;" />
+{% endif %}
+                                            </td>
                                             <td>
                                                 <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_modele_editer', { 'id': modele.id }) }}">
                                                     Editer

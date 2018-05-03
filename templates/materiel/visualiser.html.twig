@@ -35,10 +35,17 @@
                     </div>
                     <div class="panel mb0">
                         <div class="panel-heading border">
-                            <h3>Visualisation du matériel {{ materiel.nom }}</h3>
-                            Ajouté le {{ materiel.ajouteLe|date('d/m/Y \\à H\\hi') }}
-                            &middot;
-                            {{ materiel.modifieLe is not empty ? 'Modifié le ' ~ materiel.modifieLe|date('d/m/Y \\à H\\hi') : 'Non modifié' }}
+{% if materiel.modele is not empty and materiel.modele.nomFichierImage is not empty %}
+        <img src="{{ vich_uploader_asset(materiel.modele, 'fichierImage') }}" alt="Illustration" style="display: inline-block; border: 2px solid #E0E0E0; margin-right: 15px; max-height: 125px;" />
+{% endif %}
+                            <div style="display: inline-block; padding: 5px 0; vertical-align: middle;">
+                                <h3 style="margin: 0;">Visualisation du matériel {{ materiel.nom }}</h3>
+                                <p style="margin: 0;">
+                                    Ajouté le {{ materiel.ajouteLe|date('d/m/Y \\à H\\hi') }}
+                                    &middot;
+                                    {{ materiel.modifieLe is not empty ? 'Modifié le ' ~ materiel.modifieLe|date('d/m/Y \\à H\\hi') : 'Non modifié' }}
+                                </p>
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="row">

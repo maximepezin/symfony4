@@ -88,6 +88,12 @@ class Materiel {
     private $modele = null;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Etat")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $etat;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Domaine")
      */
     private $domaine = null;
@@ -258,6 +264,16 @@ class Materiel {
 
     public function setModele(?Modele $modele = null): self {
         $this->modele = $modele;
+
+        return $this;
+    }
+
+    public function getEtat(): ?Etat {
+        return $this->etat;
+    }
+
+    public function setEtat(Etat $etat): self {
+        $this->etat = $etat;
 
         return $this;
     }
