@@ -48,20 +48,41 @@ class MaterielController extends Controller {
 
     /**
      * @Route(
-     *     "/materiels",
+     *     "/materiels/{numPage}",
      *     name="base_materiel_materiels",
+     *     requirements={
+     *         "numPage": "\d+",
+     *     },
+     *     defaults={
+     *         "numPage": 1,
+     *     },
      * )
      */
-    public function materiels() {
-        $materielRepository =	$this
+    public function materiels(int $numPage = 1) {
+        if ($numPage < 1) {
+            throw $this->createNotFoundException();
+        }
+
+        $materielRepository = $this
             ->getDoctrine()
             ->getRepository(Materiel::class)
         ;
 
-        $materiels = $materielRepository->findAll();
+        $materiels = $materielRepository->getMaterielsPagine(
+            $numPage,
+            Materiel::NOMBRE_ITEMS
+        );
+
+        $nbPages = ceil(count($materiels) / Materiel::NOMBRE_ITEMS);
+
+        if ($numPage > $nbPages) {
+            throw $this->createNotFoundException();
+        }
 
         return $this->render('materiel/materiels.html.twig', [
             'materiels' => $materiels,
+            'num_page' => $numPage,
+            'nb_pages' => $nbPages,
         ]);
     }
 

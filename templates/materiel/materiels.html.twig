@@ -21,6 +21,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <ul class="pagination pagination-sm">
+                                {% for p in range(1, nb_pages) %}
+                                    <li{% if p == num_page %} class="active"{% endif %}>
+                                        <a href="{{ path('base_materiel_materiels', { 'numPage': p } ) }}">
+                                            {{ p }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                             <div class="table-responsive">
                                 <table class="table mb0">
                                     <thead>
@@ -30,7 +39,6 @@
                                             <th>Fabricant</th>
                                             <th>Modèle</th>
                                             <th>Description courte</th>
-                                            <th>Etat</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -64,9 +72,6 @@
                                             </td>
                                             <td>{{ materiel.descriptionCourte }}</td>
                                             <td>
-                                                {{ materiel.etat.libelle }}
-                                            </td>
-                                            <td>
                                                 <a class="btn btn-sm btn-default" href="{{ path('base_materiel_materiel_visualiser', {'slug': materiel.slug}) }}">
                                                     <i class="fa fa-eye"></i>
                                                     <!--Voir-->
@@ -91,7 +96,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="7">
+                                            <td class="text-center" colspan="6">
                                                 Aucun matériel référencé dans la base.
                                             </td>
                                         </tr>
@@ -99,6 +104,15 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <ul class="pagination pagination-sm">
+{% for p in range(1, nb_pages) %}
+                                <li{% if p == num_page %} class="active"{% endif %}>
+                                    <a href="{{ path('base_materiel_materiels', { 'numPage': p } ) }}">
+                                        {{ p }}
+                                    </a>
+                                </li>
+{% endfor %}
+                            </ul>
                         </div>
                     </div>
 {% endblock %}

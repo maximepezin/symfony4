@@ -14,6 +14,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\HasLifecycleCallbacks()
  */
 class Materiel {
+    public const NOMBRE_ITEMS = 5;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -88,12 +90,6 @@ class Materiel {
     private $modele = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Etat")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $etat;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Domaine")
      */
     private $domaine = null;
@@ -124,7 +120,7 @@ class Materiel {
     private $sauvegardes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ConfigurationIp", mappedBy="materiel", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="ConfigurationIp", mappedBy="materiel", orphanRemoval=true)
      */
     private $configurationsIp;
 
@@ -264,16 +260,6 @@ class Materiel {
 
     public function setModele(?Modele $modele = null): self {
         $this->modele = $modele;
-
-        return $this;
-    }
-
-    public function getEtat(): ?Etat {
-        return $this->etat;
-    }
-
-    public function setEtat(Etat $etat): self {
-        $this->etat = $etat;
 
         return $this;
     }
