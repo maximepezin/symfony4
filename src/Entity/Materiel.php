@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\HasLifecycleCallbacks()
  */
 class Materiel {
-    public const NOMBRE_ITEMS = 5;
+    public const NOMBRE_ITEMS = 10;
 
     /**
      * @ORM\Id()

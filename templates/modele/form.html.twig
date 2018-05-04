@@ -18,6 +18,10 @@
             {{ form_widget(form.nom, { 'attr': { 'class': 'form-control' } }) }}
         </div>
     </div>
+    <div class="form-group">
+        {{ form_label(form.fichierImage, null, { 'label_attr': { 'class': 'col-sm-2 control-label'} }) }}
+        {{ form_widget(form.fichierImage, { 'attr': { 'style': 'padding: 7px;' } }) }}
+    </div>
     <div class="btn-group pull-right">
         <input class="btn btn-success" type="submit" value="Enregistrer" />
     </div>
