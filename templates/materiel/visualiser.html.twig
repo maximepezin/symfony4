@@ -20,7 +20,7 @@
 
 {% block body %}
                     <div class="mb20">
-                        <a class="btn btn-default" href="{{ path('base_materiel_materiels') }}">
+                        <a class="btn btn-default" href="javascript:history.back();">
                             <i class="fa fa-caret-left"></i>
                             Retour
                         </a>
@@ -29,14 +29,14 @@
                             Editer
                         </a>
                         <a class="btn btn-danger" href="{{ path('base_materiel_materiel_supprimer', { 'slug': materiel.slug }) }}">
-                            <i class="fa fa-pencil"></i>
+                            <i class="fa fa-trash"></i>
                             Supprimer
                         </a>
                     </div>
                     <div class="panel mb0">
                         <div class="panel-heading border">
 {% if materiel.modele is not empty and materiel.modele.nomFichierImage is not empty %}
-        <img src="{{ vich_uploader_asset(materiel.modele, 'fichierImage') }}" alt="Illustration" style="display: inline-block; border: 2px solid #E0E0E0; margin-right: 15px; max-height: 125px;" />
+        <img src="{{ vich_uploader_asset(materiel.modele, 'image') }}" alt="Illustration" style="display: inline-block; margin-right: 15px; max-height: 125px;" />
 {% endif %}
                             <div style="display: inline-block; padding: 5px 0; vertical-align: middle;">
                                 <h3 style="margin: 0;">Visualisation du matériel {{ materiel.nom }}</h3>
@@ -353,37 +353,40 @@
                                                         <th>Libellé</th>
                                                         <th>Adresse IP</th>
                                                         <th>Masque de sous-réseau</th>
+                                                        <th>Description</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-{% for configurationIp in materiel.configurationsIp %}
+{% for configuration_ip in materiel.configurationsIp %}
                                                     <tr>
-                                                        <td>{{ configurationIp.libelle }}</td>
-                                                        <td>{{ configurationIp.adresseIp }}</td>
-                                                        <td>{{ configurationIp.masqueSousReseau }}</td>
+                                                        <td>{{ configuration_ip.libelle }}</td>
+                                                        <td>{{ configuration_ip.adresseIpV4 }}</td>
+                                                        <td>{{ configuration_ip.masqueSousReseau }}</td>
+                                                        <td>{{ configuration_ip.description }}</td>
                                                         <td>
-                                                            <a class="btn btn-sm btn-primary" href="#">
+                                                            <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_configuration_ip_editer', { 'slugMateriel': materiel.slug, 'id': configuration_ip.id }) }}">
                                                                 <i class="fa fa-pencil"></i>
-                                                                Editer
+                                                                <!--Editer-->
                                                             </a>
-                                                            <a class="btn btn-sm btn-danger" href="#">
+                                                            <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_configuration_ip_supprimer', { 'slugMateriel': materiel.slug, 'id': configuration_ip.id }) }}">
                                                                 <i class="fa fa-trash"></i>
-                                                                Supprimer
-                                                            </a>
-                                                            <a href="{{ path('base_materiel_materiel_ping', { 'slug': materiel.slug }) }}" class="btn btn-sm btn-info">
-                                                                Ping ?
+                                                                <!--Supprimer-->
                                                             </a>
                                                         </td>
                                                     </tr>
 {% else %}
                                                     <tr>
-                                                        <td class="text-center" colspan="4">Aucune configuration IP n'est répertoriée pour ce matériel.</td>
+                                                        <td class="text-center" colspan="5">Aucune configuration IP n'est répertoriée pour ce matériel.</td>
                                                     </tr>
 {% endfor %}
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <a class="btn btn-sm btn-success" href="{{ path('base_materiel_configuration_ip_ajouter', { 'slugMateriel': materiel.slug }) }}">
+                                            <i class="fa fa-plus"></i>
+                                            Ajouter une configuration IP
+                                        </a>
                                     </div>
                                 </div>
                             </div>

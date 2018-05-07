@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Materiel;
+use App\Form\MaterielRechercheType;
 use App\Form\MaterielType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -206,37 +207,39 @@ class MaterielController extends Controller {
 
     /**
      * @Route(
-     *     "/materiel/ping/{slug}",
-     *     name="base_materiel_materiel_ping",
-     *     requirements={
-     *         "slug": "[a-z0-9\-]+",
-     *     },
+     *     "/materiel/rechercher",
+     *     name="base_materiel_materiel_rechercher",
      * )
      */
-    public function ping(string $slug) {
-        $materielRepository = $this
-            ->getDoctrine()
-            ->getRepository(Materiel::class)
-        ;
+    public function rechercher(Request $request) {
+        $form = $this->createForm(MaterielRechercheType::class);
 
-        $materiel = $materielRepository->findOneBy([
-            'slug' => $slug,
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $nom         = $form->get('nom')->getData();
+            $adresseIpV4 = $form->get('adresseIpV4')->getData();
+
+            $materielRepository = $this
+                ->getDoctrine()
+                ->getRepository(Materiel::class)
+            ;
+
+            $materiels = $materielRepository->rechercher(
+                $nom,
+                $adresseIpV4
+            );
+
+            return $this->render('materiel/rechercher.html.twig', [
+                'form' => $form->createView(),
+                'materiels' => $materiels,
+            ]);
+        }
+
+        return $this->render('materiel/rechercher.html.twig', [
+            'form' => $form->createView(),
         ]);
-
-        if ($materiel === null || $materiel->getConfigurationsIp()->isEmpty()) {
-            throw $this->createNotFoundException();
-        }
-
-        $process = new Process('ping -n -c 1 ' . $materiel->getConfigurationsIp()->get(0)->getAdresseIp());
-
-        $process->run();
-
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        echo 'Pong !<br /><br />';
-        echo nl2br($process->getOutput());
-        die();
     }
 }

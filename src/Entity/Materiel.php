@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\HasLifecycleCallbacks()
  */
 class Materiel {
-    public const NOMBRE_ITEMS = 10;
+    public const NOMBRE_ITEMS = 5;
 
     /**
      * @ORM\Id()
@@ -362,7 +362,7 @@ class Materiel {
     public function removeMaterielLogiciel(MaterielLogiciel $materielLogiciel): self {
         if ($this->materielLogiciels->contains($materielLogiciel)) {
             $this->materielLogiciels->removeElement($materielLogiciel);
-            // set the owning side to null (unless already changed)
+
             if ($materielLogiciel->getMateriel() === $this) {
                 $materielLogiciel->setMateriel(null);
             }
@@ -433,31 +433,12 @@ class Materiel {
      * @ORM\PrePersist()
      */
     public function prePersist() {
-        /*
-        if ($this->estPieceRechange && substr($this->nom, 0, 3) !== 'PR_') {
-            $this->nom = 'PR_' . $this->nom;
-            // Pas besoin de toucher au slug en prePersist !
-        }
-        */
-
         $this->ajouteLe = new \DateTime('now');
     }
 
     /**
      * @ORM\PreUpdate()
      */
-    public function preUpdate() {
-        /*
-        if ($this->estPieceRechange && substr($this->nom, 0, 3) !== 'PR_') {
-            $this->nom = 'PR_' . $this->nom;
-            $this->slug = 'pr-' . $this->slug;
-        }
-        else if (!$this->estPieceRechange && substr($this->nom, 0, 3) === 'PR_') {
-            $this->nom = substr($this->nom, 3);
-            $this->slug = substr($this->slug, 3);
-        }
-        */
-
-        $this->modifieLe = new \DateTime('now');
+    public function preUpdate() {$this->modifieLe = new \DateTime('now');
     }
 }

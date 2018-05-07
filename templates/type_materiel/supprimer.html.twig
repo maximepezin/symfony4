@@ -12,9 +12,9 @@
                         </div>
                         <div class="panel-body">
                             <p>
-                                Etes-vous certain de vouloir supprimer le type de matériel <strong>{{ typeMateriel.libelle }}</strong> ?
+                                Etes-vous certain de vouloir supprimer le type de matériel <strong>{{ type_materiel.libelle }}</strong> ?
                             </p>
-                            <form action="{{ path('base_materiel_type_materiel_supprimer', { 'id': typeMateriel.id }) }}" method="post">
+                            <form action="{{ path('base_materiel_type_materiel_supprimer', { 'id': type_materiel.id }) }}" method="post">
                                 <a href="{{ path('base_materiel_types_materiel') }}" class="btn btn-default">
                                     <i class="fa fa-caret-left"></i>
                                     Retour

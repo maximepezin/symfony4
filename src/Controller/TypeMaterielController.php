@@ -57,7 +57,7 @@ class TypeMaterielController extends Controller {
         $typesMateriel = $typeMaterielRepository->findAll();
 
         return $this->render('type_materiel/types_materiel.html.twig', [
-            'typesMateriel' => $typesMateriel,
+            'types_materiel' => $typesMateriel,
         ]);
     }
 
@@ -138,7 +138,7 @@ class TypeMaterielController extends Controller {
         }
 
         return $this->render('type_materiel/supprimer.html.twig', [
-            'typeMateriel' => $typeMateriel,
+            'type_materiel' => $typeMateriel,
             'form' => $form->createView(),
         ]);
     }

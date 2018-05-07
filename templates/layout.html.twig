@@ -55,11 +55,28 @@
                                 <span>Tableau de bord</span>
                             </a>
                         </li>
-                        <li{% if route is same as ('base_materiel_materiels') %} class="active"{% endif %}>
-                            <a href="{{ path('base_materiel_materiels') }}">
+                        <li>
+                            <a href="javascript:;">
                                 <i class="fa fa-archive"></i>
                                 <span>Matériels</span>
                             </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{ path('base_materiel_materiel_rechercher') }}">
+                                        Rechercher
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Recherche avancées
+                                    </a>
+                                </li>
+                                <li{% if route is same as ('base_materiel_materiels') %} class="active"{% endif %}>
+                                    <a href="{{ path('base_materiel_materiels') }}">
+                                        Liste du matériel
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <a href="javascript:;">
@@ -141,10 +158,12 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right hidden-xs">
                         <li>
+                            <!--
                             <a href="javascript:;" data-toggle="dropdown">
-                                <img src="https://secure.gravatar.com/avatar/8356eb477b89525afac6fd86bd0e3b02?d=identicon" class="header-avatar img-circle ml10" alt="user" title="user">
+                                <img src="https://secure.gravatar.com/avatar/8356eb477b89525afac6fd86bd0e3b02?d=identicon" class="header-avatar img-circle ml10" alt="user" title="user" />
                                 <span class="pull-left">Maxime Lenoir</span>
                             </a>
+                            -->
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="#">Paramètres</a>
@@ -218,6 +237,16 @@
         <script src="{{ asset('admin_template/js/toggle.js') }}"></script>
         <script src="{{ asset('admin_template/js/urban-constants.js') }}"></script>
         <script src="{{ asset('admin_template/js/lib.js') }}"></script>
+        <script>
+            $("[data-toggle=tooltip]").tooltip();
+
+            $("[data-toggle=popover]")
+                .popover()
+                .click(function (e) {
+                    e.preventDefault();
+                })
+            ;
+        </script>
         <script>
             jQuery(document).ready(function() {
                 var menusAccordion = $(".menu-accordion");

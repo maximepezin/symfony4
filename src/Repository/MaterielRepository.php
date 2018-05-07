@@ -34,4 +34,36 @@ class MaterielRepository extends ServiceEntityRepository {
 
         return new Paginator($query, true);
     }
+
+    public function rechercher($nom, $adresseIpV4) {
+        // A REVOIR...
+        /*
+        $queryBuilder = $this
+            ->createQueryBuilder('m')
+            ->leftJoin('m.configurationsIp', 'c')
+            ->addSelect('c')
+        ;
+
+        if ($nom !== null) {
+            $queryBuilder
+                ->andWhere('m.nom LIKE :nom')
+                ->setParameter(':nom', $nom)
+            ;
+        }
+
+        if ($adresseIpV4 != null) {
+            $adresseIpV4 = '%' . $adresseIpV4 . '%';
+
+            $queryBuilder
+                ->andWhere('c.adresseIpV4 LIKE :adresseIpV4')
+                ->setParameter(':adresseIpV4', $adresseIpV4)
+            ;
+        }
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult()
+        ;
+        */
+    }
 }

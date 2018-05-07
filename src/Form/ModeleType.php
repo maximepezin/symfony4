@@ -35,8 +35,8 @@ class ModeleType extends AbstractType {
             ->add('nom', TextType::class, [
                 'label' => 'Modèle',
             ])
-            ->add('fichierImage', FileType::class, [
-                'label' => 'Fichier image',
+            ->add('image', FileType::class, [
+                'label' => 'Image',
                 'required' => false,
             ])
         ;

@@ -30,14 +30,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-{% for typeMateriel in typesMateriel %}
+{% for type_materiel in types_materiel %}
                                         <tr>
-                                            <td>{{ typeMateriel.libelle }}</td>
+                                            <td>{{ type_materiel.libelle }}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_type_materiel_editer', { 'id': typeMateriel.id }) }}">
+                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_type_materiel_editer', { 'id': type_materiel.id }) }}">
                                                     Editer
                                                 </a>
-                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_type_materiel_supprimer', { 'id': typeMateriel.id }) }}">
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_type_materiel_supprimer', { 'id': type_materiel.id }) }}">
                                                     Supprimer
                                                 </a>
                                             </td>

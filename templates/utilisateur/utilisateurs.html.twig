@@ -1,5 +1,5 @@
-{# templates/modele/modeles.html.twig #}
-{% set title = 'Modèles référencés' %}
+{# templates/utilisateur/utilisateurs.html.twig #}
+{% set title = 'Utilisateurs' %}
 
 {% extends 'layout.html.twig' %}
 
@@ -14,9 +14,9 @@
                             <div class="row mb20">
                                 <div class="col-sm-6">
                                     <div class="toolbar">
-                                        <a class="btn btn-success" href="{{ path('base_materiel_modele_ajouter') }}">
+                                        <a class="btn btn-success" href="#">
                                             <i class="fa fa-plus mr10"></i>
-                                            Ajouter un modèle
+                                            Nouvel utilisateur
                                         </a>
                                     </div>
                                 </div>
@@ -25,31 +25,29 @@
                                 <table class="table mb0">
                                     <thead>
                                     <tr>
-                                        <th>Fabricant</th>
-                                        <th>Modèle</th>
-                                        <th>Type de matériel</th>
-                                        <!--<th>Image</th>-->
+                                        <th>Nom d'utilisateur</th>
+                                        <th>Email</th>
+                                        <th>Nom complet</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-{% for modele in modeles %}
+{% for utilisateur in utilisateurs %}
                                         <tr>
-                                            <td>{{ modele.fabricant.nom }}</td>
-                                            <td>{{ modele.nom }}</td>
-                                            <td>{{ modele.typeMateriel.libelle }}</td>
-{#
                                             <td>
-{% if modele.nomFichierImage is not empty %}
-                                                <img src="{{ vich_uploader_asset(modele, 'image') }}" alt="{{ modele.nom }}" style="display: block; max-height: 75px;" />
-{% endif %}
+                                                {{ utilisateur.gravatar|raw }}
+                                                {{ utilisateur.username }}
                                             </td>
-#}
+                                            <td>{{ utilisateur.email }}</td>
+                                            <td>{{ utilisateur.prenom ~ " " ~ utilisateur.nom }}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_modele_editer', { 'id': modele.id }) }}">
+                                                <a class="btn btn-sm btn-default" href="#">
+                                                    Voir
+                                                </a>
+                                                <a class="btn btn-sm btn-primary" href="#">
                                                     Editer
                                                 </a>
-                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_modele_supprimer', { 'id': modele.id }) }}">
+                                                <a class="btn btn-sm btn-danger" href="#">
                                                     Supprimer
                                                 </a>
                                             </td>
@@ -57,7 +55,7 @@
 {% else %}
                                         <tr>
                                             <td class="text-center" colspan="4">
-                                                Aucun modèle référencé dans la base.
+                                                Aucun utilisateur.
                                             </td>
                                         </tr>
 {% endfor %}

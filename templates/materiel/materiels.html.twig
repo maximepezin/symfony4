@@ -13,7 +13,7 @@
                         <div class="panel-body">
                             <div class="row mb20">
                                 <div class="col-sm-6">
-                                    <div class="">
+                                    <div>
                                         <a class="btn btn-success" href="{{ path('base_materiel_materiel_ajouter') }}">
                                             <i class="fa fa-plus mr10"></i>
                                             Ajouter un matériel
@@ -72,26 +72,15 @@
                                             </td>
                                             <td>{{ materiel.descriptionCourte }}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_materiel_visualiser', {'slug': materiel.slug}) }}">
+                                                <a class="btn btn-sm btn-default" href="{{ path('base_materiel_materiel_visualiser', {'slug': materiel.slug}) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Visualiser">
                                                     <i class="fa fa-eye"></i>
-                                                    <!--Voir-->
                                                 </a>
-                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_editer', {'slug': materiel.slug}) }}">
+                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_editer', {'slug': materiel.slug}) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
                                                     <i class="fa fa-pencil"></i>
-                                                    <!--Editer-->
                                                 </a>
-                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_materiel_supprimer', {'slug': materiel.slug}) }}">
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_materiel_supprimer', {'slug': materiel.slug}) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
                                                     <i class="fa fa-trash"></i>
-                                                    <!--Supprimer-->
                                                 </a>
-{% if materiel.configurationsIp is not empty %}
-                                                <!--
-                                                <a class="btn btn-sm btn-info" href="#">
-                                                    <!--<i class="fa fa-send mr5"></i>
-                                                    Ping ?
-                                                </a>
-                                                -->
-{% endif %}
                                             </td>
                                         </tr>
 {% else %}

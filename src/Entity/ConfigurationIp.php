@@ -20,12 +20,12 @@ class ConfigurationIp {
     /**
      * @ORM\Column(name="libelle", type="string", length=50, nullable=true)
      */
-    private $libelle;
+    private $libelle = null;
 
     /**
-     * @ORM\Column(name="adresse_ip", type="string", length=15)
+     * @ORM\Column(name="adresse_ip_v4", type="string", length=15)
      */
-    private $adresseIp;
+    private $adresseIpV4;
 
     /**
      * @ORM\Column(name="masque_sous_reseau", type="string", length=15)
@@ -33,10 +33,19 @@ class ConfigurationIp {
     private $masqueSousReseau;
 
     /**
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description = null;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Materiel", inversedBy="configurationsIp")
      * @ORM\JoinColumn(nullable=false)
      */
     private $materiel;
+
+    public function __construct(Materiel $materiel) {
+        $this->setMateriel($materiel);
+    }
 
     public function getId() {
         return $this->id;
@@ -52,12 +61,12 @@ class ConfigurationIp {
         return $this;
     }
 
-    public function getAdresseIp(): ?string {
-        return $this->adresseIp;
+    public function getAdresseIpV4(): ?string {
+        return $this->adresseIpV4;
     }
 
-    public function setAdresseIp(string $adresseIp): self {
-        $this->adresseIp = $adresseIp;
+    public function setAdresseIpV4(string $adresseIpV4): self {
+        $this->adresseIpV4 = $adresseIpV4;
 
         return $this;
     }
@@ -68,6 +77,16 @@ class ConfigurationIp {
 
     public function setMasqueSousReseau(string $masqueSousReseau): self {
         $this->masqueSousReseau = $masqueSousReseau;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description = null): self {
+        $this->description = $description;
 
         return $this;
     }

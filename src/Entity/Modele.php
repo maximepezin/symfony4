@@ -21,11 +21,6 @@ class Modele {
     private $id;
 
     /**
-     * @ORM\Column(name="modifie_le", type="datetime", nullable=true)
-     */
-    private $modifieLe = null;
-
-    /**
      * @ORM\Column(name="nom", type="string", length=50)
      */
     private $nom;
@@ -45,25 +40,20 @@ class Modele {
     /**
      * @Vich\UploadableField(mapping="image_modele", fileNameProperty="nomFichierImage")
      */
-    private $fichierImage;
+    private $image;
 
     /**
      * @ORM\Column(name="nom_fichier_image", type="string", length=255, nullable=true)
      */
     private $nomFichierImage = null;
 
+    /**
+     * @ORM\Column(name="image_ajoutee_le", type="datetime", nullable=true)
+     */
+    private $imageAjouteeLe = null;
+
     public function getId() {
         return $this->id;
-    }
-
-    public function getModifieLe(): ?\DateTime {
-        return $this->modifieLe;
-    }
-
-    public function setModifieLe(?\DateTime $modifieLe = null): self {
-        $this->modifieLe = $modifieLe;
-
-        return $this;
     }
 
     public function getNom(): ?string {
@@ -96,15 +86,15 @@ class Modele {
         return $this;
     }
 
-    public function getFichierImage(): ?File {
-        return $this->fichierImage;
+    public function getImage(): ?File {
+        return $this->image;
     }
 
-    public function setFichierImage(?File $fichierImage = null): self {
-        $this->fichierImage = $fichierImage;
+    public function setImage(?File $image = null): self {
+        $this->image = $image;
 
-        if ($this->fichierImage !== null) {
-            $this->modifieLe = new \DateTime('now');
+        if ($this->image !== null) {
+            $this->imageAjouteeLe = new \DateTime('now');
         }
 
         return $this;
@@ -116,6 +106,16 @@ class Modele {
 
     public function setNomFichierImage(?string $nomFichierImage = null): self {
         $this->nomFichierImage = $nomFichierImage;
+
+        return $this;
+    }
+
+    public function getImageAjouteeLe(): ?\DateTime {
+        return $this->imageAjouteeLe;
+    }
+
+    public function setImageAjouteeLe(?\DateTime $imageAjouteeLe = null): self {
+        $this->imageAjouteeLe = $imageAjouteeLe;
 
         return $this;
     }

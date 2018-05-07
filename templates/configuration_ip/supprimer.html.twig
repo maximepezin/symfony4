@@ -1,0 +1,34 @@
+{# templates/configuration_ip/supprimer.html.twig #}
+{% set title = 'Supprimer une configuration IP' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Etes-vous certain de vouloir supprimer la configuration IP suivant pour le matériel <strong>{{ materiel.nom }}</strong> ?
+                            </p>
+                            <p>
+                                Libellé: <strong>{{ configuration_ip.libelle }}</strong>
+                                <br />
+                                Adresse IP: <strong>{{ configuration_ip.adresseIpV4 }}</strong>
+                                <br />
+                                Masque de sous-réseau: <strong>{{ configuration_ip.masqueSousReseau }}</strong>
+                            </p>
+                            <form action="{{ path('base_materiel_configuration_ip_supprimer', { 'slugMateriel': materiel.slug, 'id': configuration_ip.id }) }}" method="post">
+                                <a href="{{ path('base_materiel_materiel_visualiser', { 'slug': materiel.slug }) }}" class="btn btn-default">
+                                    <i class="fa fa-caret-left"></i>
+                                    Retour
+                                </a>
+                                <input type="submit" value="Supprimer" class="btn btn-danger" />
+                                {{ form_rest(form) }}
+                            </form>
+                        </div>
+                    </div>
+{% endblock %}
