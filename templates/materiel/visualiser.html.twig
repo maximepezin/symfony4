@@ -20,7 +20,7 @@
 
 {% block body %}
                     <div class="mb20">
-                        <a class="btn btn-default" href="javascript:history.back();">
+                        <a class="btn btn-default" href="{{ path('base_materiel_materiels') }}">
                             <i class="fa fa-caret-left"></i>
                             Retour
                         </a>
@@ -265,10 +265,16 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <br />
+                                    <hr />
                                     <div class="row no-margin">
                                         <h4>Système(s) d'exploitation installé(s)</h4>
-                                        <div class="table-responsive mb20">
+                                        <div class="mt20 mb20 text-right">
+                                            <a class="btn btn-sm btn-success" href="{{ path('base_materiel_materiel_systeme_exploitation_ajouter', { 'slugMateriel': materiel.slug }) }}">
+                                                <i class="fa fa-plus"></i>
+                                                Ajouter un système d'exploitation
+                                            </a>
+                                        </div>
+                                        <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -280,20 +286,18 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-{% for materielSystemeExploitation in materiel.materielSystemesExploitation %}
+{% for materiel_systeme_exploitation in materiel.materielSystemesExploitation %}
                                                     <tr>
-                                                        <td>{{ materielSystemeExploitation.systemeExploitation.nom }}</td>
-                                                        <td>{{ materielSystemeExploitation.installeLe|date('d/m/Y') }}</td>
-                                                        <td>{{ materielSystemeExploitation.cleLicence }}</td>
-                                                        <td>{{ materielSystemeExploitation.productId }}</td>
+                                                        <td>{{ materiel_systeme_exploitation.systemeExploitation.nom }}</td>
+                                                        <td>{{ materiel_systeme_exploitation.installeLe is not empty ? materiel_systeme_exploitation.installeLe|date('d/m/Y') : '' }}</td>
+                                                        <td>{{ materiel_systeme_exploitation.cleLicence }}</td>
+                                                        <td>{{ materiel_systeme_exploitation.productId }}</td>
                                                         <td>
-                                                            <a class="btn btn-sm btn-primary" href="#">
+                                                            <a class="btn btn-sm btn-primary" href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
                                                                 <i class="fa fa-pencil"></i>
-                                                                Editer
                                                             </a>
-                                                            <a class="btn btn-sm btn-danger" href="#">
+                                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
                                                                 <i class="fa fa-trash"></i>
-                                                                Supprimer
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -306,8 +310,15 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <hr />
                                     <div class="row no-margin">
                                         <h4>Logiciel(s) installé(s)</h4>
+                                        <div class="mt20 mb20 text-right">
+                                            <a class="btn btn-sm btn-success" href="{{ path('base_materiel_materiel_logiciel_ajouter', { 'slugMateriel': materiel.slug }) }}">
+                                                <i class="fa fa-plus"></i>
+                                                Ajouter un logiciel
+                                            </a>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
@@ -319,19 +330,17 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-{% for materielLogiciel in materiel.materielLogiciels %}
+{% for materiel_logiciel in materiel.materielLogiciels %}
                                                     <tr>
-                                                        <td>{{ materielLogiciel.logiciel.nom }}</td>
-                                                        <td>{{ materielLogiciel.dateInstallation|date('d/m/Y') }}</td>
-                                                        <td>{{ materielLogiciel.cleLicence }}</td>
+                                                        <td>{{ materiel_logiciel.logiciel.nom }}</td>
+                                                        <td>{{ materiel_logiciel.installeLe is not empty ? materiel_logiciel.installeLe|date('d/m/Y') : '' }}</td>
+                                                        <td>{{ materiel_logiciel.cleLicence }}</td>
                                                         <td>
-                                                            <a class="btn btn-sm btn-primary" href="#">
+                                                            <a class="btn btn-sm btn-primary" href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
                                                                 <i class="fa fa-pencil"></i>
-                                                                Editer
                                                             </a>
-                                                            <a class="btn btn-sm btn-danger" href="#">
+                                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
                                                                 <i class="fa fa-trash"></i>
-                                                                Supprimer
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -344,8 +353,15 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <hr />
                                     <div class="row no-margin">
                                         <h4>Configuration(s) IP</h4>
+                                        <div class="mt20 mb20 text-right">
+                                            <a class="btn btn-sm btn-success" href="{{ path('base_materiel_configuration_ip_ajouter', { 'slugMateriel': materiel.slug }) }}">
+                                                <i class="fa fa-plus"></i>
+                                                Ajouter une configuration IP
+                                            </a>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
@@ -365,13 +381,11 @@
                                                         <td>{{ configuration_ip.masqueSousReseau }}</td>
                                                         <td>{{ configuration_ip.description }}</td>
                                                         <td>
-                                                            <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_configuration_ip_editer', { 'slugMateriel': materiel.slug, 'id': configuration_ip.id }) }}">
+                                                            <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_configuration_ip_editer', { 'slugMateriel': materiel.slug, 'id': configuration_ip.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
                                                                 <i class="fa fa-pencil"></i>
-                                                                <!--Editer-->
                                                             </a>
-                                                            <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_configuration_ip_supprimer', { 'slugMateriel': materiel.slug, 'id': configuration_ip.id }) }}">
+                                                            <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_configuration_ip_supprimer', { 'slugMateriel': materiel.slug, 'id': configuration_ip.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
                                                                 <i class="fa fa-trash"></i>
-                                                                <!--Supprimer-->
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -383,10 +397,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <a class="btn btn-sm btn-success" href="{{ path('base_materiel_configuration_ip_ajouter', { 'slugMateriel': materiel.slug }) }}">
-                                            <i class="fa fa-plus"></i>
-                                            Ajouter une configuration IP
-                                        </a>
                                     </div>
                                 </div>
                             </div>

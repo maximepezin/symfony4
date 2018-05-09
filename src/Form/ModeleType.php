@@ -18,7 +18,7 @@ class ModeleType extends AbstractType {
         $builder
             ->add('typeMateriel', EntityType::class, [
                 'label' => 'Type de matériel',
-                'placeholder' => 'Choisissez un type de matériel',
+                'placeholder' => 'Choisir un type de matériel',
                 'class' => TypeMateriel::class,
                 'choice_label' => function($choice) {
                     return $choice->getLibelle();
@@ -26,7 +26,7 @@ class ModeleType extends AbstractType {
             ])
             ->add('fabricant', EntityType::class, [
                 'label' => 'Fabricant',
-                'placeholder' => 'Choisissez un fabricant',
+                'placeholder' => 'Choisir un fabricant',
                 'class' => Fabricant::class,
                 'choice_label' => function($choice) {
                     return $choice->getNom();

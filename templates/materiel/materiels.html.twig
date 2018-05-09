@@ -39,6 +39,7 @@
                                             <th>Fabricant</th>
                                             <th>Modèle</th>
                                             <th>Description courte</th>
+                                            <th>Adresse(s) IP</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -70,7 +71,14 @@
                                                 <code>N/C</code>
 {% endif %}
                                             </td>
-                                            <td>{{ materiel.descriptionCourte }}</td>
+                                            <td>
+                                                <span>{{ materiel.description|length <= 25 ? materiel.description : materiel.description|slice(0, 25) ~ '...' }}</span>
+                                            </td>
+                                            <td>
+{% for configuration_ip in materiel.configurationsIp %}
+                                                {{ configuration_ip.adresseIpV4 ~ " / " ~ configuration_ip.masqueSousReseau }}{{ loop.last ? '' : '<br />' }}
+{% endfor %}
+                                            </td>
                                             <td>
                                                 <a class="btn btn-sm btn-default" href="{{ path('base_materiel_materiel_visualiser', {'slug': materiel.slug}) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Visualiser">
                                                     <i class="fa fa-eye"></i>
@@ -85,7 +93,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="6">
+                                            <td class="text-center" colspan="7">
                                                 Aucun matériel référencé dans la base.
                                             </td>
                                         </tr>

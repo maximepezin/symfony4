@@ -24,7 +24,7 @@ class MaterielType extends AbstractType {
             ])
             ->add('modele', EntityType::class, [
                 'label' => 'Modèle',
-                'placeholder' => 'Choisissez un modèle',
+                'placeholder' => 'Choisir un modèle',
                 'required' => false,
                 'class' => Modele::class,
                 'choice_label' => function($choice) {
@@ -65,7 +65,7 @@ class MaterielType extends AbstractType {
             ])
             ->add('domaine', EntityType::class, [
                 'label' => 'Domaine',
-                'placeholder' => 'Choisissez un domaine',
+                'placeholder' => 'Choisir un domaine',
                 'required' => false,
                 'class' => Domaine::class,
                 'choice_label' => function($choice) {
@@ -73,7 +73,8 @@ class MaterielType extends AbstractType {
                 },
             ])
             ->add('emplacement', EntityType::class, [
-                'label' => 'Bâtiment/Local/Emplacement',
+                'label' => 'Emplacement',
+                'placeholder' => 'Choisir un emplacement',
                 'required' => false,
                 'class' => Emplacement::class,
                 'choice_label' => function($choice) {
