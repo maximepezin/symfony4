@@ -34,6 +34,10 @@ class MaterielPieceRechange {
      */
     private $estUtilisee = false;
 
+    public function __construct(Materiel $materiel) {
+        $this->setMateriel($materiel);
+    }
+
     public function getId() {
         return $this->id;
     }

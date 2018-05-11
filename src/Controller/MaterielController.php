@@ -67,7 +67,7 @@ class MaterielController extends Controller {
             ->getRepository(Materiel::class)
         ;
 
-        $materiels = $materielRepository->getMaterielsPagine(
+        $materiels = $materielRepository->getMaterielsAvecPagination(
             $numPage,
             Materiel::NOMBRE_ITEMS
         );
@@ -222,7 +222,6 @@ class MaterielController extends Controller {
             $nom = $form->get('nom')->getData();
             $adresseIpV4 = $form->get('adresseIpV4')->getData();
 
-            // à modifier...
             if ($nom === null && $adresseIpV4 === null) {
                 $this->addFlash('danger', 'Veuillez saisir au moins un champ du formulaire de recherche rapide');
 

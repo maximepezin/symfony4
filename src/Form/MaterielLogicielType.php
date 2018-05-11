@@ -21,7 +21,7 @@ class MaterielLogicielType extends AbstractType {
                 'class' => Logiciel::class,
                 'choice_label' => function($choice) {
                     return $choice->getNom();
-                }
+                },
             ])
             ->add('installeLe', DateType::class, [
                 'label' => 'Installé le',

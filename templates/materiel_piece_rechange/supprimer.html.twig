@@ -1,0 +1,32 @@
+{# templates/materiel_piece_rechange/supprimer.html.twig #}
+{% set title = "Supprimer la pièce de rechange du matériel " ~ materiel.nom %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Etes-vous certain de vouloir supprimer la pièce de rechange suivante pour le matériel <strong>{{ materiel.nom }}</strong> ?
+                            </p>
+                            <p>
+                                Pièce de rechange : <strong>{{ materiel_piece_rechange.pieceRechange.nom }}</strong>
+                                <br />
+                                Est utilisée : <strong>{{ materiel_piece_rechange.estUtilisee ? 'Oui' : 'Non' }}</strong>
+                            </p>
+                            <form action="{{ path('base_materiel_materiel_piece_rechange_supprimer', { 'slugMateriel': materiel.slug, 'id': materiel_piece_rechange.id }) }}" method="post">
+                                <a href="{{ path('base_materiel_materiel_visualiser', { 'slug': materiel.slug }) }}" class="btn btn-default">
+                                    <i class="fa fa-caret-left"></i>
+                                    Retour
+                                </a>
+                                <input type="submit" value="Supprimer" class="btn btn-danger" />
+                                {{ form_rest(form) }}
+                            </form>
+                        </div>
+                    </div>
+{% endblock %}
