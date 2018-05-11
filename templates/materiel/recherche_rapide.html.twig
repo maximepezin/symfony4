@@ -1,5 +1,5 @@
-{# templates/materiel/rechercher.html.twig #}
-{% set title = 'Rechercher un matériel' %}
+{# templates/materiel/recherche.html.twig #}
+{% set title = "Recherche rapide d'un matériel" %}
 
 {% extends 'layout.html.twig' %}
 
@@ -13,16 +13,20 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-{% include 'materiel/rechercherForm.html.twig' %}
+{% include 'materiel/recherche_rapide_form.html.twig' %}
                                 </div>
                             </div>
 {% if materiels is defined %}
-                            <div class="table-responsive">
+                            <div class="table-responsive mt20">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th>Nom</th>
-                                            <th>Adresse(s) IPv4 / Masque de sous-réseau</th>
+                                            <th>Type</th>
+                                            <th>Fabricant</th>
+                                            <th>Modèle</th>
+                                            <th>Description courte</th>
+                                            <th>Adresse(s) IPv4 / Masque(s) sous-réseau</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -31,8 +35,38 @@
                                         <tr>
                                             <td>{{ materiel.nom }}</td>
                                             <td>
+{% if materiel.modele is not empty %}
+                                                {{ materiel.modele.typeMateriel.libelle }}
+{% else %}
+                                                <code> n/c </code>
+{% endif %}
+                                            </td>
+                                            <td>
+{% if materiel.modele is not empty %}
+                                                {{ materiel.modele.fabricant.nom }}
+{% else %}
+                                                <code> n/c </code>
+{% endif %}
+                                            </td>
+                                            <td>
+{% if materiel.modele is not empty %}
+                                                {{ materiel.modele.nom }}
+{% else %}
+                                                <code> n/c </code>
+{% endif %}
+                                            </td>
+                                            <td>
+{% if materiel.description is not empty %}
+                                                {{ materiel.description|length <= 25 ? materiel.description : materiel.description|slice(0, 25) ~ '...' }}
+{% else %}
+                                                <code> n/c </code>
+{% endif %}
+                                            </td>
+                                            <td>
 {% for configuration_ip in materiel.configurationsIp %}
                                                 {{ configuration_ip.adresseIpV4 ~ ' / ' ~ configuration_ip.masqueSousReseau }}{{ loop.last ? '' : '<br />' }}
+{% else %}
+                                                <code> n/c </code>
 {% endfor %}
                                             </td>
                                             <td>
@@ -43,7 +77,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="3">Aucun résultat.</td>
+                                            <td class="text-center" colspan="7">Aucun résultat.</td>
                                         </tr>
 {% endfor %}
                                     </tbody>

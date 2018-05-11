@@ -70,9 +70,9 @@
                                 <span>Matériels</span>
                             </a>
                             <ul class="sub-menu">
-                                <li>
-                                    <a href="{{ path('base_materiel_materiel_rechercher') }}">
-                                        Rechercher
+                                <li{% if route is same as ('base_materiel_materiel_recherche_rapide') %} class="active"{% endif %}>
+                                    <a href="{{ path('base_materiel_materiel_recherche_rapide') }}">
+                                        Recherche rapide
                                     </a>
                                 </li>
                                 <li>

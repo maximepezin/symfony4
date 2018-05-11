@@ -8,7 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class LogicielFixtures extends Fixture {
-    public const JET_BRAINS_PHP_STORM_IDE_V_2018_1REFERENCE = 'jet-brains-php-storm-ide-v-2018-1';
+    public const JET_BRAINS_PHP_STORM_IDE_V_2018_1_REFERENCE = 'jet-brains-php-storm-ide-v-2018-1';
 
     public function load(ObjectManager $manager) {
         $jetBrainsPhpStormIdeV20181 = new Logiciel();
@@ -17,6 +17,6 @@ class LogicielFixtures extends Fixture {
         $manager->persist($jetBrainsPhpStormIdeV20181);
         $manager->flush();
 
-        $this->addReference(LogicielFixtures::JET_BRAINS_PHP_STORM_IDE_V_2018_1REFERENCE, $jetBrainsPhpStormIdeV20181);
+        $this->addReference(LogicielFixtures::JET_BRAINS_PHP_STORM_IDE_V_2018_1_REFERENCE, $jetBrainsPhpStormIdeV20181);
     }
 }

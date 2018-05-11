@@ -4,7 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Materiel;
-use App\Form\MaterielRechercheType;
+use App\Form\MaterielRechercheRapideType;
 use App\Form\MaterielType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -209,38 +209,43 @@ class MaterielController extends Controller {
 
     /**
      * @Route(
-     *     "/materiel/rechercher",
-     *     name="base_materiel_materiel_rechercher",
+     *     "/materiel/recherche-rapide",
+     *     name="base_materiel_materiel_recherche_rapide",
      * )
      */
-    public function rechercher(Request $request) {
-        $form = $this->createForm(MaterielRechercheType::class);
+    public function rechercheRapide(Request $request) {
+        $form = $this->createForm(MaterielRechercheRapideType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-
-            $nom         = $form->get('nom')->getData();
+            $nom = $form->get('nom')->getData();
             $adresseIpV4 = $form->get('adresseIpV4')->getData();
+
+            // à modifier...
+            if ($nom === null && $adresseIpV4 === null) {
+                $this->addFlash('danger', 'Veuillez saisir au moins un champ du formulaire de recherche rapide');
+
+                return $this->redirectToRoute('base_materiel_materiel_recherche_rapide');
+            }
 
             $materielRepository = $this
                 ->getDoctrine()
                 ->getRepository(Materiel::class)
             ;
 
-            $materiels = $materielRepository->rechercher(
+            $materiels = $materielRepository->rechercheRapide(
                 $nom,
                 $adresseIpV4
             );
 
-            return $this->render('materiel/rechercher.html.twig', [
+            return $this->render('materiel/recherche_rapide.html.twig', [
                 'form' => $form->createView(),
                 'materiels' => $materiels,
             ]);
         }
 
-        return $this->render('materiel/rechercher.html.twig', [
+        return $this->render('materiel/recherche_rapide.html.twig', [
             'form' => $form->createView(),
         ]);
     }

@@ -35,35 +35,41 @@ class MaterielRepository extends ServiceEntityRepository {
         return new Paginator($query, true);
     }
 
-    public function rechercher($nom, $adresseIpV4) {
-        // A REVOIR...
-        /*
+    public function rechercheRapide(?string $nom, ?string $adresseIpV4) {
         $queryBuilder = $this
             ->createQueryBuilder('m')
-            ->leftJoin('m.configurationsIp', 'c')
-            ->addSelect('c')
+            ->leftJoin('m.modele', 'm2')
+            ->addSelect('m2')
+            ->leftJoin('m2.typeMateriel', 'tm')
+            ->addSelect('tm')
+            ->leftJoin('m2.fabricant', 'f')
+            ->addSelect('f')
+            ->leftJoin('m.configurationsIp', 'ci')
+            ->addSelect('ci')
         ;
 
         if ($nom !== null) {
             $queryBuilder
-                ->andWhere('m.nom LIKE :nom')
-                ->setParameter(':nom', $nom)
+                ->orWhere('m.nom LIKE :nom')
+                ->setParameter(':nom', '%' . $nom . '%')
             ;
         }
 
-        if ($adresseIpV4 != null) {
-            $adresseIpV4 = '%' . $adresseIpV4 . '%';
-
+        if ($adresseIpV4 !== null) {
             $queryBuilder
-                ->andWhere('c.adresseIpV4 LIKE :adresseIpV4')
+                ->orWhere('ci.adresseIpV4 LIKE :adresseIpV4')
                 ->setParameter(':adresseIpV4', $adresseIpV4)
             ;
         }
+
+        $queryBuilder
+            ->addOrderBy('m.nom', 'ASC')
+            ->addOrderBy('ci.adresseIpV4', 'ASC')
+        ;
 
         return $queryBuilder
             ->getQuery()
             ->getResult()
         ;
-        */
     }
 }

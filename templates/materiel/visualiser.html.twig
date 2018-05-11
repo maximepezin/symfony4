@@ -34,11 +34,10 @@
         <img src="{{ vich_uploader_asset(materiel.modele, 'image') }}" alt="Illustration" style="display: inline-block; margin-right: 15px; max-height: 125px;" />
 {% endif %}
                             <div style="display: inline-block; padding: 5px 0; vertical-align: middle;">
-                                <h3 style="margin: 0;">Visualisation du matériel {{ materiel.nom }}</h3>
+                                <h3 style="margin: 0;">{{ materiel.nom }}</h3>
                                 <p style="margin: 0;">
-                                    Ajouté le {{ materiel.ajouteLe|date('d/m/Y \\à H\\hi') }}
-                                    &middot;
-                                    {{ materiel.modifieLe is not empty ? 'Modifié le ' ~ materiel.modifieLe|date('d/m/Y \\à H\\hi') : 'Non modifié' }}
+                                    Matériel ajouté le {{ materiel.ajouteLe|date('d/m/Y \\à H\\hi') }},
+                                    {{ materiel.modifieLe is not empty ? 'modifié le ' ~ materiel.modifieLe|date('d/m/Y \\à H\\hi') : 'non modifié' }}
                                 </p>
                             </div>
                         </div>
@@ -54,7 +53,7 @@
 {% if materiel.modele is not empty %}
                                                         {{ materiel.modele.typeMateriel.libelle }}
 {% else %}
-                                                        <code> N/C </code>
+                                                        <code> n/c </code>
 {% endif %}
                                                     </span>
                                                 </div>
@@ -68,7 +67,7 @@
 {% if materiel.modele is not empty %}
                                                         {{ materiel.modele.fabricant.nom }}
 {% else %}
-                                                        <code> N/C </code>
+                                                        <code> n/c </code>
 {% endif %}
                                                     </span>
                                                 </div>
@@ -82,7 +81,7 @@
 {% if materiel.modele is not empty %}
                                                         {{ materiel.modele.nom }}
 {% else %}
-                                                        <code> N/C </code>
+                                                        <code> n/c </code>
 {% endif %}
                                                     </span>
                                                 </div>
@@ -101,7 +100,7 @@
 {% if materiel.description is not empty %}
                                                 {{ materiel.description|nl2br }}
 {% else %}
-                                                <code> N/C </code>
+                                                <code> n/c </code>
 {% endif %}
                                             </span>
                                         </div>
@@ -116,7 +115,7 @@
 {% if materiel.acheteLe is not empty %}
                                                 {{ materiel.acheteLe|date("d/m/Y") }}
 {% else %}
-                                                <code> N/C </code>
+                                                <code> n/c </code>
 {% endif %}
                                             </span>
                                         </div>
@@ -132,7 +131,7 @@
 {% if materiel.numeroSerie is not empty %}
                                                 {{ materiel.numeroSerie }}
 {% else %}
-                                                <code> N/C </code>
+                                                <code> n/c </code>
 {% endif %}
                                             </span>
                                         </div>
@@ -240,7 +239,7 @@
 {% if materiel.domaine is not empty %}
                                                 {{ materiel.domaine.nom }}
 {% else %}
-                                                <code> N/C </code>
+                                                <code> n/c </code>
 {% endif %}
                                             </span>
                                         </div>
@@ -255,7 +254,7 @@
                                                 du local "<em>{{ materiel.emplacement.local.nom }}</em>"
                                                 du bâtiment "<em>{{ materiel.emplacement.local.batiment.nom }}</em>"
 {% else %}
-                                                <code> N/C </code>
+                                                <code> n/c </code>
 {% endif %}
                                             </span>
                                         </div>
@@ -288,21 +287,21 @@
 {% if materiel_systeme_exploitation.installeLe is not empty %}
                                                             {{ materiel_systeme_exploitation.installeLe|date('d/m/Y') }}
 {% else %}
-                                                            <code> N/C </code>
+                                                            <code> n/c </code>
 {% endif %}
                                                         </td>
                                                         <td>
 {% if materiel_systeme_exploitation.cleLicence is not empty %}
                                                             {{ materiel_systeme_exploitation.cleLicence }}
 {% else %}
-                                                            <code> N/C </code>
+                                                            <code> n/c </code>
 {% endif %}
                                                         </td>
                                                         <td>
 {% if materiel_systeme_exploitation.productId is not empty %}
                                                             {{ materiel_systeme_exploitation.productId }}
 {% else %}
-                                                            <code> N/C </code>
+                                                            <code> n/c </code>
 {% endif %}
                                                         </td>
                                                         <td>
@@ -350,14 +349,14 @@
 {% if materiel_logiciel.installeLe is not empty %}
                                                             {{ materiel_logiciel.installeLe|date('d/m/Y') }}
 {% else %}
-                                                            <code> N/C </code>
+                                                            <code> n/c </code>
 {% endif %}
                                                         </td>
                                                         <td>
 {% if materiel_logiciel.cleLicence is not empty %}
                                                             {{ materiel_logiciel.cleLicence }}
 {% else %}
-                                                            <code> N/C </code>
+                                                            <code> n/c </code>
 {% endif %}
                                                         </td>
                                                         <td>
@@ -405,7 +404,7 @@
 {% if configuration_ip.libelle is not empty %}
                                                             {{ configuration_ip.libelle }}
 {% else %}
-                                                            <code> N/C </code>
+                                                            <code> n/c </code>
 {% endif %}
                                                         </td>
                                                         <td>{{ configuration_ip.adresseIpV4 }}</td>
@@ -414,7 +413,7 @@
 {% if configuration_ip.description is not empty %}
                                                             {{ configuration_ip.description }}
 {% else %}
-                                                            <code> N/C </code>
+                                                            <code> n/c </code>
 {% endif %}
                                                         </td>
                                                         <td>

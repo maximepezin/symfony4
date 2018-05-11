@@ -39,7 +39,7 @@
                                             <th>Fabricant</th>
                                             <th>Modèle</th>
                                             <th>Description courte</th>
-                                            <th>Adresse(s) IP</th>
+                                            <th>Adresse(s) IPv4 / Masque(s) sous-réseau</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -47,42 +47,40 @@
 {% for materiel in materiels %}
                                         <tr>
                                             <td>
-                                                <a href="{{ path('base_materiel_materiel_visualiser', { 'slug': materiel.slug }) }}">
-                                                    {{ materiel.nom }}
-                                                </a>
+                                                {{ materiel.nom }}
                                             </td>
                                             <td>
 {% if materiel.modele is not empty %}
                                                 {{ materiel.modele.typeMateriel.libelle }}
 {% else %}
-                                                <code>N/C</code>
+                                                <code> n/c </code>
 {% endif %}
                                             </td>
                                             <td>
 {% if materiel.modele is not empty %}
                                                 {{ materiel.modele.fabricant.nom }}
 {% else %}
-                                                <code>N/C</code>
+                                                <code> n/c </code>
 {% endif %}
                                             <td>
 {% if materiel.modele is not empty %}
                                                 {{ materiel.modele.nom }}
 {% else %}
-                                                <code>N/C</code>
+                                                <code> n/c </code>
 {% endif %}
                                             </td>
                                             <td>
 {% if materiel.description is not empty %}
                                                 {{ materiel.description|length <= 25 ? materiel.description : materiel.description|slice(0, 25) ~ '...' }}
 {% else %}
-                                                <code> N/C </code>
+                                                <code> n/c </code>
 {% endif %}
                                             </td>
                                             <td>
 {% for configuration_ip in materiel.configurationsIp %}
                                                 {{ configuration_ip.adresseIpV4 ~ " / " ~ configuration_ip.masqueSousReseau }}{{ loop.last ? '' : '<br />' }}
 {% else %}
-                                                <code> N/C </code>
+                                                <code> n/c </code>
 {% endfor %}
                                             </td>
                                             <td>

@@ -12,7 +12,7 @@ class MaterielLogicielFixtures extends Fixture implements DependentFixtureInterf
     public function load(ObjectManager $manager) {
         $materielLogiciel = new MaterielLogiciel($this->getReference(MaterielFixtures::PCDEV_REFERENCE));
         $materielLogiciel
-            ->setLogiciel($this->getReference(LogicielFixtures::JET_BRAINS_PHP_STORM_IDE_V_2018_1REFERENCE))
+            ->setLogiciel($this->getReference(LogicielFixtures::JET_BRAINS_PHP_STORM_IDE_V_2018_1_REFERENCE))
             ->setInstalleLe(new \DateTime('now'))
         ;
 

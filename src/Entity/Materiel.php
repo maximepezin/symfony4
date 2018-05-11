@@ -180,10 +180,6 @@ class Materiel {
         return $this;
     }
 
-    public function getDescriptionCourte(): ?string {
-        return substr($this->description, 0, 36) . (strlen($this->description) > 35 ? '[...]' : '');
-    }
-
     public function getAcheteLe(): ?\DateTimeInterface {
         return $this->acheteLe;
     }
