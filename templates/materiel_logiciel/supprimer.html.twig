@@ -1,5 +1,5 @@
-{# templates/configuration_ip/supprimer.html.twig #}
-{% set title = 'Supprimer une configuration IP' %}
+{# templates/materiel_logiciel/supprimer.html.twig #}
+{% set title = "Supprimer le logiciel du matériel " ~ materiel.nom %}
 
 {% extends 'layout.html.twig' %}
 
@@ -12,18 +12,16 @@
                         </div>
                         <div class="panel-body">
                             <p>
-                                Etes-vous certain de vouloir supprimer la configuration IP suivante pour le matériel <strong>{{ materiel.nom }}</strong> ?
+                                Etes-vous certain de vouloir supprimer le logiciel suivant pour le matériel <strong>{{ materiel.nom }}</strong> ?
                             </p>
                             <p>
-                                Libellé : <strong>{{ configuration_ip.libelle }}</strong>
+                                Logiciel : <strong>{{ materiel_logiciel.logiciel.nom }}</strong>
                                 <br />
-                                Adresse IP : <strong>{{ configuration_ip.adresseIpV4 }}</strong>
+                                Installé le : <strong>{{ materiel_logiciel.installeLe is not empty ? materiel_logiciel.installeLe|date('d/m/Y') : '' }}</strong>
                                 <br />
-                                Masque de sous-réseau : <strong>{{ configuration_ip.masqueSousReseau }}</strong>
-                                <br />
-                                Description : <strong>{{ configuration_ip.description }}</strong>
+                                Clé de licence : <strong>{{ materiel_logiciel.cleLicence }}</strong>
                             </p>
-                            <form action="{{ path('base_materiel_configuration_ip_supprimer', { 'slugMateriel': materiel.slug, 'id': configuration_ip.id }) }}" method="post">
+                            <form action="{{ path('base_materiel_materiel_logiciel_supprimer', { 'slugMateriel': materiel.slug, 'id': materiel_logiciel.id }) }}" method="post">
                                 <a href="{{ path('base_materiel_materiel_visualiser', { 'slug': materiel.slug }) }}" class="btn btn-default">
                                     <i class="fa fa-caret-left"></i>
                                     Retour

@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Entity\Modele;
 use App\Form\ModeleType;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -130,14 +129,8 @@ class ModeleController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $em->remove($modele);
-                $em->flush();
-            } catch (ForeignKeyConstraintViolationException $constraintViolationException) {
-                $this->addFlash('warning', 'Le modèle <strong>' . htmlspecialchars($modele->getNom()) . '</strong> du fabricant <strong>' . htmlspecialchars($modele->getFabricant()->getNom()) . '</strong> est utilisé et ne peut être supprimé.');
-
-                return $this->redirectToRoute('base_materiel_modeles');
-            }
+            $em->remove($modele);
+            $em->flush();
 
             $this->addFlash('success', 'Modèle supprimé avec succès.');
 

@@ -7,8 +7,6 @@ use App\Entity\Materiel;
 use App\Form\MaterielRechercheType;
 use App\Form\MaterielType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -74,7 +72,11 @@ class MaterielController extends Controller {
             Materiel::NOMBRE_ITEMS
         );
 
-        $nbPages = ceil(count($materiels) / Materiel::NOMBRE_ITEMS);
+        $nbPages = (int)(ceil(count($materiels) / Materiel::NOMBRE_ITEMS));
+
+        if ($nbPages === 0) {
+            $nbPages = 1;
+        }
 
         if ($numPage > $nbPages) {
             throw $this->createNotFoundException();

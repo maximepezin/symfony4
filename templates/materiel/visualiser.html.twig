@@ -10,11 +10,6 @@
             .col-form-label {
                 font-weight: bold;
             }
-
-            code {
-                color: #0A0909;
-                font-size: inherit;
-            }
         </style>
 {% endblock %}
 
@@ -289,14 +284,32 @@
 {% for materiel_systeme_exploitation in materiel.materielSystemesExploitation %}
                                                     <tr>
                                                         <td>{{ materiel_systeme_exploitation.systemeExploitation.nom }}</td>
-                                                        <td>{{ materiel_systeme_exploitation.installeLe is not empty ? materiel_systeme_exploitation.installeLe|date('d/m/Y') : '' }}</td>
-                                                        <td>{{ materiel_systeme_exploitation.cleLicence }}</td>
-                                                        <td>{{ materiel_systeme_exploitation.productId }}</td>
                                                         <td>
-                                                            <a class="btn btn-sm btn-primary" href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
+{% if materiel_systeme_exploitation.installeLe is not empty %}
+                                                            {{ materiel_systeme_exploitation.installeLe|date('d/m/Y') }}
+{% else %}
+                                                            <code> N/C </code>
+{% endif %}
+                                                        </td>
+                                                        <td>
+{% if materiel_systeme_exploitation.cleLicence is not empty %}
+                                                            {{ materiel_systeme_exploitation.cleLicence }}
+{% else %}
+                                                            <code> N/C </code>
+{% endif %}
+                                                        </td>
+                                                        <td>
+{% if materiel_systeme_exploitation.productId is not empty %}
+                                                            {{ materiel_systeme_exploitation.productId }}
+{% else %}
+                                                            <code> N/C </code>
+{% endif %}
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_systeme_exploitation_editer', { 'slugMateriel': materiel.slug, 'id': materiel_systeme_exploitation.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
+                                                            <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_materiel_systeme_exploitation_supprimer', { 'slugMateriel': materiel.slug, 'id': materiel_systeme_exploitation.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
                                                                 <i class="fa fa-trash"></i>
                                                             </a>
                                                         </td>
@@ -333,13 +346,25 @@
 {% for materiel_logiciel in materiel.materielLogiciels %}
                                                     <tr>
                                                         <td>{{ materiel_logiciel.logiciel.nom }}</td>
-                                                        <td>{{ materiel_logiciel.installeLe is not empty ? materiel_logiciel.installeLe|date('d/m/Y') : '' }}</td>
-                                                        <td>{{ materiel_logiciel.cleLicence }}</td>
                                                         <td>
-                                                            <a class="btn btn-sm btn-primary" href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
+{% if materiel_logiciel.installeLe is not empty %}
+                                                            {{ materiel_logiciel.installeLe|date('d/m/Y') }}
+{% else %}
+                                                            <code> N/C </code>
+{% endif %}
+                                                        </td>
+                                                        <td>
+{% if materiel_logiciel.cleLicence is not empty %}
+                                                            {{ materiel_logiciel.cleLicence }}
+{% else %}
+                                                            <code> N/C </code>
+{% endif %}
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_logiciel_editer', { 'slugMateriel': materiel.slug, 'id': materiel_logiciel.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
+                                                            <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_materiel_logiciel_supprimer', { 'slugMateriel': materiel.slug, 'id': materiel_logiciel.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
                                                                 <i class="fa fa-trash"></i>
                                                             </a>
                                                         </td>
@@ -376,10 +401,22 @@
                                                 <tbody>
 {% for configuration_ip in materiel.configurationsIp %}
                                                     <tr>
-                                                        <td>{{ configuration_ip.libelle }}</td>
+                                                        <td>
+{% if configuration_ip.libelle is not empty %}
+                                                            {{ configuration_ip.libelle }}
+{% else %}
+                                                            <code> N/C </code>
+{% endif %}
+                                                        </td>
                                                         <td>{{ configuration_ip.adresseIpV4 }}</td>
                                                         <td>{{ configuration_ip.masqueSousReseau }}</td>
-                                                        <td>{{ configuration_ip.description }}</td>
+                                                        <td>
+{% if configuration_ip.description is not empty %}
+                                                            {{ configuration_ip.description }}
+{% else %}
+                                                            <code> N/C </code>
+{% endif %}
+                                                        </td>
                                                         <td>
                                                             <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_configuration_ip_editer', { 'slugMateriel': materiel.slug, 'id': configuration_ip.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
                                                                 <i class="fa fa-pencil"></i>
