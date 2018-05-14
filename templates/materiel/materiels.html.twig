@@ -11,7 +11,7 @@
                             {{ title }}
                         </div>
                         <div class="panel-body">
-                            <div class="row mb20">
+                            <div class="row">
                                 <div class="col-sm-6">
                                     <div>
                                         <a class="btn btn-success" href="{{ path('base_materiel_materiel_ajouter') }}">
@@ -21,7 +21,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <ul class="pagination pagination-sm">
+                            <ul class="pagination pagination-sm mb15">
                                 {% for p in range(1, nb_pages) %}
                                     <li{% if p == num_page %} class="active"{% endif %}>
                                         <a href="{{ path('base_materiel_materiels', { 'numPage': p } ) }}">
@@ -31,7 +31,7 @@
                                 {% endfor %}
                             </ul>
                             <div class="table-responsive">
-                                <table class="table mb0">
+                                <table class="table table-bordered mb0">
                                     <thead>
                                         <tr>
                                             <th>Nom</th>
@@ -105,7 +105,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <ul class="pagination pagination-sm">
+                            <ul class="pagination pagination-sm mb0">
 {% for p in range(1, nb_pages) %}
                                 <li{% if p == num_page %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_materiels', { 'numPage': p } ) }}">

@@ -9,6 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * Classe Logiciel
+ *
+ * @package App\Entity
+ *
  * @ORM\Entity(repositoryClass="App\Repository\MaterielRepository")
  * @ORM\Table(name="materiel")
  * @ORM\HasLifecycleCallbacks()
@@ -132,7 +136,7 @@ class Materiel {
         $this->configurationsIp = new ArrayCollection();
     }
 
-    public function getId() {
+    public function getId(): ?int {
         return $this->id;
     }
 
@@ -435,6 +439,7 @@ class Materiel {
     /**
      * @ORM\PreUpdate()
      */
-    public function preUpdate() {$this->modifieLe = new \DateTime('now');
+    public function preUpdate() {
+        $this->modifieLe = new \DateTime('now');
     }
 }

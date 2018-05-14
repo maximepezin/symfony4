@@ -5,8 +5,6 @@ namespace App\Repository;
 
 use App\Entity\Materiel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\Query\Expr\OrderBy;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -70,15 +68,12 @@ class MaterielRepository extends ServiceEntityRepository {
     }
 
     /**
-     * A RETRAVAILLER
      * Sélectionne et retourne un objet Materiel pleinement hydraté en fonction
      * du slug (clé unique) passé en paramètre ou null si aucun résultat
      *
      * @param string $slug Le slug du matériel à sélectionner
      *
      * @return Materiel|null
-     *
-     * @deprecated
      */
     public function getMaterielParSlug(string $slug) {
         $query = $this
@@ -95,6 +90,8 @@ class MaterielRepository extends ServiceEntityRepository {
             ->addSelect('ml')
             ->leftJoin('ml.logiciel', 'l')
             ->addSelect('l')
+            ->leftJoin('m.materielPiecesRechange', 'mpr')
+            ->addSelect('mpr')
             ->andWhere('m.slug LIKE :slug')
             ->setParameter(':slug', $slug)
             ->addOrderBy('se.nom', 'ASC')
@@ -105,7 +102,7 @@ class MaterielRepository extends ServiceEntityRepository {
 
         try {
             $rs = $query->getOneOrNullResult();
-        } catch (\Exception $exception) { // Inutile... mais évite que l'IDE râle
+        } catch (\Exception $exception) {
             $rs = null;
         }
 

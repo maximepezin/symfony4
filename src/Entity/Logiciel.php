@@ -6,6 +6,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Classe Logiciel
+ *
+ * @package App\Entity
+ *
  * @ORM\Entity(repositoryClass="App\Repository\LogicielRepository")
  * @ORM\Table(name="logiciel")
  */
@@ -22,14 +26,25 @@ class Logiciel {
      */
     private $nom;
 
-    public function getId() {
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int {
         return $this->id;
     }
 
+    /**
+     * @return null|string
+     */
     public function getNom(): ?string {
         return $this->nom;
     }
 
+    /**
+     * @param string $nom Le nom du logiciel
+     *
+     * @return Logiciel
+     */
     public function setNom(string $nom): self {
         $this->nom = $nom;
 

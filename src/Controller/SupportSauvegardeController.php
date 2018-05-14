@@ -38,7 +38,7 @@ class SupportSauvegardeController extends Controller {
             $em->persist($supportSauvegarde);
             $em->flush();
 
-            $this->addFlash('succcess', 'Support de sauvegarde ajouté avec succès');
+            $this->addFlash('success', 'Support de sauvegarde ajouté avec succès');
 
             return $this->redirectToRoute('base_materiel_supports_sauvegarde');
         }

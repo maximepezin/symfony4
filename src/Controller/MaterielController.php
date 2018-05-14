@@ -198,7 +198,9 @@ class MaterielController extends Controller {
 
         $materielRepo = $em->getRepository(Materiel::class);
 
-        $materiel = $materielRepo->getMaterielParSlug($slug);
+        $materiel = $materielRepo->findOneBy([
+            'slug' => $slug,
+        ]);
 
         if ($materiel === null) {
             throw $this->createNotFoundException();

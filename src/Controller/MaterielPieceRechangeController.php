@@ -6,7 +6,9 @@ namespace App\Controller;
 use App\Entity\Materiel;
 use App\Entity\MaterielPieceRechange;
 use App\Form\MaterielPieceRechangeType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -19,8 +21,13 @@ class MaterielPieceRechangeController extends Controller {
      *         "slugMateriel": "[a-z0-9\-]+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param string $slugMateriel Le slug du matériel auquel on ajoute la pièce de rechange
+     *
+     * @return RedirectResponse|Response
      */
-    public function ajouter(Request $request, string $slugMateriel) {
+    public function ajouter(Request $request, string $slugMateriel): Response {
         $materielRepository = $this
             ->getDoctrine()
             ->getRepository(Materiel::class)
@@ -71,8 +78,14 @@ class MaterielPieceRechangeController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param string $slugMateriel  Le slug du matériel auquel on supprime la pièce de rechange
+     * @param int $id               L'identifiant de l'association matériel/pièce de rechange
+     *
+     * @return RedirectResponse|Response
      */
-    public function supprimer(Request $request, string $slugMateriel, int $id) {
+    public function supprimer(Request $request, string $slugMateriel, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()

@@ -31,7 +31,7 @@
                     <div class="panel mb0">
                         <div class="panel-heading border">
 {% if materiel.modele is not empty and materiel.modele.nomFichierImage is not empty %}
-        <img src="{{ vich_uploader_asset(materiel.modele, 'image') }}" alt="Illustration" style="display: inline-block; margin-right: 15px; max-height: 125px;" />
+                            <img src="{{ vich_uploader_asset(materiel.modele, 'image') }}" alt="Illustration" style="display: inline-block; margin-right: 15px; max-height: 125px;" />
 {% endif %}
                             <div style="display: inline-block; padding: 5px 0; vertical-align: middle;">
                                 <h3 style="margin: 0;">{{ materiel.nom }}</h3>
@@ -269,7 +269,7 @@
                                             </a>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th>Système d'exploitation</th>
@@ -332,7 +332,7 @@
                                             </a>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table table-bordered">
                                                 <thead>
                                                 <tr>
                                                     <th>Logiciel</th>
@@ -387,7 +387,7 @@
                                             </a>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th>Libellé</th>
@@ -428,6 +428,56 @@
 {% else %}
                                                     <tr>
                                                         <td class="text-center" colspan="5">Aucune configuration IP n'est répertoriée pour ce matériel.</td>
+                                                    </tr>
+{% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row no-margin">
+                                        <h4>Pièce(s) de rechange</h4>
+                                        <div class="mt20 mb20 text-right">
+                                            <a class="btn btn-sm btn-success" href="{{ path('base_materiel_materiel_piece_rechange_ajouter', { 'slugMateriel': materiel.slug }) }}">
+                                                <i class="fa fa-plus"></i>
+                                                Ajouter une pièce de rechange
+                                            </a>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nom de la pièce de rechange</th>
+                                                        <th>Est utilisée ?</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+{% for materiel_piece_rechange in materiel.materielPiecesRechange %}
+                                                    <tr>
+                                                        <td>{{ materiel_piece_rechange.pieceRechange.nom }}</td>
+                                                        <td>
+{% if materiel_piece_rechange.estUtilisee %}
+                                                            <span style="color: mediumseagreen;">
+                                                                <i class="fa fa-check"></i>
+                                                                Oui
+                                                            </span>
+{% else %}
+                                                            <span style="color: darkred;">
+                                                                <i class="fa fa-times"></i>
+                                                                Non
+                                                            </span>
+{% endif %}
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_materiel_piece_rechange_supprimer', { 'slugMateriel': materiel.slug, 'id': materiel_piece_rechange.id }) }}">
+                                                                <i class="fa fa-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+{% else %}
+                                                    <tr>
+                                                        <td class="text-center" colspan="3">Aucune pièce de rechange n'est répertoriée pour ce matériel.</td>
                                                     </tr>
 {% endfor %}
                                                 </tbody>
