@@ -73,6 +73,12 @@
                                                 <a class="btn btn-sm btn-default" href="{{ path('base_materiel_materiel_visualiser', { 'slug': materiel.slug }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Visualiser">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
+                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_materiel_editer', { 'slug': materiel.slug }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_materiel_supprimer', { 'slug': materiel.slug }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
                                             </td>
                                         </tr>
 {% else %}

@@ -55,6 +55,10 @@ class Sauvegarde {
      */
     private $materiel;
 
+    public function __construct(Materiel $materiel) {
+        $this->setMateriel($materiel);
+    }
+
     public function getId() {
         return $this->id;
     }

@@ -22,6 +22,25 @@ class MaterielRepository extends ServiceEntityRepository {
     }
 
     /**
+     * @return QueryBuilder
+     */
+    private function getQueryBuilder() {
+        $queryBuilder = $this
+            ->createQueryBuilder('m')
+            ->leftJoin('m.modele', 'm2')
+            ->addSelect('m2')
+            ->leftJoin('m2.typeMateriel', 'tm')
+            ->addSelect('tm')
+            ->leftJoin('m2.fabricant', 'f')
+            ->addSelect('f')
+            ->leftJoin('m.configurationsIp', 'ci')
+            ->addSelect('ci')
+        ;
+
+        return $queryBuilder;
+    }
+
+    /**
      * Retourne un objet de pagination contenant la collection de Materiel dans un intervalle donné,
      * calculé en fonction du numéro de page et du nombre d'items passés en paramètres
      *
@@ -32,15 +51,7 @@ class MaterielRepository extends ServiceEntityRepository {
      */
     public function getMaterielsAvecPagination(int $numPage, int $nbItems): Paginator {
         $query = $this
-            ->createQueryBuilder('m')
-            ->leftJoin('m.modele', 'm2')
-            ->addSelect('m2')
-            ->leftJoin('m2.typeMateriel', 'tm')
-            ->addSelect('tm')
-            ->leftJoin('m2.fabricant', 'f')
-            ->addSelect('f')
-            ->leftJoin('m.configurationsIp', 'ci')
-            ->addSelect('ci')
+            ->getQueryBuilder()
             ->orderBy('m.nom', 'ASC')
             ->getQuery()
         ;
@@ -69,25 +80,15 @@ class MaterielRepository extends ServiceEntityRepository {
     }
 
     /**
-     * Méthode de recherche rapide...
+     * Méthode de recherche rapide
      *
-     * @param null|string $nom          Le nom du matériel recherché
-     * @param null|string $adresseIpV4  L'adresse IPv4 exacte du matériel recherché
+     * @param null|string $nom          Le nom du matériel à rechercher
+     * @param null|string $adresseIpV4  L'adresse IPv4 exacte du matériel à rechercher
      *
      * @return mixed
      */
     public function rechercheRapide(?string $nom, ?string $adresseIpV4) {
-        $queryBuilder = $this
-            ->createQueryBuilder('m')
-            ->leftJoin('m.modele', 'm2')
-            ->addSelect('m2')
-            ->leftJoin('m2.typeMateriel', 'tm')
-            ->addSelect('tm')
-            ->leftJoin('m2.fabricant', 'f')
-            ->addSelect('f')
-            ->leftJoin('m.configurationsIp', 'ci')
-            ->addSelect('ci')
-        ;
+        $queryBuilder = $this->getQueryBuilder();
 
         if ($nom !== null) {
             $queryBuilder

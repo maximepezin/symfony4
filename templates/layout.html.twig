@@ -138,6 +138,16 @@
                                         Logiciels
                                     </a>
                                 </li>
+                                <li{% if route is same as ('base_materiel_methodes_sauvegarde') %} class="active"{% endif %}>
+                                    <a href="{{ path('base_materiel_methodes_sauvegarde') }}">
+                                        Méthodes de sauvegarde
+                                    </a>
+                                </li>
+                                <li{% if route is same as ('base_materiel_supports_sauvegarde') %} class="active"{% endif %}>
+                                    <a href="{{ path('base_materiel_supports_sauvegarde') }}">
+                                        Supports de sauvegarde
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

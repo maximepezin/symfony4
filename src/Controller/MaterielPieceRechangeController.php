@@ -61,4 +61,63 @@ class MaterielPieceRechangeController extends Controller {
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route(
+     *     "/materiel/{slugMateriel}/piece-rechange/supprimer/{id}",
+     *     name="base_materiel_materiel_piece_rechange_supprimer",
+     *     requirements={
+     *         "slugMateriel": "[a-z0-9\-]+",
+     *         "id": "\d+",
+     *     },
+     * )
+     */
+    public function supprimer(Request $request, string $slugMateriel, int $id) {
+        $em = $this
+            ->getDoctrine()
+            ->getManager()
+        ;
+
+        $materielRepository = $em->getRepository(Materiel::class);
+
+        $materiel = $materielRepository->findOneBy([
+            'slug' => $slugMateriel,
+        ]);
+
+        if ($materiel === null) {
+            throw $this->createNotFoundException();
+        }
+
+        $materielPieceRechangeRepository = $em->getRepository(MaterielPieceRechange::class);
+
+        $materielPieceRechange = $materielPieceRechangeRepository->findOneBy([
+            'id' => $id,
+            'materiel' => $materiel,
+        ]);
+
+        if ($materielPieceRechange === null) {
+            throw $this->createNotFoundException();
+        }
+
+        $form = $this->get('form.factory')->create();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->remove($materielPieceRechange);
+            $em->flush();
+
+            $this->addFlash('success', 'Pièce de rechange supprimée avec succès.');
+
+            return $this->redirectToRoute('base_materiel_materiel_visualiser', [
+                'slug' => $materiel->getSlug(),
+            ]);
+        }
+
+        return $this->render('materiel_piece_rechange/supprimer.html.twig', [
+            'materiel' => $materiel,
+            'materiel_piece_rechange' => $materielPieceRechange,
+            'form' => $form->createView(),
+        ]);
+    }
 }

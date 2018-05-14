@@ -6,7 +6,9 @@ namespace App\Controller;
 use App\Entity\ConfigurationIp;
 use App\Entity\Materiel;
 use App\Form\ConfigurationIpType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -19,6 +21,11 @@ class ConfigurationIpController extends Controller {
      *         "slugMateriel": "[a-z0-9\-]+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param string $slugMateriel Le slug du matériel dont on souhaite ajouter une configuration IP
+     *
+     * @return RedirectResponse|Response
      */
     public function ajouter(Request $request, string $slugMateriel) {
         $em = $this
@@ -68,6 +75,12 @@ class ConfigurationIpController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param string $slugMateriel  Le slug du matériel dont on souhaite éditer la configuration IP
+     * @param int $id               L'identifiant de la configuration IP à editer
+     *
+     * @return RedirectResponse|Response
      */
     public function editer(Request $request, string $slugMateriel, int $id) {
         $em = $this
@@ -125,6 +138,12 @@ class ConfigurationIpController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param string $slugMateriel  Le slug du matériel dont on souhaite supprimer la configuration IP
+     * @param int $id               L'identifiant de la configuration IP à supprimer
+     *
+     * @return RedirectResponse|Response
      */
     public function supprimer(Request $request, string $slugMateriel, int $id) {
         $em = $this

@@ -1,0 +1,27 @@
+{# templates/methode_sauvegarde/supprimer.html.twig #}
+{% set title = 'Supprimer une méthode de sauvegarde' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Etes-vous certain de vouloir supprimer la méthode de sauvegarde <strong>{{ methode_sauvegarde.libelle }}</strong> ?
+                            </p>
+                            <form action="{{ path('base_materiel_methode_sauvegarde_supprimer', { 'id': methode_sauvegarde.id }) }}" method="post">
+                                <a href="{{ path('base_materiel_methodes_sauvegarde') }}" class="btn btn-default">
+                                    <i class="fa fa-caret-left"></i>
+                                    Retour
+                                </a>
+                                <input type="submit" value="Supprimer" class="btn btn-danger" />
+                                {{ form_rest(form) }}
+                            </form>
+                        </div>
+                    </div>
+{% endblock %}
