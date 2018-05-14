@@ -19,6 +19,16 @@ class Utilisateur implements UserInterface, \Serializable {
     private $id;
 
     /**
+     * @ORM\Column(name="ajoute_le", type="datetime")
+     */
+    private $ajouteLe;
+
+    /**
+     * @ORM\Column(name="modifie_le", type="datetime", nullable=true)
+     */
+    private $modifieLe;
+
+    /**
      * @ORM\Column(name="username", type="string", length=30, unique=true)
      */
     private $username;
@@ -54,6 +64,26 @@ class Utilisateur implements UserInterface, \Serializable {
 
     public function getId() {
         return $this->id;
+    }
+
+    public function getAjouteLe(): ?\DateTime {
+        return $this->ajouteLe;
+    }
+
+    public function setAjouteLe(\DateTime $ajouteLe): self {
+        $this->ajouteLe = $ajouteLe;
+
+        return $this;
+    }
+
+    public function getModifieLe(): ?\DateTime {
+        return $this->modifieLe;
+    }
+
+    public function setModifieLe(\DateTime $modifieLe = null): self {
+        $this->modifieLe = $modifieLe;
+
+        return $this;
     }
 
     public function getUsername(): ?string {

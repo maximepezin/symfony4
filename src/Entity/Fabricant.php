@@ -6,6 +6,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Classe Fabricant
+ *
+ * @package App\Entity
+ *
  * @ORM\Entity(repositoryClass="App\Repository\FabricantRepository")
  * @ORM\Table(name="fabricant")
  */
@@ -22,14 +26,25 @@ class Fabricant {
      */
     private $nom;
 
-    public function getId() {
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int {
         return $this->id;
     }
 
+    /**
+     * @return null|string
+     */
     public function getNom(): ?string {
         return $this->nom;
     }
 
+    /**
+     * @param string $nom Le nom du fabricant
+     *
+     * @return Fabricant
+     */
     public function setNom(string $nom): self {
         $this->nom = $nom;
 

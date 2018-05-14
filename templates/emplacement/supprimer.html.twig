@@ -1,0 +1,29 @@
+{# templates/emplacement/supprimer.html.twig #}
+{% set title = 'Supprimer un emplacement' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Etes-vous certain de vouloir supprimer l'emplacement <strong>{{ emplacement.nom }}</strong>
+                                du local <strong>{{ emplacement.local.nom }}</strong>
+                                du bâtiment <strong>{{ emplacement.local.batiment.nom }}</strong> ?
+                            </p>
+                            <form action="{{ path('base_materiel_emplacement_supprimer', { 'id': emplacement.id }) }}" method="post">
+                                <a href="{{ path('base_materiel_emplacements') }}" class="btn btn-default">
+                                    <i class="fa fa-caret-left"></i>
+                                    Retour
+                                </a>
+                                <input type="submit" value="Supprimer" class="btn btn-danger" />
+                                {{ form_rest(form) }}
+                            </form>
+                        </div>
+                    </div>
+{% endblock %}

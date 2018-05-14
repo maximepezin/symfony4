@@ -6,6 +6,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Classe Local
+ *
+ * @package App\Entity
+ *
  * @ORM\Entity(repositoryClass="App\Repository\LocalRepository")
  * @ORM\Table(name="local")
  */
@@ -28,24 +32,43 @@ class Local {
      */
     private $batiment;
 
-    public function getId() {
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int {
         return $this->id;
     }
 
+    /**
+     * @return null|string
+     */
     public function getNom(): ?string {
         return $this->nom;
     }
 
+    /**
+     * @param string $nom Le nom du local
+     *
+     * @return Local
+     */
     public function setNom(string $nom): self {
         $this->nom = $nom;
 
         return $this;
     }
 
+    /**
+     * @return Batiment|null
+     */
     public function getBatiment(): ?Batiment {
         return $this->batiment;
     }
 
+    /**
+     * @param Batiment $batiment Le bâtiment où se trouve le local
+     *
+     * @return Local
+     */
     public function setBatiment(Batiment $batiment): self {
         $this->batiment = $batiment;
 
