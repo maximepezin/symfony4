@@ -36,10 +36,10 @@
                                             <td>{{ local.batiment.nom }}</td>
                                             <td>{{ local.nom }}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="#">
+                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_local_editer', { 'id': local.id }) }}">
                                                     Editer
                                                 </a>
-                                                <a class="btn btn-sm btn-danger" href="#">
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_local_supprimer', { 'id': local.id }) }}">
                                                     Supprimer
                                                 </a>
                                             </td>

@@ -5,18 +5,29 @@ namespace App\Controller;
 
 use App\Entity\Fabricant;
 use App\Form\FabricantType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Classe FabricantController
+ *
+ * @package App\Controller
+ */
 class FabricantController extends Controller {
     /**
      * @Route(
      *     "/fabricant/ajouter",
      *     name="base_materiel_fabricant_ajouter",
      * )
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
-    public function ajouter(Request $request) {
+    public function ajouter(Request $request): Response {
         $fabricant = new Fabricant();
 
         $form = $this->createForm(FabricantType::class, $fabricant);
@@ -47,14 +58,16 @@ class FabricantController extends Controller {
      *     "/fabricants",
      *     name="base_materiel_fabricants",
      * )
+     *
+     * @return Response
      */
-    public function fabricants() {
+    public function fabricants(): Response {
         $fabricantRepository = $this
             ->getDoctrine()
             ->getRepository(Fabricant::class)
         ;
 
-        $fabricants = $fabricantRepository->findAll();
+        $fabricants = $fabricantRepository->getFabricants();
 
         return $this->render('fabricant/fabricants.html.twig', [
             'fabricants' => $fabricants,
@@ -69,8 +82,13 @@ class FabricantController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du fabricant à éditer
+     *
+     * @return RedirectResponse|Response
      */
-    public function editer(Request $request, int $id) {
+    public function editer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -109,8 +127,13 @@ class FabricantController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du fabricant à supprimer
+     *
+     * @return RedirectResponse|Response
      */
-    public function supprimer(Request $request, int $id) {
+    public function supprimer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()

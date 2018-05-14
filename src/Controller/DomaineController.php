@@ -5,18 +5,29 @@ namespace App\Controller;
 
 use App\Entity\Domaine;
 use App\Form\DomaineType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Classe DomaineController
+ *
+ * @package App\Controller
+ */
 class DomaineController extends Controller {
     /**
      * @Route(
      *     "/domaine/ajouter",
      *     name="base_materiel_domaine_ajouter",
      * )
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
-    public function ajouter(Request $request) {
+    public function ajouter(Request $request): Response {
         $domaine = new Domaine();
 
         $form = $this->createForm(DomaineType::class, $domaine);
@@ -47,14 +58,16 @@ class DomaineController extends Controller {
      *     "/domaines",
      *     name="base_materiel_domaines",
      * )
+     *
+     * @return Response
      */
-    public function domaines() {
+    public function domaines(): Response {
         $domaineRepository = $this
             ->getDoctrine()
             ->getRepository(Domaine::class)
         ;
 
-        $domaines = $domaineRepository->findAll();
+        $domaines = $domaineRepository->getDomaines();
 
         return $this->render('domaine/domaines.html.twig', [
             'domaines' => $domaines,
@@ -69,8 +82,13 @@ class DomaineController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du domaine à éditer
+     *
+     * @return RedirectResponse|Response
      */
-    public function editer(Request $request, int $id) {
+    public function editer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -109,8 +127,13 @@ class DomaineController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du domaine à supprimer
+     *
+     * @return RedirectResponse|Response
      */
-    public function supprimer(Request $request, int $id) {
+    public function supprimer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()

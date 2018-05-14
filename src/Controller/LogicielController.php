@@ -5,18 +5,29 @@ namespace App\Controller;
 
 use App\Entity\Logiciel;
 use App\Form\LogicielType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Classe LogicielController
+ *
+ * @package App\Controller
+ */
 class LogicielController extends Controller {
     /**
      * @Route(
      *     "/logiciel/ajouter",
      *     name="base_materiel_logiciel_ajouter",
      * )
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
-    public function ajouter(Request $request) {
+    public function ajouter(Request $request): Response {
         $logiciel = new Logiciel();
 
         $form = $this->createForm(LogicielType::class, $logiciel);
@@ -47,14 +58,16 @@ class LogicielController extends Controller {
      *     "/logiciels",
      *     name="base_materiel_logiciels",
      * )
+     *
+     * @return Response
      */
-    public function logiciels() {
+    public function logiciels(): Response {
         $logicielRepository = $this
             ->getDoctrine()
             ->getRepository(Logiciel::class)
         ;
 
-        $logiciels = $logicielRepository->findAll();
+        $logiciels = $logicielRepository->getLogiciels();
 
         return $this->render('logiciel/logiciels.html.twig', [
             'logiciels' => $logiciels,
@@ -69,8 +82,13 @@ class LogicielController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du logiciel à éditer
+     *
+     * @return RedirectResponse|Response
      */
-    public function editer(Request $request, int $id) {
+    public function editer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -109,8 +127,13 @@ class LogicielController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du logiciel à supprimer
+     *
+     * @return RedirectResponse|Response
      */
-    public function supprimer(Request $request, int $id) {
+    public function supprimer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()

@@ -8,6 +8,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * Classe BatimentRepository
+ *
+ * @package App\Repository
+ *
  * @method Batiment|null find($id, $lockMode = null, $lockVersion = null)
  * @method Batiment|null findOneBy(array $criteria, array $orderBy = null)
  * @method Batiment[]    findAll()
@@ -16,5 +20,18 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class BatimentRepository extends ServiceEntityRepository {
     public function __construct(RegistryInterface $registry) {
         parent::__construct($registry, Batiment::class);
+    }
+
+    /**
+     * return Batiment[]
+     */
+    public function getBatiments() {
+        $query = $this
+            ->createQueryBuilder('b')
+            ->addOrderBy('b.nom', 'ASC')
+            ->getQuery()
+        ;
+
+        return $query->getResult();
     }
 }

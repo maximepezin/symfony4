@@ -5,18 +5,29 @@ namespace App\Controller;
 
 use App\Entity\TypeMateriel;
 use App\Form\TypeMaterielType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Classe TypeMaterielController
+ *
+ * @package App\Controller
+ */
 class TypeMaterielController extends Controller {
     /**
      * @Route(
      *     "/type-materiel/ajouter",
      *     name="base_materiel_type_materiel_ajouter",
      * )
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
-    public function ajouter(Request $request) {
+    public function ajouter(Request $request): Response {
         $typeMateriel = new TypeMateriel();
 
         $form = $this->createForm(TypeMaterielType::class, $typeMateriel);
@@ -47,14 +58,16 @@ class TypeMaterielController extends Controller {
      *     "/types-materiels",
      *     name="base_materiel_types_materiel",
      * )
+     *
+     * @return Response
      */
-    public function typesMateriel() {
+    public function typesMateriel(): Response {
         $typeMaterielRepository = $this
             ->getDoctrine()
             ->getRepository(TypeMateriel::class)
         ;
 
-        $typesMateriel = $typeMaterielRepository->findAll();
+        $typesMateriel = $typeMaterielRepository->getTypesMateriel();
 
         return $this->render('type_materiel/types_materiel.html.twig', [
             'types_materiel' => $typesMateriel,
@@ -69,8 +82,13 @@ class TypeMaterielController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du type de matériel à éditer
+     *
+     * @return RedirectResponse|Response
      */
-    public function editer(Request $request, int $id) {
+    public function editer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -109,8 +127,13 @@ class TypeMaterielController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du type de matériel à supprimer
+     *
+     * @return RedirectResponse|Response
      */
-    public function supprimer(Request $request, int $id) {
+    public function supprimer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()

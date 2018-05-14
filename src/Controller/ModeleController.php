@@ -5,18 +5,29 @@ namespace App\Controller;
 
 use App\Entity\Modele;
 use App\Form\ModeleType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Classe ModeleController
+ *
+ * @package App\Controller
+ */
 class ModeleController extends Controller {
     /**
      * @Route(
      *     "/modele/ajouter",
      *     name="base_materiel_modele_ajouter",
      * )
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
-    public function ajouter(Request $request) {
+    public function ajouter(Request $request): Response {
         $modele = new Modele();
 
         $form = $this->createForm(ModeleType::class, $modele);
@@ -47,14 +58,16 @@ class ModeleController extends Controller {
      *     "/modeles",
      *     name="base_materiel_modeles",
      * )
+     *
+     * @return Response
      */
-    public function modeles() {
+    public function modeles(): Response {
         $modeleRepository = $this
             ->getDoctrine()
             ->getRepository(Modele::class)
         ;
 
-        $modeles = $modeleRepository->findAll();
+        $modeles = $modeleRepository->getModeles();
 
         return $this->render('modele/modeles.html.twig', [
             'modeles' => $modeles,
@@ -69,8 +82,13 @@ class ModeleController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du modèle à éditer
+     *
+     * @return RedirectResponse|Response
      */
-    public function editer(Request $request, int $id) {
+    public function editer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -109,8 +127,13 @@ class ModeleController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant du modèle à supprimer
+     *
+     * @return RedirectResponse|Response
      */
-    public function supprimer(Request $request, int $id) {
+    public function supprimer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()

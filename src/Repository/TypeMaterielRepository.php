@@ -8,6 +8,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * Classe TypeMaterielRepository
+ *
+ * @package App\Repository
+ *
  * @method TypeMateriel|null find($id, $lockMode = null, $lockVersion = null)
  * @method TypeMateriel|null findOneBy(array $criteria, array $orderBy = null)
  * @method TypeMateriel[]    findAll()
@@ -16,5 +20,18 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class TypeMaterielRepository extends ServiceEntityRepository {
     public function __construct(RegistryInterface $registry) {
         parent::__construct($registry, TypeMateriel::class);
+    }
+
+    /**
+     * @return TypeMateriel[]
+     */
+    public function getTypesMateriel() {
+        $query = $this
+            ->createQueryBuilder('tm')
+            ->addOrderBy('tm.libelle', 'ASC')
+            ->getQuery()
+        ;
+
+        return $query->getResult();
     }
 }

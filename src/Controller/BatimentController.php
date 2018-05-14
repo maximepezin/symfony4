@@ -11,6 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Classe BatimentController
+ *
+ * @package App\Controller
+ */
 class BatimentController extends Controller {
     /**
      * @Route(
@@ -22,7 +27,7 @@ class BatimentController extends Controller {
      *
      * @return RedirectResponse|Response
      */
-    public function ajouter(Request $request) {
+    public function ajouter(Request $request): Response {
         $batiment = new Batiment();
 
         $form = $this->createForm(BatimentType::class, $batiment);
@@ -56,13 +61,13 @@ class BatimentController extends Controller {
      *
      * @return Response
      */
-    public function batiments() {
+    public function batiments(): Response {
         $batimentRepository = $this
             ->getDoctrine()
             ->getRepository(Batiment::class)
         ;
 
-        $batiments = $batimentRepository->findAll();
+        $batiments = $batimentRepository->getBatiments();
 
         return $this->render('batiment/batiments.html.twig', [
             'batiments' => $batiments,
@@ -83,7 +88,7 @@ class BatimentController extends Controller {
      *
      * @return RedirectResponse|Response
      */
-    public function editer(Request $request, int $id) {
+    public function editer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -124,11 +129,11 @@ class BatimentController extends Controller {
      * )
      *
      * @param Request $request
-     * @param int $id
+     * @param int $id L'identifiant du bâtiment à supprimer
      *
      * @return RedirectResponse|Response
      */
-    public function supprimer(Request $request, int $id) {
+    public function supprimer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()

@@ -8,6 +8,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * Classe LogicielRepository
+ *
+ * @package App\Repository
+ *
  * @method Logiciel|null find($id, $lockMode = null, $lockVersion = null)
  * @method Logiciel|null findOneBy(array $criteria, array $orderBy = null)
  * @method Logiciel[]    findAll()
@@ -16,5 +20,18 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class LogicielRepository extends ServiceEntityRepository {
     public function __construct(RegistryInterface $registry) {
         parent::__construct($registry, Logiciel::class);
+    }
+
+    /**
+     * @return Logiciel[]
+     */
+    public function getLogiciels() {
+        $query = $this
+            ->createQueryBuilder('l')
+            ->addOrderBy('l.nom', 'ASC')
+            ->getQuery()
+        ;
+
+        return $query->getResult();
     }
 }

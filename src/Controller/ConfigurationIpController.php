@@ -23,7 +23,7 @@ class ConfigurationIpController extends Controller {
      * )
      *
      * @param Request $request
-     * @param string $slugMateriel Le slug du matériel dont on souhaite ajouter une configuration IP
+     * @param string $slugMateriel Le slug du matériel auquel on souhaite ajouter une configuration IP
      *
      * @return RedirectResponse|Response
      */

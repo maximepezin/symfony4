@@ -34,10 +34,10 @@
                                         <tr>
                                             <td>{{ batiment.nom }}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="#">
+                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_batiment_editer', { 'id': batiment.id }) }}">
                                                     Editer
                                                 </a>
-                                                <a class="btn btn-sm btn-danger" href="#">
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_batiment_supprimer', { 'id': batiment.id }) }}">
                                                     Supprimer
                                                 </a>
                                             </td>
