@@ -6,7 +6,9 @@ namespace App\Controller;
 use App\Entity\Materiel;
 use App\Form\MaterielRechercheRapideType;
 use App\Form\MaterielType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -16,8 +18,12 @@ class MaterielController extends Controller {
      *     "/materiel/ajouter",
      *     name="base_materiel_materiel_ajouter",
      * )
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
-    public function ajouter(Request $request) {
+    public function ajouter(Request $request): Response {
         $materiel = new Materiel();
 
         $form = $this->createForm(MaterielType::class, $materiel);
@@ -56,8 +62,12 @@ class MaterielController extends Controller {
      *         "numPage": 1,
      *     },
      * )
+     *
+     * @param int $numPage Le numéro de la page à afficher
+     *
+     * @return Response
      */
-    public function materiels(int $numPage = 1) {
+    public function materiels(int $numPage = 1): Response {
         if ($numPage < 1) {
             throw $this->createNotFoundException();
         }
@@ -67,7 +77,7 @@ class MaterielController extends Controller {
             ->getRepository(Materiel::class)
         ;
 
-        $materiels = $materielRepository->getMaterielsAvecPagination(
+        $materiels = $materielRepository->getPaginationMateriels(
             $numPage,
             Materiel::NOMBRE_ITEMS
         );
@@ -97,16 +107,18 @@ class MaterielController extends Controller {
      *         "slug": "[a-z0-9\-]+",
      *     },
      * )
+     *
+     * @param string $slug Le slug du matériel à visualiser
+     *
+     * @return Response
      */
-    public function visualiser(string $slug) {
+    public function visualiser(string $slug): Response {
         $materielRepository = $this
             ->getDoctrine()
             ->getRepository(Materiel::class)
         ;
 
-        $materiel = $materielRepository->findOneBy([
-            'slug' => $slug,
-        ]);
+        $materiel = $materielRepository->getMaterielParSlug($slug);
 
         if ($materiel === null) {
             throw $this->createNotFoundException();
@@ -125,8 +137,13 @@ class MaterielController extends Controller {
      *         "slug": "[a-z0-9\-]+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param string $slug Le slug du matériel à éditer
+     *
+     * @return RedirectResponse|Response
      */
-    public function editer(Request $request, string $slug) {
+    public function editer(Request $request, string $slug): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -134,9 +151,7 @@ class MaterielController extends Controller {
 
         $materielRepository = $em->getRepository(Materiel::class);
 
-        $materiel = $materielRepository->findOneBy([
-            'slug' => $slug,
-        ]);
+        $materiel = $materielRepository->getMaterielParSlug($slug);
 
         if ($materiel === null) {
             throw $this->createNotFoundException();
@@ -169,8 +184,13 @@ class MaterielController extends Controller {
      *         "slug": "[a-z0-9\-]+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param string $slug Le slug du matériel à éditer
+     *
+     * @return RedirectResponse|Response
      */
-    public function supprimer(Request $request, string $slug) {
+    public function supprimer(Request $request, string $slug): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -178,9 +198,7 @@ class MaterielController extends Controller {
 
         $materielRepo = $em->getRepository(Materiel::class);
 
-        $materiel = $materielRepo->findOneBy([
-            'slug' => $slug,
-        ]);
+        $materiel = $materielRepo->getMaterielParSlug($slug);
 
         if ($materiel === null) {
             throw $this->createNotFoundException();
@@ -212,8 +230,12 @@ class MaterielController extends Controller {
      *     "/materiel/recherche-rapide",
      *     name="base_materiel_materiel_recherche_rapide",
      * )
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
-    public function rechercheRapide(Request $request) {
+    public function rechercheRapide(Request $request): Response {
         $form = $this->createForm(MaterielRechercheRapideType::class);
 
         $form->handleRequest($request);

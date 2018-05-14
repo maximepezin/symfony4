@@ -20,7 +20,7 @@ class MaterielPieceRechangeType extends AbstractType {
                 'placeholder' => 'Choisir une pièce de rechange',
                 'class' => Materiel::class,
                 'query_builder' => function(MaterielRepository $materielRepository) {
-                    return $materielRepository->getPiecesRechange();
+                    return $materielRepository->getQueryBuilderPourPiecesRechange();
                 },
                 'choice_label' => function($choice) {
                     return $choice->getNom();

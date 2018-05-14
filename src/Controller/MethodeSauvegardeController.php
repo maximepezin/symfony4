@@ -5,18 +5,29 @@ namespace App\Controller;
 
 use App\Entity\MethodeSauvegarde;
 use App\Form\MethodeSauvegardeType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Classe MethodeSauvegardeController
+ *
+ * @package App\Controller
+ */
 class MethodeSauvegardeController extends Controller {
     /**
      * @Route(
      *     "/methode-sauvegarde/ajouter",
      *     name="base_materiel_methode_sauvegarde_ajouter",
      * )
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
-    public function ajouter(Request $request) {
+    public function ajouter(Request $request): Response {
         $methodeSauvegarde = new MethodeSauvegarde();
 
         $form = $this->createForm(MethodeSauvegardeType::class, $methodeSauvegarde);
@@ -47,14 +58,16 @@ class MethodeSauvegardeController extends Controller {
      *     "/methodes-sauvegarde",
      *     name="base_materiel_methodes_sauvegarde",
      * )
+     *
+     * @return Response
      */
-    public function methodesSauvegarde() {
+    public function methodesSauvegarde(): Response {
         $methodeSauvegardeRepository = $this
             ->getDoctrine()
             ->getRepository(MethodeSauvegarde::class)
         ;
 
-        $methodesSauvegarde = $methodeSauvegardeRepository->findAll();
+        $methodesSauvegarde = $methodeSauvegardeRepository->getMethodesSauvegarde();
 
         return $this->render('methode_sauvegarde/methodes_sauvegarde.html.twig', [
             'methodes_sauvegarde' => $methodesSauvegarde,
@@ -69,8 +82,13 @@ class MethodeSauvegardeController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int  L'identifiant de la méthode de sauvegarde à éditer
+     *
+     * @return RedirectResponse|Response
      */
-    public function editer(Request $request, int $id) {
+    public function editer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()
@@ -109,8 +127,13 @@ class MethodeSauvegardeController extends Controller {
      *         "id": "\d+",
      *     },
      * )
+     *
+     * @param Request $request
+     * @param int $id L'identifiant de la méthode de sauvegarde à supprimer
+     *
+     * @return RedirectResponse|Response
      */
-    public function supprimer(Request $request, int $id) {
+    public function supprimer(Request $request, int $id): Response {
         $em = $this
             ->getDoctrine()
             ->getManager()

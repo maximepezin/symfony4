@@ -1,0 +1,57 @@
+{# templates/support_sauvegarde/supports_sauvegarde.html.twig #}
+{% set title = 'Supports de sauvegarde référencés' %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row mb20">
+                                <div class="col-sm-6">
+                                    <div class="toolbar">
+                                        <a class="btn btn-success" href="{{ path('base_materiel_support_sauvegarde_ajouter') }}">
+                                            <i class="fa fa-plus mr10"></i>
+                                            Ajouter un support de sauvegarde
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table mb0">
+                                    <thead>
+                                    <tr>
+                                        <th>Support de sauvegarde</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+{% for support_sauvegarde in supports_sauvegarde %}
+                                        <tr>
+                                            <td>{{ support_sauvegarde.libelle }}</td>
+                                            <td>
+                                                <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_support_sauvegarde_editer', { 'id': support_sauvegarde.id }) }}">
+                                                    Editer
+                                                </a>
+                                                <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_support_sauvegarde_supprimer', { 'id': support_sauvegarde.id }) }}">
+                                                    Supprimer
+                                                </a>
+                                            </td>
+                                        </tr>
+{% else %}
+                                        <tr>
+                                            <td class="text-center" colspan="2">
+                                                Aucun support de sauvegarde référencé dans la base.
+                                            </td>
+                                        </tr>
+{% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}
