@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Entity\TypeMateriel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -23,15 +24,25 @@ class TypeMaterielRepository extends ServiceEntityRepository {
     }
 
     /**
+     * @return QueryBuilder
+     */
+    public function getTypesMaterielQueryBuilder(): QueryBuilder {
+        $queryBuilder = $this
+            ->createQueryBuilder('tm')
+            ->addOrderBy('tm.libelle', 'ASC')
+        ;
+
+        return $queryBuilder;
+    }
+
+    /**
      * @return TypeMateriel[]
      */
     public function getTypesMateriel() {
-        $query = $this
-            ->createQueryBuilder('tm')
-            ->addOrderBy('tm.libelle', 'ASC')
+        return $this
+            ->getTypesMaterielQueryBuilder()
             ->getQuery()
+            ->getResult()
         ;
-
-        return $query->getResult();
     }
 }

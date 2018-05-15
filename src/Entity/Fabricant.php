@@ -22,7 +22,7 @@ class Fabricant {
     private $id;
 
     /**
-     * @ORM\Column(name="nom", type="string", length=30)
+     * @ORM\Column(name="nom", type="string", length=50)
      */
     private $nom;
 

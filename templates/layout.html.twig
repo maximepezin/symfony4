@@ -15,10 +15,11 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/animate.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/urban.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('admin_template/css/urban.skins.css') }}" />
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" />
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
         <style>
             body {
-                font-family: 'Roboto', sans-serif!important;
+                font-family: 'Ubuntu', 'Roboto', sans-serif!important;
             }
 
             code {
@@ -70,6 +71,16 @@
                                 <span>Matériels</span>
                             </a>
                             <ul class="sub-menu">
+                                <li{% if route is same as ('base_materiel_materiel_ajouter') %} class="active"{% endif %}>
+                                    <a href="{{ path('base_materiel_materiel_ajouter') }}">
+                                        Ajouter un matériel
+                                    </a>
+                                </li>
+                                <li{% if route is same as ('base_materiel_materiels') %} class="active"{% endif %}>
+                                    <a href="{{ path('base_materiel_materiels') }}">
+                                        Matériels référencés
+                                    </a>
+                                </li>
                                 <li{% if route is same as ('base_materiel_materiel_recherche_rapide') %} class="active"{% endif %}>
                                     <a href="{{ path('base_materiel_materiel_recherche_rapide') }}">
                                         Recherche rapide
@@ -77,12 +88,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        Recherche avancées
-                                    </a>
-                                </li>
-                                <li{% if route is same as ('base_materiel_materiels') %} class="active"{% endif %}>
-                                    <a href="{{ path('base_materiel_materiels') }}">
-                                        Liste du matériel
+                                        Recherche avancée
                                     </a>
                                 </li>
                             </ul>
@@ -164,7 +170,6 @@
                             </a>
                         </div>
                         <div class="brand-logo">
-                            <!--<img src="images/logo-dark.png" height="15" alt="">-->
                             Base matériel
                         </div>
                     </div>

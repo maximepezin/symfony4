@@ -229,7 +229,7 @@ class MaterielController extends Controller {
 
     /**
      * @Route(
-     *     "/materiel/recherche-rapide",
+     *     "/materiels/recherche-rapide",
      *     name="base_materiel_materiel_recherche_rapide",
      * )
      *

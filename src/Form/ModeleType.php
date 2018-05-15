@@ -6,6 +6,8 @@ namespace App\Form;
 use App\Entity\Fabricant;
 use App\Entity\Modele;
 use App\Entity\TypeMateriel;
+use App\Repository\FabricantRepository;
+use App\Repository\TypeMaterielRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -20,6 +22,9 @@ class ModeleType extends AbstractType {
                 'label' => 'Type de matériel',
                 'placeholder' => 'Choisir un type de matériel',
                 'class' => TypeMateriel::class,
+                'query_builder' => function(TypeMaterielRepository $typeMaterielRepository) {
+                    return $typeMaterielRepository->getTypesMaterielQueryBuilder();
+                },
                 'choice_label' => function($choice) {
                     return $choice->getLibelle();
                 },
@@ -28,6 +33,9 @@ class ModeleType extends AbstractType {
                 'label' => 'Fabricant',
                 'placeholder' => 'Choisir un fabricant',
                 'class' => Fabricant::class,
+                'query_builder' => function(FabricantRepository $fabricantRepository) {
+                    return $fabricantRepository->getFabricantsQueryBuilder();
+                },
                 'choice_label' => function($choice) {
                     return $choice->getNom();
                 },

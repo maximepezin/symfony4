@@ -18,7 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\HasLifecycleCallbacks()
  */
 class Materiel {
-    public const NOMBRE_ITEMS = 20;
+    public const NOMBRE_ITEMS = 10;
 
     /**
      * @ORM\Id()
@@ -59,7 +59,7 @@ class Materiel {
     private $acheteLe = null;
 
     /**
-     * @ORM\Column(name="numero_serie", type="string", length=50, unique=true, nullable=true)
+     * @ORM\Column(name="numero_serie", type="string", length=50, nullable=true)
      */
     private $numeroSerie = null;
 

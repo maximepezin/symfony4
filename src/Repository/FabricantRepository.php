@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Entity\Fabricant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -23,15 +24,25 @@ class FabricantRepository extends ServiceEntityRepository {
     }
 
     /**
+     * @return QueryBuilder
+     */
+    public function getFabricantsQueryBuilder(): QueryBuilder {
+        $queryBuilder = $this
+            ->createQueryBuilder('f')
+            ->addOrderBy('f.nom', 'ASC')
+        ;
+
+        return $queryBuilder;
+    }
+
+    /**
      * @return Fabricant[]
      */
     public function getFabricants() {
-        $query = $this
-            ->createQueryBuilder('f')
-            ->addOrderBy('f.nom', 'ASC')
+        return $this
+            ->getFabricantsQueryBuilder()
             ->getQuery()
+            ->getResult()
         ;
-
-        return $query->getResult();
     }
 }
