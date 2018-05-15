@@ -18,6 +18,7 @@ class MaterielFixtures extends Fixture implements DependentFixtureInterface {
             ->setModele($this->getReference(ModeleFixtures::ORACLE_VM_VIRTUAL_BOX_REFERENCE))
             ->setDescription("Machine virtuelle de développement Web")
             ->setEstActifReseau(true)
+            ->setDomaine($this->getReference(DomaineFixtures::WORKGROUP_REFERENCE))
         ;
 
         $manager->persist($pcdev);
@@ -29,6 +30,7 @@ class MaterielFixtures extends Fixture implements DependentFixtureInterface {
     public function getDependencies() {
         return [
             ModeleFixtures::class,
+            DomaineFixtures::class,
         ];
     }
 }

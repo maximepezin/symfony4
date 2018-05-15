@@ -23,7 +23,7 @@ class MaterielLogiciel {
     private $installeLe = null;
 
     /**
-     * @ORM\Column(name="cle_licence", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="cle_licence", type="string", length=255, nullable=true)
      */
     private $cleLicence = null;
 

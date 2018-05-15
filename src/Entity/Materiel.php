@@ -101,12 +101,7 @@ class Materiel {
     /**
      * @ORM\ManyToOne(targetEntity="Emplacement")
      */
-    private $emplacement;
-
-    /**
-     * @ORM\OneToMany(targetEntity="MaterielPieceRechange", mappedBy="materiel", orphanRemoval=true)
-     */
-    private $materielPiecesRechange;
+    private $emplacement = null;
 
     /**
      * @ORM\OneToMany(targetEntity="MaterielSystemeExploitation", mappedBy="materiel", orphanRemoval=true)
@@ -119,21 +114,27 @@ class Materiel {
     private $materielLogiciels;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sauvegarde", mappedBy="materiel", orphanRemoval=true)
-     */
-    private $sauvegardes;
-
-    /**
      * @ORM\OneToMany(targetEntity="ConfigurationIp", mappedBy="materiel", orphanRemoval=true)
      */
     private $configurationsIp;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Materiel")
+     * @ORM\JoinTable(name="materiel_piece_rechange")
+     */
+    private $piecesRechange;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sauvegarde", mappedBy="materiel", orphanRemoval=true)
+     */
+    private $sauvegardes;
+
     public function __construct() {
-        $this->materielPiecesRechange = new ArrayCollection();
         $this->materielSystemesExploitation = new ArrayCollection();
         $this->materielLogiciels = new ArrayCollection();
-        $this->sauvegardes = new ArrayCollection();
         $this->configurationsIp = new ArrayCollection();
+        $this->piecesRechange = new ArrayCollection();
+        $this->sauvegardes = new ArrayCollection();
     }
 
     public function getId(): ?int {
@@ -285,35 +286,6 @@ class Materiel {
     }
 
     /**
-     * @return Collection|MaterielPieceRechange[]
-     */
-    public function getMaterielPiecesRechange(): Collection {
-        return $this->materielPiecesRechange;
-    }
-
-    public function addMaterielPieceRechange(MaterielPieceRechange $materielPieceRechange): self {
-        if (!$this->materielPiecesRechange->contains($materielPieceRechange)) {
-            $this->materielPiecesRechange[] = $materielPieceRechange;
-
-            $materielPieceRechange->setPieceRechange($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMaterielPieceRechange(MaterielPieceRechange $materielPieceRechange): self {
-        if ($this->materielPiecesRechange->contains($materielPieceRechange)) {
-            $this->materielPiecesRechange->removeElement($materielPieceRechange);
-
-            if ($materielPieceRechange->getPieceRechange() === $this) {
-                $materielPieceRechange->setPieceRechange(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|MaterielSystemeExploitation[]
      */
     public function getMaterielSystemesExploitation(): Collection {
@@ -329,8 +301,7 @@ class Materiel {
         return $this;
     }
 
-    public function removeMaterielSystemeExploitation(MaterielSystemeExploitation $materielSystemeExploitation): self
-    {
+    public function removeMaterielSystemeExploitation(MaterielSystemeExploitation $materielSystemeExploitation): self {
         if ($this->materielSystemesExploitation->contains($materielSystemeExploitation)) {
             $this->materielSystemesExploitation->removeElement($materielSystemeExploitation);
 
@@ -372,35 +343,6 @@ class Materiel {
     }
 
     /**
-     * @return Collection|Sauvegarde[]
-     */
-    public function getSauvegardes(): Collection {
-        return $this->sauvegardes;
-    }
-
-    public function addSauvegarde(Sauvegarde $sauvegarde): self {
-        if (!$this->sauvegardes->contains($sauvegarde)) {
-            $this->sauvegardes[] = $sauvegarde;
-
-            $sauvegarde->setMateriel($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSauvegarde(Sauvegarde $sauvegarde): self {
-        if ($this->sauvegardes->contains($sauvegarde)) {
-            $this->sauvegardes->removeElement($sauvegarde);
-
-            if ($sauvegarde->getMateriel() === $this) {
-                $sauvegarde->setMateriel(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|ConfigurationIp[]
      */
     public function getConfigurationsIp(): Collection {
@@ -423,6 +365,58 @@ class Materiel {
 
             if ($configurationIp->getMateriel() === $this) {
                 $configurationIp->setMateriel(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Materiel[]
+     */
+    public function getPiecesRechange(): Collection {
+        return $this->piecesRechange;
+    }
+
+    public function addPieceRechange(Materiel $pieceRechange): self {
+        if (!$this->piecesRechange->contains($pieceRechange)) {
+            $this->piecesRechange[] = $pieceRechange;
+        }
+
+        return $this;
+    }
+
+    public function removePieceRechange(Materiel $pieceRechange): self {
+        if ($this->piecesRechange->contains($pieceRechange)) {
+            $this->piecesRechange->removeElement($pieceRechange);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sauvegarde[]
+     */
+    public function getSauvegardes(): Collection {
+        return $this->sauvegardes;
+    }
+
+    public function addSauvegarde(Sauvegarde $sauvegarde): self {
+        if (!$this->sauvegardes->contains($sauvegarde)) {
+            $this->sauvegardes[] = $sauvegarde;
+
+            $sauvegarde->setMateriel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSauvegarde(Sauvegarde $sauvegarde): self {
+        if ($this->sauvegardes->contains($sauvegarde)) {
+            $this->sauvegardes->removeElement($sauvegarde);
+
+            if ($sauvegarde->getMateriel() === $this) {
+                $sauvegarde->setMateriel(null);
             }
         }
 

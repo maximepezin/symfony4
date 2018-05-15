@@ -90,8 +90,6 @@ class MaterielRepository extends ServiceEntityRepository {
             ->addSelect('ml')
             ->leftJoin('ml.logiciel', 'l')
             ->addSelect('l')
-            ->leftJoin('m.materielPiecesRechange', 'mpr')
-            ->addSelect('mpr')
             ->andWhere('m.slug LIKE :slug')
             ->setParameter(':slug', $slug)
             ->addOrderBy('se.nom', 'ASC')
