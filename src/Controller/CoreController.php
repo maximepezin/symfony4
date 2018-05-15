@@ -30,11 +30,15 @@ class CoreController extends Controller {
         $utilisateurRepository = $em->getRepository(Utilisateur::class);
 
         $nbMateriels = $materielRepository->count([]);
+        $nbPiecesRechange = $materielRepository->count([
+            'estPieceRechange' => true,
+            ]);
         $nbSauvegardes = $sauvegardeRepository->count([]);
         $nbUtilisateurs = $utilisateurRepository->count([]);
 
         return $this->render('core/tableau_bord.html.twig', [
             'nb_materiels' => $nbMateriels,
+            'nb_pieces_rechange' => $nbPiecesRechange,
             'nb_sauvegardes' => $nbSauvegardes,
             'nb_utilisateurs' => $nbUtilisateurs,
         ]);

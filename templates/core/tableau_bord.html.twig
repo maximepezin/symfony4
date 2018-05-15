@@ -6,8 +6,11 @@
 {% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
 
 {% block body %}
+                    <div class="well text-center">
+                        <h1>Bienvenue sur la base matériel</h1>
+                    </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="widget bg-white">
                                 <div class="widget-icon bg-dark pull-left fa fa-archive"></div>
                                 <div class="overflow-hidden">
@@ -16,7 +19,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="widget bg-white">
+                                <div class="widget-icon bg-amber pull-left fa fa-wrench"></div>
+                                <div class="overflow-hidden">
+                                    <span class="widget-title">Dont {{ nb_pieces_rechange }}</span>
+                                    <span class="widget-subtitle">pièces de rechange référencées</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="widget bg-white">
                                 <div class="widget-icon bg-green pull-left fa fa-save"></div>
                                 <div class="overflow-hidden">
@@ -25,7 +37,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="widget bg-white">
                                 <div class="widget-icon bg-blue pull-left fa fa-user"></div>
                                 <div class="overflow-hidden">
