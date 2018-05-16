@@ -1,5 +1,5 @@
 {# templates/configuration_ip/supprimer.html.twig #}
-{% set title = 'Supprimer une configuration IP' %}
+{% set title = 'Supprimer la configuration IP du matériel ' ~ materiel.nom %}
 
 {% extends 'layout.html.twig' %}
 
@@ -12,7 +12,7 @@
                         </div>
                         <div class="panel-body">
                             <p>
-                                Etes-vous certain de vouloir supprimer la configuration IP suivante pour le matériel <strong>{{ materiel.nom }}</strong> ?
+                                Etes-vous certain de vouloir supprimer la configuration IP suivante du matériel <strong>{{ materiel.nom }}</strong> ?
                             </p>
                             <p>
                                 Libellé : <strong>{{ configuration_ip.libelle }}</strong>

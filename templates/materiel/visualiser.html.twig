@@ -434,6 +434,55 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <hr />
+                                    <div class="row no-margin">
+                                        <h4>Sauvegarde(s)</h4>
+                                        <div class="mt20 mb20 text-right">
+                                            <a class="btn btn-sm btn-success" href="{{ path('base_materiel_sauvegarde_ajouter', { 'slugMateriel': materiel.slug }) }}">
+                                                <i class="fa fa-plus"></i>
+                                                Ajouter une sauvegarde
+                                            </a>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Faite le</th>
+                                                        <th>Par</th>
+                                                        <th>Méthode</th>
+                                                        <th>Support</th>
+                                                        <th>Chemin vers fichier</th>
+                                                        <th>Nom du fichier</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+{% for sauvegarde in materiel.sauvegardes %}
+                                                    <tr>
+                                                        <td>{{ sauvegarde.dateHeureSauvegarde|date('d/m/Y \\à H\\hi') }}</td>
+                                                        <td>{{ sauvegarde.auteur }}</td>
+                                                        <td>{{ sauvegarde.methodeSauvegarde.libelle }}</td>
+                                                        <td>{{ sauvegarde.supportSauvegarde.libelle }}</td>
+                                                        <td>{{ sauvegarde.cheminVersFichier }}</td>
+                                                        <td>{{ sauvegarde.nomFichierSauvegarde }}</td>
+                                                        <td>
+                                                            <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_sauvegarde_editer', { 'slugMateriel': materiel.slug, 'id': sauvegarde.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <a class="btn btn-sm btn-danger" href="{{ path('base_materiel_sauvegarde_supprimer', { 'slugMateriel': materiel.slug, 'id': sauvegarde.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Supprimer">
+                                                                <i class="fa fa-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+{% else %}
+                                                    <tr>
+                                                        <td class="text-center" colspan="7">Aucune sauvegarde n'est répertoriée pour ce matériel.</td>
+                                                    </tr>
+{% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

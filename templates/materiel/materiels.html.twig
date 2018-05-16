@@ -25,17 +25,20 @@
 {% if num_page != 1 %}
                                 <li class="pull-left">
                                     <a href="{{ path('base_materiel_materiels', { 'numPage': num_page - 1 }) }}">
+                                        <i class="fa fa-caret-left mr5"></i>
                                         Précédent
                                     </a>
                                 </li>
 {% endif %}
-                                <li style="display: inline-block; padding: 5px 14px;">
+                                <li style="display: inline-block; padding: 5px 14px; border: 1px solid #E0E0E0;">
+                                    <i class="fa fa-book mr5"></i>
                                     Page {{ num_page }}/{{ nb_pages }}
                                 </li>
 {% if num_page != nb_pages %}
                                 <li class="pull-right">
                                     <a href="{{ path('base_materiel_materiels', { 'numPage': num_page + 1 }) }}">
                                         Suivant
+                                        <i class="fa fa-caret-right ml5"></i>
                                     </a>
                                 </li>
 {% endif %}
@@ -119,17 +122,20 @@
 {% if num_page != 1 %}
                                 <li class="pull-left">
                                     <a href="{{ path('base_materiel_materiels', { 'numPage': num_page - 1 }) }}">
+                                        <i class="fa fa-caret-left mr5"></i>
                                         Précédent
                                     </a>
                                 </li>
 {% endif %}
-                                <li style="display: inline-block; padding: 5px 14px;">
+                                <li style="display: inline-block; padding: 5px 14px; border: 1px solid #E0E0E0;">
+                                    <i class="fa fa-book mr5"></i>
                                     Page {{ num_page }}/{{ nb_pages }}
                                 </li>
 {% if num_page != nb_pages %}
                                 <li class="pull-right">
                                     <a href="{{ path('base_materiel_materiels', { 'numPage': num_page + 1 }) }}">
                                         Suivant
+                                        <i class="fa fa-caret-right ml5"></i>
                                     </a>
                                 </li>
 {% endif %}

@@ -32,7 +32,7 @@ class CoreController extends Controller {
         $nbMateriels = $materielRepository->count([]);
         $nbPiecesRechange = $materielRepository->count([
             'estPieceRechange' => true,
-            ]);
+        ]);
         $nbSauvegardes = $sauvegardeRepository->count([]);
         $nbUtilisateurs = $utilisateurRepository->count([]);
 

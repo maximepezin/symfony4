@@ -1,0 +1,40 @@
+{# templates/sauvegarde/supprimer.html.twig #}
+{% set title = 'Supprimer la sauvegarde du matériel ' ~ materiel.nom %}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
+
+{% block body %}
+                    <div class="panel mb0">
+                        <div class="panel-heading border">
+                            {{ title }}
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Etes-vous certain de vouloir supprimer la sauvegarde suivante du matériel <strong>{{ materiel.nom }}</strong> ?
+                            </p>
+                            <p>
+                                Date et heure de la sauvegarde : <strong>{{ sauvegarde.dateHeureSauvegarde|date('d/m/Y \\à H:i') }}</strong>
+                                <br />
+                                Auteur : <strong>{{ sauvegarde.auteur }}</strong>
+                                <br />
+                                Méthode de sauvegarde : <strong>{{ sauvegarde.methodeSauvegarde.libelle }}</strong>
+                                <br />
+                                Support de sauvegarde : <strong>{{ sauvegarde.supportSauvegarde.libelle }}</strong>
+                                <br />
+                                Chemin vers le fichier de sauvegarde : <strong>{{ sauvegarde.cheminVersFichier }}</strong>
+                                <br />
+                                Nom du fichier de sauvegarde : <strong>{{ sauvegarde.nomFichierSauvegarde }}</strong>
+                            </p>
+                            <form action="{{ path('base_materiel_sauvegarde_supprimer', { 'slugMateriel': materiel.slug, 'id': sauvegarde.id }) }}" method="post">
+                                <a href="{{ path('base_materiel_materiel_visualiser', { 'slug': materiel.slug }) }}" class="btn btn-default">
+                                    <i class="fa fa-caret-left"></i>
+                                    Retour
+                                </a>
+                                <input type="submit" value="Supprimer" class="btn btn-danger" />
+                                {{ form_rest(form) }}
+                            </form>
+                        </div>
+                    </div>
+{% endblock %}
