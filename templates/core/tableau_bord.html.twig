@@ -34,21 +34,10 @@
                             <div class="widget bg-white">
                                 <div class="widget-icon bg-green pull-left fa fa-save"></div>
                                 <div class="overflow-hidden">
-                                    <span class="widget-title">{{ nb_sauvegardes }}</span>
+                                    <span class="widget-title">{{ nb_sauvegardes != 0 ? nb_sauvegardes : 'Aucune' }}</span>
                                     <span class="widget-subtitle">sauvegardes référencées</span>
                                 </div>
                             </div>
                         </div>
-                        <!--
-                        <div class="col-md-3">
-                            <div class="widget bg-white">
-                                <div class="widget-icon bg-blue pull-left fa fa-user"></div>
-                                <div class="overflow-hidden">
-                                    <span class="widget-title">{{ nb_utilisateurs }}</span>
-                                    <span class="widget-subtitle">utilisateurs enregistrés</span>
-                                </div>
-                            </div>
-                        </div>
-                        -->
                     </div>
 {% endblock %}

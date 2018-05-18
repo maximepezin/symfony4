@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Classe Logiciel
+ * Classe Materiel
  *
  * @package App\Entity
  *
@@ -18,8 +18,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\HasLifecycleCallbacks()
  */
 class Materiel {
-    public const NOMBRE_ITEMS = 25;
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")

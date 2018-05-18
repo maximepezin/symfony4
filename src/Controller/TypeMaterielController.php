@@ -55,21 +55,48 @@ class TypeMaterielController extends Controller {
 
     /**
      * @Route(
-     *     "/types-materiels",
+     *     "/types-materiels/{numPage}",
      *     name="base_materiel_types_materiel",
+     *     requirements={
+     *         "numPage": "\d+",
+     *     },
+     *     defaults={
+     *         "numPage": 1,
+     *     },
      * )
+     *
+     * @param int $numPage Le numéro de la page à afficher
      *
      * @return Response
      */
-    public function typesMateriel(): Response {
+    public function typesMateriel(int $numPage = 1): Response {
+        if ($numPage < 1) {
+            throw $this->createNotFoundException();
+        }
+
         $typeMaterielRepository = $this
             ->getDoctrine()
             ->getRepository(TypeMateriel::class)
         ;
 
-        $typesMateriel = $typeMaterielRepository->getTypesMateriel();
+        $typesMateriel = $typeMaterielRepository->getPaginationTypesMateriel(
+            $numPage,
+            25
+        );
+
+        $nbPages = (int)(ceil(count($typesMateriel) / 25));
+
+        if ($nbPages === 0) {
+            $nbPages = 1;
+        }
+
+        if ($numPage > $nbPages) {
+            throw $this->createNotFoundException();
+        }
 
         return $this->render('type_materiel/types_materiel.html.twig', [
+            'num_page' => $numPage,
+            'nb_pages' => $nbPages,
             'types_materiel' => $typesMateriel,
         ]);
     }

@@ -27,7 +27,7 @@ class MaterielRepository extends ServiceEntityRepository {
     /**
      * @return QueryBuilder
      */
-    private function getQueryBuilder() {
+    private function getMaterielsQueryBuilder() {
         $queryBuilder = $this
             ->createQueryBuilder('m')
             ->leftJoin('m.modele', 'm2')
@@ -54,7 +54,7 @@ class MaterielRepository extends ServiceEntityRepository {
      */
     public function getPaginationMateriels(int $numPage, int $nbItems): Paginator {
         $query = $this
-            ->getQueryBuilder()
+            ->getMaterielsQueryBuilder()
             ->orderBy('m.nom', 'ASC')
             ->getQuery()
         ;
@@ -77,7 +77,7 @@ class MaterielRepository extends ServiceEntityRepository {
      */
     public function getMaterielParSlug(string $slug) {
         $query = $this
-            ->getQueryBuilder()
+            ->getMaterielsQueryBuilder()
             ->leftJoin('m.domaine', 'd')
             ->addSelect('d')
             ->leftJoin('m.emplacement', 'e')
@@ -112,7 +112,7 @@ class MaterielRepository extends ServiceEntityRepository {
      *
      * @return QueryBuilder
      */
-    public function getQueryBuilderPourPiecesRechange(): QueryBuilder {
+    public function getQueryBuilderPiecesRechange(): QueryBuilder {
         $queryBuilder = $this
             ->createQueryBuilder('m')
             ->andWhere('m.estPieceRechange = true')
@@ -131,18 +131,18 @@ class MaterielRepository extends ServiceEntityRepository {
      * @return mixed
      */
     public function rechercheRapide(?string $nom, ?string $adresseIpV4) {
-        $queryBuilder = $this->getQueryBuilder();
+        $queryBuilder = $this->getMaterielsQueryBuilder();
 
         if ($nom !== null) {
             $queryBuilder
-                ->orWhere('m.nom LIKE :nom')
+                ->andWhere('m.nom LIKE :nom')
                 ->setParameter(':nom', '%' . $nom . '%')
             ;
         }
 
         if ($adresseIpV4 !== null) {
             $queryBuilder
-                ->orWhere('ci.adresseIpV4 LIKE :adresseIpV4')
+                ->andWhere('ci.adresseIpV4 LIKE :adresseIpV4')
                 ->setParameter(':adresseIpV4', $adresseIpV4)
             ;
         }

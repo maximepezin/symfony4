@@ -6,6 +6,7 @@ namespace App\Repository;
 use App\Entity\TypeMateriel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -36,13 +37,25 @@ class TypeMaterielRepository extends ServiceEntityRepository {
     }
 
     /**
-     * @return TypeMateriel[]
+     * Retourne un objet de pagination contenant la collection de TypeMateriel dans un intervalle donné,
+     * calculé en fonction du numéro de page et du nombre d'items passés en paramètres
+     *
+     * @param int $numPage Le numéro de la page
+     * @param int $nbItems Le nombre d'items à sélectionner
+     *
+     * @return Paginator
      */
-    public function getTypesMateriel() {
-        return $this
+    public function getPaginationTypesMateriel(int $numPage, int $nbItems): Paginator {
+        $query = $this
             ->getTypesMaterielQueryBuilder()
             ->getQuery()
-            ->getResult()
         ;
+
+        $query
+            ->setFirstResult(($numPage - 1) * $nbItems)
+            ->setMaxResults($nbItems)
+        ;
+
+        return new Paginator($query, true);
     }
 }

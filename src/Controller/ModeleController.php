@@ -55,21 +55,44 @@ class ModeleController extends Controller {
 
     /**
      * @Route(
-     *     "/modeles",
+     *     "/modeles/{numPage}",
      *     name="base_materiel_modeles",
+     *     requirements={
+     *         "numPage": "\d+",
+     *     },
+     *     defaults={
+     *         "numPage": 1,
+     *     },
      * )
+     *
+     * @param int $numPage Le numéro de la page à afficher
      *
      * @return Response
      */
-    public function modeles(): Response {
+    public function modeles(int $numPage = 1): Response {
         $modeleRepository = $this
             ->getDoctrine()
             ->getRepository(Modele::class)
         ;
 
-        $modeles = $modeleRepository->getModeles();
+        $modeles = $modeleRepository->getPaginationModeles(
+            $numPage,
+            25
+        );
+
+        $nbPages = (int)(ceil(count($modeles) / 25));
+
+        if ($nbPages === 0) {
+            $nbPages = 1;
+        }
+
+        if ($numPage > $nbPages) {
+            throw $this->createNotFoundException();
+        }
 
         return $this->render('modele/modeles.html.twig', [
+            'num_page' => $numPage,
+            'nb_pages' => $nbPages,
             'modeles' => $modeles,
         ]);
     }

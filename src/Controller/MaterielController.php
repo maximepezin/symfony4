@@ -79,10 +79,10 @@ class MaterielController extends Controller {
 
         $materiels = $materielRepository->getPaginationMateriels(
             $numPage,
-            Materiel::NOMBRE_ITEMS
+            25
         );
 
-        $nbPages = (int)(ceil(count($materiels) / Materiel::NOMBRE_ITEMS));
+        $nbPages = (int)(ceil(count($materiels) / 25));
 
         if ($nbPages === 0) {
             $nbPages = 1;
@@ -93,9 +93,9 @@ class MaterielController extends Controller {
         }
 
         return $this->render('materiel/materiels.html.twig', [
-            'materiels' => $materiels,
             'num_page' => $numPage,
             'nb_pages' => $nbPages,
+            'materiels' => $materiels,
         ]);
     }
 

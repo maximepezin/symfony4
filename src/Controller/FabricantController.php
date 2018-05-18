@@ -55,21 +55,48 @@ class FabricantController extends Controller {
 
     /**
      * @Route(
-     *     "/fabricants",
+     *     "/fabricants/{numPage}",
      *     name="base_materiel_fabricants",
+     *     requirements={
+     *         "numPage": "\d+",
+     *     },
+     *     defaults={
+     *         "numPage": 1,
+     *     },
      * )
+     *
+     * @param int $numPage Le numéro de la page à afficher
      *
      * @return Response
      */
-    public function fabricants(): Response {
+    public function fabricants(int $numPage = 1): Response {
+        if ($numPage < 1) {
+            throw $this->createNotFoundException();
+        }
+
         $fabricantRepository = $this
             ->getDoctrine()
             ->getRepository(Fabricant::class)
         ;
 
-        $fabricants = $fabricantRepository->getFabricants();
+        $fabricants = $fabricantRepository->getPaginationFabricants(
+            $numPage,
+            25
+        );
+
+        $nbPages = (int)(ceil(count($fabricants) / 25));
+
+        if ($nbPages === 0) {
+            $nbPages = 1;
+        }
+
+        if ($numPage > $nbPages) {
+            throw $this->createNotFoundException();
+        }
 
         return $this->render('fabricant/fabricants.html.twig', [
+            'num_page' => $numPage,
+            'nb_pages' => $nbPages,
             'fabricants' => $fabricants,
         ]);
     }
