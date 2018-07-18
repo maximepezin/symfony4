@@ -28,14 +28,19 @@ class Sauvegarde {
     private $auteur;
 
     /**
+     * @ORM\Column(name="chemin_vers_fichier", type="string", length=255)
+     */
+    private $cheminVersFichier;
+
+    /**
      * @ORM\Column(name="nom_fichier_sauvegarde", type="string", length=255)
      */
     private $nomFichierSauvegarde;
 
     /**
-     * @ORM\Column(name="chemin_vers_fichier", type="string", length=255)
+     * @ORM\Column(name="extension_fichier", type="string", length=10)
      */
-    private $cheminVersFichier;
+    private $extensionFichier;
 
     /**
      * @ORM\ManyToOne(targetEntity="MethodeSauvegarde")
@@ -83,6 +88,16 @@ class Sauvegarde {
         return $this;
     }
 
+    public function getCheminVersFichier(): ?string {
+        return $this->cheminVersFichier;
+    }
+
+    public function setCheminVersFichier(string $cheminVersFichier): self {
+        $this->cheminVersFichier = $cheminVersFichier;
+
+        return $this;
+    }
+
     public function getNomFichierSauvegarde(): ?string {
         return $this->nomFichierSauvegarde;
     }
@@ -93,12 +108,12 @@ class Sauvegarde {
         return $this;
     }
 
-    public function getCheminVersFichier(): ?string {
-        return $this->cheminVersFichier;
+    public function getExtensionFichier(): ?string {
+        return $this->extensionFichier;
     }
 
-    public function setCheminVersFichier(string $cheminVersFichier): self {
-        $this->cheminVersFichier = $cheminVersFichier;
+    public function setExtensionFichier(string $extensionFichier): self {
+        $this->extensionFichier = $extensionFichier;
 
         return $this;
     }

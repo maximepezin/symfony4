@@ -6,24 +6,33 @@
 {% block title %}{{ title }} &middot; {{ parent() }}{% endblock %}
 
 {% block body %}
-                    <div class="panel mb0">
+                    <div class="panel">
                         <div class="panel-heading border">
                             {{ title }}
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-{% include 'materiel/recherche_rapide_form.html.twig' %}
+{% include 'materiel/_form_recherche_rapide.html.twig' %}
                                 </div>
                             </div>
+                        </div>
+                    </div>
 {% if materiels is defined %}
-                            <div class="table-responsive mt15">
+                    <div class="panel mb0">
+                        {#
+                        <div class="panel-heading border">
+                            Résultat(s)
+                        </div>
+                        #}
+                        <div class="panel-body">
+                            <div class="table-responsive">
                                 <table class="table table-bordered mb0">
                                     <thead>
                                         <tr>
                                             <th>Nom</th>
                                             <th>Type</th>
-                                            <th>Fabricant</th>
+                                            {#<th>Fabricant</th>#}
                                             <th>Modèle</th>
                                             <th>Description courte</th>
                                             <th>Adresse(s) IPv4 / Masque(s) sous-réseau</th>
@@ -41,6 +50,7 @@
                                                 <code> n/c </code>
 {% endif %}
                                             </td>
+                                            {#
                                             <td>
 {% if materiel.modele is not empty %}
                                                 {{ materiel.modele.fabricant.nom }}
@@ -48,9 +58,21 @@
                                                 <code> n/c </code>
 {% endif %}
                                             </td>
+                                            #}
                                             <td>
 {% if materiel.modele is not empty %}
-                                                {{ materiel.modele.nom }}
+{% if materiel.modele.nomFichierImage is not empty %}
+                                                <figure style="display: flex; flex-direction: column; align-items: center;">
+                                                    <a href="{{ vich_uploader_asset(materiel.modele, 'image') }}" title="Cliquez pour agrandir l'image">
+                                                        <img src="{{ vich_uploader_asset(materiel.modele, 'image') }}" alt="{{ materiel.modele.nomFichierImage }}" style="max-height: 45px;" />
+                                                    </a>
+                                                    <figcaption style="margin-top: 5px; font-size: 11px;">
+                                                        {{ materiel.modele.fabricant.nom }} - {{ materiel.modele.nom }}
+                                                    </figcaption>
+                                                </figure>
+{% else %}
+                                                {{ materiel.modele.fabricant.nom }} - {{ materiel.modele.nom }}
+{% endif %}
 {% else %}
                                                 <code> n/c </code>
 {% endif %}

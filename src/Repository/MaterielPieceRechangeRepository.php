@@ -8,6 +8,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * Classe MaterielPieceRechangeRepository
+ *
+ * @package App\Repository
+ *
  * @method MaterielPieceRechange|null find($id, $lockMode = null, $lockVersion = null)
  * @method MaterielPieceRechange|null findOneBy(array $criteria, array $orderBy = null)
  * @method MaterielPieceRechange[]    findAll()

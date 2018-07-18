@@ -464,7 +464,7 @@
                                                         <td>{{ sauvegarde.methodeSauvegarde.libelle }}</td>
                                                         <td>{{ sauvegarde.supportSauvegarde.libelle }}</td>
                                                         <td>{{ sauvegarde.cheminVersFichier }}</td>
-                                                        <td>{{ sauvegarde.nomFichierSauvegarde }}</td>
+                                                        <td>{{ sauvegarde.nomFichierSauvegarde ~ '.' ~ sauvegarde.extensionFichier }}</td>
                                                         <td>
                                                             <a class="btn btn-sm btn-primary" href="{{ path('base_materiel_sauvegarde_editer', { 'slugMateriel': materiel.slug, 'id': sauvegarde.id }) }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Editer">
                                                                 <i class="fa fa-pencil"></i>

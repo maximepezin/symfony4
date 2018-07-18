@@ -44,6 +44,9 @@ class SauvegardeType extends AbstractType {
             ->add('nomFichierSauvegarde', TextType::class, [
                 'label' => 'Nom du fichier de sauvegarde',
             ])
+            ->add('extensionFichier', TextType::class, [
+                'label' => 'Extension du fichier de sauvegarde',
+            ])
         ;
     }
 

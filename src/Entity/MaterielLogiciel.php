@@ -6,6 +6,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Classe MaterielLogiciel
+ *
+ * @package App\Entity
+ *
  * @ORM\Entity(repositoryClass="App\Repository\MaterielLogicielRepository")
  * @ORM\Table(name="materiel_logiciel")
  */

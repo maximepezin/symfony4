@@ -79,10 +79,10 @@ class MaterielController extends Controller {
 
         $materiels = $materielRepository->getPaginationMateriels(
             $numPage,
-            25
+            10
         );
 
-        $nbPages = (int)(ceil(count($materiels) / 25));
+        $nbPages = (int)(ceil(count($materiels) / 10));
 
         if ($nbPages === 0) {
             $nbPages = 1;

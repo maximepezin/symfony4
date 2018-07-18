@@ -87,43 +87,42 @@ class Materiel {
     private $estPieceRechange = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Modele")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modele")
      */
     private $modele = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Domaine")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Domaine")
      */
     private $domaine = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Emplacement")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Emplacement")
      */
     private $emplacement = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="MaterielSystemeExploitation", mappedBy="materiel", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\MaterielSystemeExploitation", mappedBy="materiel", orphanRemoval=true)
      */
     private $materielSystemesExploitation;
 
     /**
-     * @ORM\OneToMany(targetEntity="MaterielLogiciel", mappedBy="materiel", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\MaterielLogiciel", mappedBy="materiel", orphanRemoval=true)
      */
     private $materielLogiciels;
 
     /**
-     * @ORM\OneToMany(targetEntity="ConfigurationIp", mappedBy="materiel", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ConfigurationIp", mappedBy="materiel", orphanRemoval=true)
      */
     private $configurationsIp;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Materiel")
-     * @ORM\JoinTable(name="materiel_piece_rechange")
+     * @ORM\OneToMany(targetEntity="App\Entity\MaterielPieceRechange", mappedBy="materiel", orphanRemoval=true)
      */
-    private $piecesRechange;
+    private $materielPiecesRechange;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sauvegarde", mappedBy="materiel", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Sauvegarde", mappedBy="materiel", orphanRemoval=true)
      */
     private $sauvegardes;
 
@@ -131,7 +130,7 @@ class Materiel {
         $this->materielSystemesExploitation = new ArrayCollection();
         $this->materielLogiciels = new ArrayCollection();
         $this->configurationsIp = new ArrayCollection();
-        $this->piecesRechange = new ArrayCollection();
+        $this->materielPiecesRechange = new ArrayCollection();
         $this->sauvegardes = new ArrayCollection();
     }
 
@@ -370,23 +369,23 @@ class Materiel {
     }
 
     /**
-     * @return Collection|Materiel[]
+     * @return Collection|MaterielPieceRechange[]
      */
-    public function getPiecesRechange(): Collection {
-        return $this->piecesRechange;
+    public function getMaterielPiecesRechange(): Collection {
+        return $this->materielPiecesRechange;
     }
 
-    public function addPieceRechange(Materiel $pieceRechange): self {
-        if (!$this->piecesRechange->contains($pieceRechange)) {
-            $this->piecesRechange[] = $pieceRechange;
+    public function addMaterielPieceRechange(MaterielPieceRechange $pieceRechange): self {
+        if (!$this->materielPiecesRechange->contains($pieceRechange)) {
+            $this->materielPiecesRechange[] = $pieceRechange;
         }
 
         return $this;
     }
 
-    public function removePieceRechange(Materiel $pieceRechange): self {
-        if ($this->piecesRechange->contains($pieceRechange)) {
-            $this->piecesRechange->removeElement($pieceRechange);
+    public function removeMaterielPieceRechange(MaterielPieceRechange $pieceRechange): self {
+        if ($this->materielPiecesRechange->contains($pieceRechange)) {
+            $this->materielPiecesRechange->removeElement($pieceRechange);
         }
 
         return $this;
