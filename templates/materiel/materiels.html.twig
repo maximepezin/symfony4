@@ -47,10 +47,8 @@
                                 <table class="table table-bordered mb0">
                                     <thead>
                                         <tr>
-                                            {#<th></th>#}
                                             <th>Nom</th>
                                             <th>Type</th>
-                                            {#<th>Fabricant</th>#}
                                             <th>Modèle</th>
                                             <th>Description courte</th>
                                             <th>Adresse(s) IPv4 / Masque(s) sous-réseau</th>
@@ -60,18 +58,6 @@
                                     <tbody>
 {% for materiel in materiels %}
                                         <tr>
-                                            {#
-                                            <td>
-{% if materiel.modele is not empty and materiel.modele.nomFichierImage is not empty %}
-                                                <figure style="display: flex; flex-direction: column; align-items: center;">
-                                                    <a href="{{ vich_uploader_asset(materiel.modele, 'image') }}" title="Illustration du modèle {{ materiel.modele.fabricant.nom }} - {{ materiel.modele.nom }}">
-                                                        <img src="{{ vich_uploader_asset(materiel.modele, 'image') }}" alt="{{ materiel.modele.nomFichierImage }}" style="max-height: 45px;" />
-                                                    </a>
-                                                    <figcaption style="font-size: 11px;">Cliquez pour agrandir</figcaption>
-                                                </figure>
-{% endif %}
-                                            </td>
-                                            #}
                                             <td>
                                                 {{ materiel.nom }}
                                             </td>
@@ -82,15 +68,6 @@
                                                 <code> n/c </code>
 {% endif %}
                                             </td>
-                                            {#
-                                            <td>
-{% if materiel.modele is not empty %}
-                                                {{ materiel.modele.fabricant.nom }}
-{% else %}
-                                                <code> n/c </code>
-{% endif %}
-                                            </td>
-                                            #}
                                             <td>
 {% if materiel.modele is not empty %}
 {% if materiel.modele.nomFichierImage is not empty %}
@@ -137,7 +114,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="7">
+                                            <td class="text-center" colspan="6">
                                                 Aucun matériel référencé dans la base.
                                             </td>
                                         </tr>

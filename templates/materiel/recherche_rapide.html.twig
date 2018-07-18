@@ -20,11 +20,10 @@
                     </div>
 {% if materiels is defined %}
                     <div class="panel mb0">
-                        {#
-                        <div class="panel-heading border">
-                            Résultat(s)
+                        <div class="panel-heading">
+                            {{ materiels|length }} correspondance(s) trouvée(s).
                         </div>
-                        #}
+{% if materiels|length != 0 %}
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered mb0">
@@ -32,7 +31,6 @@
                                         <tr>
                                             <th>Nom</th>
                                             <th>Type</th>
-                                            {#<th>Fabricant</th>#}
                                             <th>Modèle</th>
                                             <th>Description courte</th>
                                             <th>Adresse(s) IPv4 / Masque(s) sous-réseau</th>
@@ -50,15 +48,6 @@
                                                 <code> n/c </code>
 {% endif %}
                                             </td>
-                                            {#
-                                            <td>
-{% if materiel.modele is not empty %}
-                                                {{ materiel.modele.fabricant.nom }}
-{% else %}
-                                                <code> n/c </code>
-{% endif %}
-                                            </td>
-                                            #}
                                             <td>
 {% if materiel.modele is not empty %}
 {% if materiel.modele.nomFichierImage is not empty %}
@@ -105,7 +94,7 @@
                                         </tr>
 {% else %}
                                         <tr>
-                                            <td class="text-center" colspan="7">Aucun résultat.</td>
+                                            <td class="text-center" colspan="6">Aucun résultat.</td>
                                         </tr>
 {% endfor %}
                                     </tbody>
@@ -113,5 +102,6 @@
                             </div>
 {% endif %}
                         </div>
+{% endif %}
                     </div>
 {% endblock %}
