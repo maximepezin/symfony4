@@ -1,0 +1,35 @@
+{# templates/materiel_logiciel/_form.html.twig #}
+{{ form_start(form, { 'attr': { 'class': 'form-horizontal bordered-group' } }) }}
+    <div class="form-group">
+        {{ form_label(form.logiciel, null, { 'label_attr': { 'class': 'col-sm-2 control-label'} }) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.logiciel, { 'attr': { 'class': 'form-control' } }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.installeLe, null, { 'label_attr': { 'class': 'col-sm-2 control-label'} }) }}
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="col-sm-4">
+                    {{ form_widget(form.installeLe.day, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_widget(form.installeLe.month, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_widget(form.installeLe.year, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.cleLicence, null, { 'label_attr': { 'class': 'col-sm-2 control-label'} }) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.cleLicence, { 'attr': { 'class': 'form-control' } }) }}
+        </div>
+    </div>
+    <div class="btn-group pull-right">
+        <input class="btn btn-success" type="submit" value="Enregistrer" />
+    </div>
+    {{ form_rest(form) }}
+{{ form_end(form) }}

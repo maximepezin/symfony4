@@ -1,0 +1,21 @@
+{# templates/materiel/_form_recherche_rapide.html.twig #}
+{{ form_start(form, { 'attr': { 'class': 'form-horizontal bordered-group'} }) }}
+    <div class="form-group">
+        {{ form_label(form.nom, null, { 'label_attr': { 'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.nom, { 'attr': { 'class': 'form-control' } }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.adresseIpV4, null, { 'label_attr': { 'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.adresseIpV4, { 'attr': { 'class': 'form-control' } }) }}
+        </div>
+    </div>
+    <div class="btn-group pull-right">
+        <input class="btn btn-primary" type="reset" value="Réinitialiser" />
+        {# comportement du reset à modifier ? #}
+        <input class="btn btn-success" type="submit" value="Lancer la recherche" />
+    </div>
+    {{ form_rest(form) }}
+{{ form_end(form) }}
